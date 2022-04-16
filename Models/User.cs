@@ -11,8 +11,6 @@ namespace WebApplication1.Models
 {
     public class User : IdentityUser
     {
-        public int Id { get; set; }
-
         public string FirstName { get; set; }
 
         public string SecondName { get; set; }

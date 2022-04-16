@@ -41,7 +41,9 @@ namespace WebApplication1
                 {
                    options.LoginPath = new Microsoft.AspNetCore.Http.PathString("/Account/Login");
                });
+            services.AddAuthorization();
             services.AddControllersWithViews();
+            
         }
 
         public void Configure(IApplicationBuilder app)

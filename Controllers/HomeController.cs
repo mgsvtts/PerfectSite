@@ -31,20 +31,6 @@ namespace WebApplication1.Controllers
             return View();
         }
 
-        [HttpGet]
-        [Route("[controller]/[action]")]
-        public IActionResult Registration()
-        {
-            return View("RegistrationGet");
-        }
-
-        [HttpPost]
-        [Route("[controller]/[action]")]
-        public async Task<IActionResult> Registration(User newUser)
-        {
-            _db.Users.Add(newUser);
-            await _db.SaveChangesAsync();
-            return View("RegistrationPost");
-        }
+        
     }
 }

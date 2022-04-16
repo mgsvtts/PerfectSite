@@ -22,7 +22,7 @@ namespace WebApplication1.Controllers
         }
         [HttpGet]
         [Route("[controller]/[action]")]
-        public IActionResult Register()
+        public IActionResult Register(string returnUrl = null)
         {
             return View();
         }
@@ -32,22 +32,22 @@ namespace WebApplication1.Controllers
         {
             if (ModelState.IsValid)
             {
-                User user = new User
-                {
-                    FirstName = model.FirstName,
-                    SecondName = model.SecondName,
-                    Password = model.Password,
-                    Email = model.Email,
-                    PhoneNumber = model.PhoneNumber,
-                    BirthDate = model.BirthDate,
-                };
-                // добавляем пользователя
+                User user = new User { UserName = model.FirstName,
+                                      FirstName = model.FirstName,
+                                      SecondName = model.SecondName,
+                                      Password = model.Password,
+                                      ConfirmPassword = model.ConfirmPassword,
+                                      Email = model.Email,
+                                      PhoneNumber = model.PhoneNumber,
+                                      BirthDate = model.BirthDate
+                                      };
                 var result = await _userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
-                    // установка куки
                     await _signInManager.SignInAsync(user, false);
+
                     return RedirectToAction("Index", "Home");
+
                 }
                 else
                 {
@@ -59,5 +59,6 @@ namespace WebApplication1.Controllers
             }
             return View(model);
         }
+
     }
 }

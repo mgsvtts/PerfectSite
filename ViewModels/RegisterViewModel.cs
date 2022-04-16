@@ -38,7 +38,6 @@ namespace WebApplication1.ViewModels
         [DataType(DataType.DateTime)]
         public DateTime? BirthDate { get; set; }
 
-        [DataType(DataType.Url)]
-        public string ReturnUrl { get; set; }
+
     }
 }
