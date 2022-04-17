@@ -32,7 +32,7 @@ namespace WebApplication1.Controllers
         {
             if (ModelState.IsValid)
             {
-                User user = new User { UserName = model.FirstName,
+                User user = new User {UserName = model.FirstName,
                                       FirstName = model.FirstName,
                                       SecondName = model.SecondName,
                                       Password = model.Password,
@@ -48,13 +48,6 @@ namespace WebApplication1.Controllers
 
                     return RedirectToAction("Index", "Home");
 
-                }
-                else
-                {
-                    foreach (var error in result.Errors)
-                    {
-                        ModelState.AddModelError(string.Empty, error.Description);
-                    }
                 }
             }
             return View(model);
