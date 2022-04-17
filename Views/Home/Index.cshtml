@@ -8,8 +8,11 @@
     <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
     @if (User.Identity.IsAuthenticated)
     {
-         <a href = "~/Account/Logout">Выйти</a>
+         <form method = "post" asp-controller = "Account" asp-action = "Logout">
+             <input type = "submit" value = "Выйти"/>
+         </form>
     }
-    <a href = "~/Account/Register">Регистрация</a>
-    <a href = "~/Account/Login">Вход</a>
+    <a asp-controller = "Account" asp-action="Login">Вход</a>
+    <a asp-controller = "Account" asp-action="Register">Регистрация</a>
+    
 </div>

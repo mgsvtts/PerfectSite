@@ -1,13 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using WebApplication1.Models;
 using WebApplication1.Models.Products;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace WebApplication1
 {
@@ -28,9 +22,9 @@ namespace WebApplication1
 
         public ApplicationContext(DbContextOptions<ApplicationContext> options) : base(options)
         {
-            Database.EnsureDeleted();
             Database.EnsureCreated();
         }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
@@ -44,7 +38,6 @@ namespace WebApplication1
             modelBuilder.Entity<Motherboard>().Property(p => p.Price).HasDefaultValue(0);
             modelBuilder.Entity<PowerSupply>().Property(p => p.Price).HasDefaultValue(0);
             modelBuilder.Entity<RAM>().Property(p => p.Price).HasDefaultValue(0);
-
         }
     }
 }

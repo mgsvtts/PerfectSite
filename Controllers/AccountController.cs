@@ -1,10 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using WebApplication1.Models;
 using WebApplication1.ViewModels;
 
@@ -20,38 +15,86 @@ namespace WebApplication1.Controllers
             _userManager = userManager;
             _signInManager = signInManager;
         }
+
         [HttpGet]
         [Route("[controller]/[action]")]
-        public IActionResult Register(string returnUrl = null)
+        public IActionResult Register(string returnUrl)
         {
+            ViewData["ReturnUrl"] = returnUrl;
             return View();
         }
+
         [HttpPost]
         [Route("[controller]/[action]")]
         public async Task<IActionResult> Register(RegisterViewModel model)
         {
             if (ModelState.IsValid)
             {
-                User user = new User {UserName = model.FirstName,
-                                      FirstName = model.FirstName,
-                                      SecondName = model.SecondName,
-                                      Password = model.Password,
-                                      ConfirmPassword = model.ConfirmPassword,
-                                      Email = model.Email,
-                                      PhoneNumber = model.PhoneNumber,
-                                      BirthDate = model.BirthDate
-                                      };
+                User user = new User
+                {
+                    UserName = model.Email,
+                    FirstName = model.FirstName,
+                    SecondName = model.SecondName,
+                    Password = model.Password,
+                    ConfirmPassword = model.ConfirmPassword,
+                    Email = model.Email,
+                    PhoneNumber = model.PhoneNumber,
+                    BirthDate = model.BirthDate
+                };
                 var result = await _userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
                     await _signInManager.SignInAsync(user, false);
 
-                    return RedirectToAction("Index", "Home");
+                    if (!string.IsNullOrEmpty((string)ViewData["ReturnUrl"]) && Url.IsLocalUrl((string)ViewData["ReturnUrl"]))
+                    {
+                        return Redirect((string)ViewData["ReturnUrl"]);
+                    }
 
+                    return RedirectToAction("Index", "Home");
                 }
             }
             return View(model);
         }
 
+        [HttpGet]
+        [Route("[controller]/[action]")]
+        public IActionResult Login(string returnUrl)
+        {
+            ViewData["ReturnUrl"] = returnUrl;
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Route("[controller]/[action]")]
+        public async Task<IActionResult> Login(LoginViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, false);
+                if (result.Succeeded)
+                {
+                    if (!string.IsNullOrEmpty((string)ViewData["ReturnUrl"]) && Url.IsLocalUrl((string)ViewData["ReturnUrl"]))
+                    {
+                        return Redirect((string)ViewData["ReturnUrl"]);
+                    }
+
+                    return RedirectToAction("Index", "Home");
+                }
+
+                ModelState.AddModelError("", "Неправильный логин и (или) пароль");
+            }
+            return View(model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Route("[controller]/[action]")]
+        public async Task<IActionResult> Logout()
+        {
+            await _signInManager.SignOutAsync();
+            return RedirectToAction("Index", "Home");
+        }
     }
 }

@@ -1,27 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace WebApplication1.ViewModels
 {
     public class LoginViewModel
     {
-        [Required(ErrorMessage = "Введите почту")]
+        [Required]
+        [Display(Name = "Email")]
         public string Email { get; set; }
 
-
-        [Required(ErrorMessage = "Введите пароль")]
+        [Required]
         [DataType(DataType.Password)]
+        [Display(Name = "Пароль")]
         public string Password { get; set; }
 
-
-        [Display(Name = "Запомнить меня?")]
+        [Display(Name = "Запомнить?")]
         public bool RememberMe { get; set; }
 
-        [DataType(DataType.Url)]
-        public string ReturnUrl { get; set; }
+        //public string ReturnUrl { get; set; }
     }
 }
