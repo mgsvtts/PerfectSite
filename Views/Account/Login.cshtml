@@ -6,7 +6,19 @@
 }
 <html>
     <body>
-        <h2 class = "text-center">Страница входа</h2>
+    @if (User.Identity.IsAuthenticated)
+    {
+        <h1 calss = "text-center">Здравствуйте</h1>
+         <form method = "post" asp-controller = "Account" asp-action = "Logout">
+             <input type = "submit" class = "btn btn-primary text-center" value = "Выйти"/>
+        </form>
+
+        <a asp-controller = "Account" asp-action = "Authenticated" asp-route-email = U>Продолжить</a>
+        
+    }
+    else
+    {
+         <h2 class = "text-center">Страница входа</h2>
         <form method="post" asp-controller="Account" asp-action="Login">
               <div asp-validation-summary="ModelOnly"></div>
           <div class = "form-group">
@@ -31,5 +43,9 @@
               <input type="submit" class = "btn btn-primary" value="Войти" />
           </div>
         </form>
-    </body>
+
+        <p>Если у вас нет аккаунта, вы можете  <a asp-controller = "Account" asp-action="Register">зарегистрироваться</a></p>
+    
+    }
+   </body>
 </html>

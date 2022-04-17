@@ -1,0 +1,21 @@
+﻿@model WebApplication1.ViewModels.AuthenticatedViewModel
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = "Login";
+}
+
+<html>
+    <body>
+        <h1 type = "text-center">Здравствуйте</h1>
+        <form asp-action="Authenticated" asp-controller="Account">
+           <div asp-validation-summary="ModelOnly"></div>
+      <input type = "hidden" asp-for = "Email">
+      <input type = "hidden" asp-for = "FirstName">
+      <input type = "hidden" asp-for = "SecondName">
+      <input type = "hidden" asp-for = "BirthDate">
+      <input type = "hidden" asp-for = "PhoneNumber">
+       <input type="submit" value="Войти в личный кабинет" class="btn btn-primary" />
+
+       </form>
+    </body>
+</html>

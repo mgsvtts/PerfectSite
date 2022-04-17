@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using WebApplication1.Models;
 using WebApplication1.ViewModels;
@@ -16,6 +17,7 @@ namespace WebApplication1.Controllers
             _signInManager = signInManager;
         }
 
+
         [HttpGet]
         [Route("[controller]/[action]")]
         public IActionResult Register(string returnUrl)
@@ -23,6 +25,7 @@ namespace WebApplication1.Controllers
             ViewData["ReturnUrl"] = returnUrl;
             return View();
         }
+
 
         [HttpPost]
         [Route("[controller]/[action]")]
@@ -57,17 +60,19 @@ namespace WebApplication1.Controllers
             return View(model);
         }
 
+
         [HttpGet]
         [Route("[controller]/[action]")]
-        public IActionResult Login(string returnUrl)
+        public IActionResult LoginAsync(string returnUrl)
         {
             ViewData["ReturnUrl"] = returnUrl;
             return View();
         }
 
+
         [HttpPost]
-        [ValidateAntiForgeryToken]
         [Route("[controller]/[action]")]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login(LoginViewModel model)
         {
             if (ModelState.IsValid)
@@ -88,12 +93,33 @@ namespace WebApplication1.Controllers
             return View(model);
         }
 
+
         [HttpPost]
-        [ValidateAntiForgeryToken]
         [Route("[controller]/[action]")]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Logout()
         {
             await _signInManager.SignOutAsync();
+            return RedirectToAction("Index", "Home");
+        }
+
+        [HttpGet]
+        [Route("[controller]/[action]")]
+        public async Task<IActionResult> Authenticated(AuthenticatedViewModel model)
+        {
+            return View(model);
+        }
+
+
+        [HttpPost]
+        [Route("[controller]/[action]")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Authenticated()
+        {
+            if (ModelState.IsValid)
+            {
+                return RedirectToAction("Main", "Cabinet");
+            }
             return RedirectToAction("Index", "Home");
         }
     }

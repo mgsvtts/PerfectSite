@@ -1,12 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using WebApplication1.Models;
 using WebApplication1.Models;
 
 namespace WebApplication1
@@ -25,8 +19,6 @@ namespace WebApplication1
             services.AddDbContext<ApplicationContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
-
-
             services.AddIdentity<User, IdentityRole>(options =>
             {
                 options.Password.RequireNonAlphanumeric = false;
@@ -36,14 +28,9 @@ namespace WebApplication1
                 options.User.AllowedUserNameCharacters = null;
             }).AddEntityFrameworkStores<ApplicationContext>();
 
-            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-               .AddCookie(options => 
-                {
-                   options.LoginPath = new Microsoft.AspNetCore.Http.PathString("/Account/Login");
-               });
+           
             services.AddAuthorization();
             services.AddControllersWithViews();
-            
         }
 
         public void Configure(IApplicationBuilder app)
@@ -56,14 +43,12 @@ namespace WebApplication1
 
             app.UseRouting();
 
-            app.UseAuthentication();    
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllerRoute(
-                    name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                endpoints.MapControllers();
             });
         }
     }
