@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@inject UserManager<User> UserManager;
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -7,6 +8,7 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/WebApplication1.styles.css" asp-append-version="true" />
+
 </head>
 <body>
     <header>
@@ -27,15 +29,39 @@
                         </li>
                     </ul>
                     @if (User.Identity.IsAuthenticated)
-                        {
-                        <a class="nav-link text-dark login-btn" asp-controller="Account" asp-action="Authenticated" >Войти</a>
+                    {
+                        User user = await UserManager.FindByNameAsync(User.Identity.Name);
+
+                        <a class="btn btn-primary text-center" asp-controller = "Cabinet" asp-action = "Main" asp-route-id = "@user.Id">Войти в личный кабинет</a>
+                       @*  <form method = "post" asp-controller = "Cabinet" asp-action = "Main" asp-route-id = "user.Id">
+                                 <input type = "submit" class = "btn btn-primary text-center" value = "Войти в личный кабинет"/>
+                           </form>
+                           <form method = "post" asp-controller = "Account" asp-action = "Logout">
+                                 <input type = "submit" class = "btn btn-primary text-center" value = "Выйти из аккаунта"/>
+                           </form>*@
+                        @* <form  asp-controller="Cabinet" asp-action="Main">
+                            <div asp-validation-summary="ModelOnly"></div>
+                            <input name = "firstname" type = "hidden" asp-for = "Email">
+                            <input type = "hidden" asp-for = "FirstName">
+                            <input type = "hidden" asp-for = "SecondName">
+                            <input type = "hidden" asp-for = "BirthDate">
+                            <input type = "hidden" asp-for = "PhoneNumber">
+                            <input type="submit" value="Войти" class="nav-link text-dark" @Url.Action("Cabinet", "Main",  new User{})/>
+
+                            </form>*@
+                        @*<a class="nav-link text-dark login-btn" asp-controller="Account" asp-action="AuthenticatedLogin" >Войти</a>*@
+                        @*<form method = "post" asp-controller = "Cabinet" asp-action = "Main">
+                            <input type = "hidden" asp-for="Id" value =  "@ViewData["email"]">
+                            <input type = "submit"  class="nav-link text-dark btn btn-primary" value = "Войти"/>
+                        </form>*@
+                       
 
                     }
                     else
                     {
-                         <a class="nav-link text-dark login-btn" asp-controller="Account" asp-action="Login" >Войти</a>
+                        <a class="btn btn-primary text-center" asp-controller="Account" asp-action="Login" >Войти</a>
                     }
-                   
+
                 </div>
             </div>
         </nav>

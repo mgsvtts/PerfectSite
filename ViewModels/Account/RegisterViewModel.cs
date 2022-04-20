@@ -12,12 +12,12 @@ namespace WebApplication1.ViewModels
         public string SecondName { get; set; }
 
 
-        [Required(ErrorMessage = "Введите пароль"), MinLength(6, ErrorMessage = "Минимальная длина пароля = 6")]
+        [Required(ErrorMessage = "Введите пароль"), MinLength(4, ErrorMessage = "Минимальная длина пароля = 6")]
         [DataType(DataType.Password)]
         public string Password { get; set; }
 
 
-        [Required(ErrorMessage = "Повторите пароль"), Compare("Password", ErrorMessage = "Пароли не совпадают"), MinLength(6, ErrorMessage = "Минимальная длина пароля = 6")]
+        [Required(ErrorMessage = "Повторите пароль"), Compare("Password", ErrorMessage = "Пароли не совпадают"), MinLength(4, ErrorMessage = "Минимальная длина пароля = 6")]
         [DataType(DataType.Password)]
         public string ConfirmPassword { get; set; }
 
@@ -33,5 +33,10 @@ namespace WebApplication1.ViewModels
 
         [DataType(DataType.DateTime)]
         public DateTime? BirthDate { get; set; }
+
+
+        [Url]
+        public string? ReturnUrl { get; set; }
+
     }
 }

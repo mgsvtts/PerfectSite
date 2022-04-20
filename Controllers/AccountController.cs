@@ -20,10 +20,9 @@ namespace WebApplication1.Controllers
 
         [HttpGet]
         [Route("[controller]/[action]")]
-        public IActionResult Register(string returnUrl)
+        public IActionResult Register(string returnUrl = null)
         {
-            ViewData["ReturnUrl"] = returnUrl;
-            return View();
+            return View(new RegisterViewModel { ReturnUrl = returnUrl });
         }
 
 
@@ -31,42 +30,59 @@ namespace WebApplication1.Controllers
         [Route("[controller]/[action]")]
         public async Task<IActionResult> Register(RegisterViewModel model)
         {
-            if (ModelState.IsValid)
+            User user = await _userManager.FindByNameAsync(model.Email);
+            if (user != null)
             {
-                User user = new User
+                LoginViewModel loginViewModel = new LoginViewModel
+                {
+                    Email = model.Email,
+                    Password = model.Password,
+                    ReturnUrl = model.ReturnUrl,
+                    RememberMe = false
+                };
+                return View("~/Views/Account/Login.cshtml", loginViewModel);
+            }
+           
+            if (ModelState.IsValid)
+            { 
+                user = new User
                 {
                     UserName = model.Email,
                     FirstName = model.FirstName,
                     SecondName = model.SecondName,
-                    Password = model.Password,
-                    ConfirmPassword = model.ConfirmPassword,
                     Email = model.Email,
                     PhoneNumber = model.PhoneNumber,
                     BirthDate = model.BirthDate
                 };
+
+
+                
                 var result = await _userManager.CreateAsync(user, model.Password);
+
                 if (result.Succeeded)
                 {
                     await _signInManager.SignInAsync(user, false);
+                    
 
-                    if (!string.IsNullOrEmpty((string)ViewData["ReturnUrl"]) && Url.IsLocalUrl((string)ViewData["ReturnUrl"]))
+                    if (!string.IsNullOrEmpty(model.ReturnUrl) && Url.IsLocalUrl(model.ReturnUrl))
                     {
-                        return Redirect((string)ViewData["ReturnUrl"]);
+                        return Redirect(model.ReturnUrl);
                     }
 
                     return RedirectToAction("Index", "Home");
                 }
             }
+              
+            
             return View(model);
         }
 
 
         [HttpGet]
         [Route("[controller]/[action]")]
-        public IActionResult LoginAsync(string returnUrl)
+        public IActionResult Login(string returnUrl = null)
         {
-            ViewData["ReturnUrl"] = returnUrl;
-            return View();
+            return View(new LoginViewModel { ReturnUrl = returnUrl });
         }
 
 
@@ -78,17 +94,17 @@ namespace WebApplication1.Controllers
             if (ModelState.IsValid)
             {
                 var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, false);
+
                 if (result.Succeeded)
                 {
-                    if (!string.IsNullOrEmpty((string)ViewData["ReturnUrl"]) && Url.IsLocalUrl((string)ViewData["ReturnUrl"]))
+                    if (!string.IsNullOrEmpty(model.ReturnUrl) && Url.IsLocalUrl(model.ReturnUrl))
                     {
-                        return Redirect((string)ViewData["ReturnUrl"]);
+                        return Redirect(model.ReturnUrl);
                     }
 
                     return RedirectToAction("Index", "Home");
                 }
 
-                ModelState.AddModelError("", "Неправильный логин и (или) пароль");
             }
             return View(model);
         }
@@ -103,24 +119,25 @@ namespace WebApplication1.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        [HttpGet]
-        [Route("[controller]/[action]")]
-        public async Task<IActionResult> Authenticated(AuthenticatedViewModel model)
-        {
-            return View(model);
-        }
+       
+
+        //[HttpGet]
+        //[Route("[controller]/[action]")]
+        //public IActionResult AuthenticatedLogin()
+        //{
+        //    return View();
+        //}
 
 
-        [HttpPost]
-        [Route("[controller]/[action]")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Authenticated()
-        {
-            if (ModelState.IsValid)
-            {
-                return RedirectToAction("Main", "Cabinet");
-            }
-            return RedirectToAction("Index", "Home");
-        }
+        //[HttpPost]
+        //[Route("[controller]/[action]")]
+        //[ValidateAntiForgeryToken]
+        //public async Task<IActionResult> AuthenticatedLogin(User user)
+        //{
+
+        //    User result = await _userManager.FindByNameAsync(user.Email);
+        //    return RedirectToAction("Main", "Cabinet", result);
+           
+        //}
     }
 }

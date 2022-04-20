@@ -11,7 +11,6 @@ namespace WebApplication1.ViewModels
 
         [Required(ErrorMessage = "Введите пароль")]
         [DataType(DataType.Password)]
-        [Display(Name = "Пароль")]
         public string Password { get; set; }
 
 
@@ -19,5 +18,8 @@ namespace WebApplication1.ViewModels
         [Display(Name = "Запомнить?")]
         public bool RememberMe { get; set; }
 
+
+        [Url]
+        public string? ReturnUrl { get; set; }
     }
 }

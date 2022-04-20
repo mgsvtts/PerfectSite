@@ -6,20 +6,23 @@
 }
 <html>
     <body>
-    @if (User.Identity.IsAuthenticated)
+    @*@if (User.Identity.IsAuthenticated)
     {
         <h1 calss = "text-center">Здравствуйте</h1>
          <form method = "post" asp-controller = "Account" asp-action = "Logout">
              <input type = "submit" class = "btn btn-primary text-center" value = "Выйти"/>
         </form>
-
-        <a asp-controller = "Account" asp-action = "Authenticated" asp-route-email = U>Продолжить</a>
+         <form method = "post" asp-controller = "Account" asp-action = "AuthenticatedLogin">
+             <input type = "hidden" asp-for="Email" value =  "@ViewData["email"]">
+             <input type = "submit" class = "btn btn-primary text-center" value = "продолжить"/>
+        </form>
+        <a asp-controller = "Account" asp-action = "AuthenticatedLogin" >Продолжить</a>
         
-    }
-    else
-    {
+    }*@
+    @*else
+    {*@
          <h2 class = "text-center">Страница входа</h2>
-        <form method="post" asp-controller="Account" asp-action="Login">
+        <form method="post" asp-controller="Account" asp-action="Login" asp-route-returnUrl = "@Model.ReturnUrl">
               <div asp-validation-summary="ModelOnly"></div>
           <div class = "form-group">
               <label asp-for="Email"  class = "col-md-4  control-label">Email:</label><br />
@@ -44,8 +47,16 @@
           </div>
         </form>
 
-        <p>Если у вас нет аккаунта, вы можете  <a asp-controller = "Account" asp-action="Register">зарегистрироваться</a></p>
+        <p>Если у вас нет аккаунта, вы можете  <a asp-controller = "Account" asp-action="Register" asp-route-returnUrl = "@Model.ReturnUrl">зарегистрироваться</a></p>
     
-    }
+    @*}*@ <div class="col-xl-12" style="margin-top:40px;">
+        @foreach (var modeleState in ViewData.ModelState.Values)
+         {
+            foreach (var error in modeleState.Errors)
+             {
+                <h5 style="color:red;margin-top:8px;">@error.ErrorMessage</h5>
+             }
+          }
+     </div>
    </body>
 </html>
