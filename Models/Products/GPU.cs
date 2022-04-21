@@ -6,6 +6,7 @@
         public override string ModelName { get; set; }
         public override string Manufacturer { get; set; }
         public override decimal Price { get; set; }
+        public override int Amount { get; set; }
         public int MemorySize { get; set; }
         public string MemoryType { get; set; }
         public int MemoryFrequency { get; set; }

@@ -7,13 +7,11 @@ namespace WebApplication1.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
         private readonly IWebHostEnvironment _environment;
         private ApplicationContext _db;
 
-        public HomeController(ILogger<HomeController> logger, IWebHostEnvironment environment, ApplicationContext db)
+        public HomeController(IWebHostEnvironment environment, ApplicationContext db)
         {
-            _logger = logger;
             _environment = environment;
             _db = db;
         }

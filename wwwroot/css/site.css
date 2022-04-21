@@ -1,18 +1,57 @@
 html {
+    color: #d1cdc7;
+    background-color: #141616;
     font-size: 14px;
 }
 
 @media (min-width: 768px) {
     html {
+        color: #d1cdc7;
+        background-color: #16191b;
         font-size: 16px;
     }
 }
 
 html {
+    color: #d1cdc7;
+    background-color: #16191b;
     position: relative;
     min-height: 100%;
 }
+header {
+    color: #d1cdc7;
+    background-color: #16191b;
+}
+.navbar {
+    color: #d1cdc7;
+    background-color: #16191b;
+}
+
+container-fluid {
+    color: #d1cdc7;
+    background-color: #16191b;
+}
 
 body {
+    color: #d1cdc7;
+    background-color: #16191b;
     margin-bottom: 60px;
 }
+
+
+.my-btn {
+    display: flex;
+    justify-content: center;
+    margin-right: 0.5%;
+    margin-top: 1%;
+    margin-bottom: 5%;
+}
+.change-password-btn {
+    font-size: 150%;
+
+}
+.my-div{
+    top: 50%;
+    left:50%;
+}
+

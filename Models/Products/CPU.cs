@@ -6,6 +6,7 @@
         public override string ModelName { get; set; }
         public override string Manufacturer { get; set; }
         public override decimal Price { get; set; }
+        public override int Amount { get; set; }
         public double Speed { get; set; }
         public string Socket { get; set; }
         public int Cores { get; set; }

@@ -6,6 +6,7 @@
         public override string ModelName { get; set; }
         public override string Manufacturer { get; set; }
         public override decimal Price { get; set; }
+        public override int Amount { get; set; }
         public string Size { get; set; }
         public double GPULength { get; set; }
     }

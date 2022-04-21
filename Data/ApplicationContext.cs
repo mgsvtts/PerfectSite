@@ -39,6 +39,7 @@ namespace WebApplication1
             modelBuilder.Entity<Motherboard>().Property(p => p.Price).HasDefaultValue(0);
             modelBuilder.Entity<PowerSupply>().Property(p => p.Price).HasDefaultValue(0);
             modelBuilder.Entity<RAM>().Property(p => p.Price).HasDefaultValue(0);
+
         }
     }
 }

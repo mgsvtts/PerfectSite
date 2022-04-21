@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using WebApplication1.Models;
 using WebApplication1.ViewModels;
+using WebApplication1.ViewModels.Account;
 
 namespace WebApplication1.Controllers
 {
@@ -55,12 +56,13 @@ namespace WebApplication1.Controllers
                     BirthDate = model.BirthDate
                 };
 
-
+               
                 
                 var result = await _userManager.CreateAsync(user, model.Password);
 
                 if (result.Succeeded)
                 {
+                    await _userManager.AddToRoleAsync(user, "User");
                     await _signInManager.SignInAsync(user, false);
                     
 

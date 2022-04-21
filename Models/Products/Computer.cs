@@ -5,8 +5,8 @@
         public override int Id { get; set; }
         public override string ModelName { get; set; }
         public override string Manufacturer { get; set; }
-
         public override decimal Price { get; set; }
+        public override int Amount { get; set; }
         public int CPUId { get; set; }
         public CPU CPU { get; set; }
         public int? GPUId { get; set; }

@@ -1,4 +1,4 @@
-﻿namespace WebApplication1.Models
+﻿namespace WebApplication1.Models.Products
 {
     public class Phone : AbstractProduct
     {
@@ -6,5 +6,6 @@
         public override string ModelName { get; set; }
         public override string Manufacturer { get; set; }
         public override decimal Price { get; set; }
+        public override int Amount { get; set; }
     }
 }

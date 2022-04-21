@@ -28,11 +28,13 @@ namespace WebApplication1
                 options.Password.RequireDigit = false;
                 options.Password.RequireUppercase = false;
                 options.Password.RequireLowercase = false;
-            }).AddEntityFrameworkStores<ApplicationContext>();
+            }).AddEntityFrameworkStores<ApplicationContext>()
+            .AddTokenProvider<DataProtectorTokenProvider<User>>(TokenOptions.DefaultProvider); ;
 
            
             services.AddAuthorization();
             services.AddControllersWithViews();
+
         }
 
         public void Configure(IApplicationBuilder app)

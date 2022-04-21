@@ -9,25 +9,23 @@
         <h2 class = "text-center" >Здравствуйте, @Model.FirstName</h2>
         <h2 class = "text-center">Это ваш личный кабинет</h2>
           <div class = "form-group">
-              <form method="post" asp-controller="Cabinet" asp-action="ChangeFirstName">
                    <label asp-for="FirstName"  class = "col-md-4  control-label">Ваше имя:</label><br />
                <div class = "col-md-4">
-                   <input type = "text" asp-for="FirstName" class = "form-control center" value = "@Model.FirstName"/>
-                    <input type = "submit" class = "btn btn-primary center" value = "Изменить"/>
+                   <input type = "text"  asp-for="FirstName" class = "form-control my-form" value = "@Model.FirstName" disabled style="background-color: #232627; color:#d1cdc7;  border-color:  #16191b;"/>
+                     <a class = "btn btn-primary my-btn" asp-route-id = "@Model.Id" asp-controller = "Cabinet" asp-action = "ChangeFirstName">Изменить</a>
               </div>
-              </form>
-               <form method="post" asp-controller="Cabinet" asp-action="ChangeSecondName">
+              
                    <label asp-for="SecondName"  class = "col-md-4  control-label center">Ваша фамилия:</label><br />
                <div class = "col-md-4">
-                   <input type = "text" asp-for="SecondName" class = "form-control center" value = "@Model.SecondName"/>
-                    <input type = "submit" class = "btn btn-primary center" value = "Изменить"/>
+                   <input type = "text" asp-for="SecondName" class = "form-control center" value = "@Model.SecondName" disabled  style="background-color: #232627; color:#d1cdc7;  border-color:  #16191b;"/>
+                     <a class = "btn btn-primary my-btn" asp-route-id = "@Model.Id" asp-controller = "Cabinet" asp-action = "ChangeSecondFName">Изменить</a>
               </div>
-              </form>
-              <form method="post" asp-controller="Cabinet" asp-action="ChangeEmail">
+              <form method="post" asp-controller="Cabinet" asp-action="ChangeEmail"  style="color:#d1cdc7; border-color:  #16191b;">
                    <label asp-for="Email"  class = "col-md-4  control-label">Ваш Email:</label><br />
                <div class = "col-md-4">
-                   <input type = "text" asp-for="Email" class = "form-control center" value = "@Model.Email"/>
-                    <input type = "submit" class = "btn btn-primary center" value = "Изменить"/>
+                   <input type = "text" class = "form-control center" value = "@Model.Email" disabled  style="background-color: #232627; color:#d1cdc7;  border-color:  #16191b;"/>
+                    <a class = "btn btn-primary my-btn" asp-route-id = "@Model.Id" asp-route-oldEmail = "@Model.Email" asp-controller = "Cabinet" asp-action = "ChangeEmail">Изменить</a>
+              
               </div>
               </form>
             @* <form method="post" asp-controller="Cabinet" asp-action="ChangePassword">
@@ -37,22 +35,16 @@
                 </form>*@
                 <wbr />
                 
-              <a asp-controller="Cabinet" asp-action="ChangePassword" asp-route-id = "@Model.Id" class = "btn btn-primary btn-lg center">Изменить пароль</a>
+              <a asp-controller="Cabinet"  asp-action="ChangePassword" asp-route-id = "@Model.Id" class = "btn btn-primary my-btn change-password-btn">Изменить пароль</a>
               </div>
               &nbsp;
               &nbsp;
                <form method = "post" asp-controller = "Account" asp-action = "Logout">
-             <input type = "submit" class = "btn btn-primary center" value = "Выйти из аккаунта"/>
-        </form>
-              </div>
+             <input type = "submit" class = "btn btn-primary my-btn" value = "Выйти из аккаунта"/>
+               </form>
+         </div>
               <div class="col-xl-12" style="margin-top:40px;">
-        @foreach (var modeleState in ViewData.ModelState.Values)
-         {
-            foreach (var error in modeleState.Errors)
-             {
-                <h5 style="color:red;margin-top:8px;">@error.ErrorMessage</h5>
-             }
-          }
+        
      </div>
     </body>
 </html>

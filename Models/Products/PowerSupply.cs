@@ -6,6 +6,7 @@
         public override string ModelName { get; set; }
         public override string Manufacturer { get; set; }
         public override decimal Price { get; set; }
+        public override int Amount { get; set; }
         public int Power { get; set; }
         public string Certificate { get; set; }
     }
