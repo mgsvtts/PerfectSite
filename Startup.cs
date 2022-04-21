@@ -21,11 +21,13 @@ namespace WebApplication1
 
             services.AddIdentity<User, IdentityRole>(options =>
             {
+                options.User.RequireUniqueEmail = true;
+                options.User.AllowedUserNameCharacters = null;
+
                 options.Password.RequireNonAlphanumeric = false;
                 options.Password.RequireDigit = false;
                 options.Password.RequireUppercase = false;
                 options.Password.RequireLowercase = false;
-                options.User.AllowedUserNameCharacters = null;
             }).AddEntityFrameworkStores<ApplicationContext>();
 
            

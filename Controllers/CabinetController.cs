@@ -7,9 +7,11 @@ using System.Text;
 using System.Threading.Tasks;
 using WebApplication1.Models;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authorization;
 
 namespace WebApplication1.Controllers
 {
+    [Authorize]
     public class CabinetController : Controller
     {
         private readonly UserManager<User> _userManager;
@@ -21,16 +23,8 @@ namespace WebApplication1.Controllers
             _signInManager = signInManager;
         }
 
-        //[HttpGet]
-        //[Route("[controller]/[action]")]
-        //public async Task<IActionResult> Main()
-        //{
-        //    //User user = await _userManager.FindByIdAsync(id);
-        //    return RedirectToAction("Main", "Cabinet");
-        //    //return View("MainGet");
-        //}
 
-        [Route("[controller]/[action]")]
+        
         public async Task<IActionResult> Main(string id)
         {
             User result = await _userManager.FindByIdAsync(id);
@@ -45,17 +39,17 @@ namespace WebApplication1.Controllers
 
 
         [HttpGet]
-        [Route("[controller]/[action]")]
         public async Task<IActionResult> ChangePassword(string id)
         {
 
             User user = await _userManager.FindByIdAsync(id);
-            ChangePasswordViewModel model = new ChangePasswordViewModel { Id = user.Id, Email = user.Email };//, Password = user.Password};
+            ChangePasswordViewModel model = new ChangePasswordViewModel { Id = user.Id, Email = user.Email };
             return View(model);
         }
 
+
         [HttpPost]
-        [Route("[controller]/[action]")]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> ChangePassword(ChangePasswordViewModel model)
         {
             if (ModelState.IsValid)
@@ -66,7 +60,7 @@ namespace WebApplication1.Controllers
                     IdentityResult result = await _userManager.ChangePasswordAsync(user, model.OldPassword, model.NewPassword);
                     if (result.Succeeded)
                     {
-                       // return Content(user.Password);
+                      
                         return RedirectToAction("Main", "Cabinet", user.Id);
                     }
                     else

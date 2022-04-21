@@ -19,7 +19,7 @@ namespace WebApplication1.Controllers
 
 
         [HttpGet]
-        [Route("[controller]/[action]")]
+        [AllowAnonymous]
         public IActionResult Register(string returnUrl = null)
         {
             return View(new RegisterViewModel { ReturnUrl = returnUrl });
@@ -27,7 +27,7 @@ namespace WebApplication1.Controllers
 
 
         [HttpPost]
-        [Route("[controller]/[action]")]
+        [AllowAnonymous]
         public async Task<IActionResult> Register(RegisterViewModel model)
         {
             User user = await _userManager.FindByNameAsync(model.Email);
@@ -72,14 +72,17 @@ namespace WebApplication1.Controllers
                     return RedirectToAction("Index", "Home");
                 }
             }
-              
+            else
+            {
+                ModelState.AddModelError(string.Empty, "Данные введены некорректно");
+            } 
             
             return View(model);
         }
 
 
         [HttpGet]
-        [Route("[controller]/[action]")]
+        [AllowAnonymous]
         public IActionResult Login(string returnUrl = null)
         {
             return View(new LoginViewModel { ReturnUrl = returnUrl });
@@ -87,8 +90,8 @@ namespace WebApplication1.Controllers
 
 
         [HttpPost]
-        [Route("[controller]/[action]")]
         [ValidateAntiForgeryToken]
+        [AllowAnonymous]
         public async Task<IActionResult> Login(LoginViewModel model)
         {
             if (ModelState.IsValid)
@@ -111,33 +114,11 @@ namespace WebApplication1.Controllers
 
 
         [HttpPost]
-        [Route("[controller]/[action]")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Logout()
         {
             await _signInManager.SignOutAsync();
             return RedirectToAction("Index", "Home");
         }
-
-       
-
-        //[HttpGet]
-        //[Route("[controller]/[action]")]
-        //public IActionResult AuthenticatedLogin()
-        //{
-        //    return View();
-        //}
-
-
-        //[HttpPost]
-        //[Route("[controller]/[action]")]
-        //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> AuthenticatedLogin(User user)
-        //{
-
-        //    User result = await _userManager.FindByNameAsync(user.Email);
-        //    return RedirectToAction("Main", "Cabinet", result);
-           
-        //}
     }
 }

@@ -10,7 +10,14 @@
     <body>
         <h2 class = "text-center">Страница регистрации</h2>
         <form method = "post" class = "registration-form" asp-controller="Account" asp-action = "Register">
-            <p>Заполните следующие поля</p>
+         @foreach (var modeleState in ViewData.ModelState.Values)
+         {
+            foreach (var error in modeleState.Errors)
+             {
+                <h5 style="color:red;margin-top:8px;">@error.ErrorMessage</h5>
+             }
+         }
+            <p>Заполните следующие поля:</p>
             <div class = "form-group">
                 <label asp-for = "FirstName" class = "col-md-4  control-label" >Имя:</label>
                 <div class = "col-md-4">
@@ -65,13 +72,6 @@
             </div>
         </form>
         <div class="col-xl-12" style="margin-top:40px;">
-        @foreach (var modeleState in ViewData.ModelState.Values)
-         {
-            foreach (var error in modeleState.Errors)
-             {
-                <h5 style="color:red;margin-top:8px;">@error.ErrorMessage</h5>
-             }
-          }
      </div>
     </body>
 </html>

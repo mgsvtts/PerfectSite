@@ -32,7 +32,7 @@
                     {
                         User user = await UserManager.FindByNameAsync(User.Identity.Name);
 
-                        <a class="btn btn-primary text-center" asp-controller = "Cabinet" asp-action = "Main" asp-route-id = "@user.Id">Войти в личный кабинет</a>
+                        <a class="btn btn-primary text-center" asp-controller = "Cabinet" asp-action = "Main" asp-route-id = "@user.Id">Личный кабинет</a>
                        @*  <form method = "post" asp-controller = "Cabinet" asp-action = "Main" asp-route-id = "user.Id">
                                  <input type = "submit" class = "btn btn-primary text-center" value = "Войти в личный кабинет"/>
                            </form>

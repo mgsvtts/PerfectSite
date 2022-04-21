@@ -18,14 +18,13 @@ namespace WebApplication1.Controllers
             _db = db;
         }
 
-        [Route("/")]
-        [Route("[controller]/[action]")]
+
         public IActionResult Index()
         {
             return View();
         }
 
-        [Route("[controller]/[action]")]
+
         public IActionResult Privacy()
         {
             return View();
