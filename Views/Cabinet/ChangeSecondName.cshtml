@@ -9,6 +9,7 @@
         <form method = "post" asp-controller = "Cabinet" asp-action = "ChangeName">
      <div asp-validation-summary="ModelOnly" class="text-danger"></div>
      <input type="hidden" asp-for="Id" />
+     <input type = "hidden" asp-for="OldName"/>
        <input type="hidden" asp-for="ChangingLabel" style="background-color: #232627; color:#d1cdc7;  border-color:  #16191b;"/>
      <label asp-for="NewName" class="control-label">Новая фамилия</label>
         <input type="text" asp-for="NewName"  class="form-control" style="background-color: #232627; color:#d1cdc7;  border-color:  #16191b;"/>

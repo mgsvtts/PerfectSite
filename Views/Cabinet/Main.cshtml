@@ -18,7 +18,7 @@
                    <label asp-for="SecondName"  class = "col-md-4  control-label center">Ваша фамилия:</label><br />
                <div class = "col-md-4">
                    <input type = "text" asp-for="SecondName" class = "form-control center" value = "@Model.SecondName" disabled  style="background-color: #232627; color:#d1cdc7;  border-color:  #16191b;"/>
-                     <a class = "btn btn-primary my-btn" asp-route-id = "@Model.Id" asp-controller = "Cabinet" asp-action = "ChangeSecondFName">Изменить</a>
+                     <a class = "btn btn-primary my-btn" asp-route-id = "@Model.Id" asp-controller = "Cabinet" asp-action = "ChangeSecondName">Изменить</a>
               </div>
               <form method="post" asp-controller="Cabinet" asp-action="ChangeEmail"  style="color:#d1cdc7; border-color:  #16191b;">
                    <label asp-for="Email"  class = "col-md-4  control-label">Ваш Email:</label><br />
@@ -28,13 +28,7 @@
               
               </div>
               </form>
-            @* <form method="post" asp-controller="Cabinet" asp-action="ChangePassword">
-                   <label asp-for="PasswordHash"  class = "col-md-4  control-label" >Ваш пароль:</label><br />
-               <div class = "col-md-4">
-                   <input type = "password" asp-for="PasswordHash" class = "form-control" value = "@Model.PasswordHash." disabled/> 
-                </form>*@
                 <wbr />
-                
               <a asp-controller="Cabinet"  asp-action="ChangePassword" asp-route-id = "@Model.Id" class = "btn btn-primary my-btn change-password-btn">Изменить пароль</a>
               </div>
               &nbsp;

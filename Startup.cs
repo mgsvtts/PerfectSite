@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using WebApplication1.Models;
 
@@ -31,10 +30,8 @@ namespace WebApplication1
             }).AddEntityFrameworkStores<ApplicationContext>()
             .AddTokenProvider<DataProtectorTokenProvider<User>>(TokenOptions.DefaultProvider); ;
 
-           
             services.AddAuthorization();
             services.AddControllersWithViews();
-
         }
 
         public void Configure(IApplicationBuilder app)
@@ -57,7 +54,6 @@ namespace WebApplication1
                 name: "default",
                 pattern: "{controller=Home}/{action=Index}/{id?}");
                 endpoints.MapControllers();
-                
             });
         }
     }

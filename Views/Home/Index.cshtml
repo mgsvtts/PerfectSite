@@ -2,18 +2,43 @@
     Layout = "_Layout";
     ViewData["Title"] = "Home Page";
 }
+<html>
+    <body>
+        <div class="text-center">
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-    @if (User.IsInRole("God of the Site"))
-    { 
-        <a class = "btn-primary btn" asp-controller = "Role" asp-action = "Main">Просмотр ролей и пользователей</a>
-    }
-    else
-    {
         <h1>Добро пожаловать</h1>
-    }
-   
-   
-</div>
+        <div class = "main-page-images">
+            <div class = "main-page-image">
+                <a asp-controller = "Store" asp-action = "CPUs"><img src = "~/Images/CPU-img.jpg"/></a>
+            </div>
+            <div class = "main-page-image">
+                <a asp-controller = "Store" asp-action = "Frames"><img src = "~/Images/Frame-img.jpg" /></a>
+            </div >
+            <div class = "main-page-image">
+                <a asp-controller = "Store" asp-action = "Phones"><img src = "~/Images/Phone-img.jpg" /></a>
+            </div >
+            <div class = "main-page-image">
+                <a asp-controller = "Store" asp-action = "GPUs"><img src = "~/Images/GPU-img.jpg" /></a>
+            </div >
+             <div class = "main-page-image">
+                <a asp-controller = "Store" asp-action = "HDDs"><img src = "~/Images/HDD-img.jpg" /></a>
+            </div >
+             <div class = "main-page-image">
+                <a asp-controller = "Store" asp-action = "Motherboards"><img src = "~/Images/Motherboard-img.jpg" /></a>
+            </div >
+             <div class = "main-page-image">
+                <a asp-controller = "Store" asp-action = "PowerSupplies"><img src = "~/Images/PowerSupply-img.jpg" /></a>
+            </div >
+             <div class = "main-page-image">
+                <a asp-controller = "Store" asp-action = "RAMs"><img src = "~/Images/RAM-img.jpg" /></a>
+            </div >
+            <div class = "main-page-image">
+                <a asp-controller = "Store" asp-action = "SSDs"><img src = "~/Images/SSD-img.jpg" /></a>
+            </div>
+             <div class = "main-page-image">
+                <a asp-controller = "Store" asp-action = "Computers"><img src = "~/Images/Computer-img.jpg"/></a>
+            </div>
+        </div>
+       </div>
+    </body>
+</html>

@@ -12,7 +12,7 @@
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light border-bottom box-shadow mb-3" style="background-color: #16191b; color:#d1cdc7;">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light border-bottom box-shadow mb-3" >
             <div class="container-fluid">
                 <a class="navbar-brand"  style="color:#d1cdc7;" asp-area="" asp-controller="Home" asp-action="Index">Perfect Site</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
@@ -21,41 +21,14 @@
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link" style="color:#d1cdc7;" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link"  style="color:#d1cdc7;" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
+                        <li class="nav-item"></li>
+                        <li class="nav-item"> </li>
                     </ul>
                     @if (User.Identity.IsAuthenticated)
                     {
                         User user = await UserManager.FindByNameAsync(User.Identity.Name);
 
                         <a class="btn btn-primary text-center" asp-controller = "Cabinet" asp-action = "Main" asp-route-id = "@user.Id">Личный кабинет</a>
-                       @*  <form method = "post" asp-controller = "Cabinet" asp-action = "Main" asp-route-id = "user.Id">
-                                 <input type = "submit" class = "btn btn-primary text-center" value = "Войти в личный кабинет"/>
-                           </form>
-                           <form method = "post" asp-controller = "Account" asp-action = "Logout">
-                                 <input type = "submit" class = "btn btn-primary text-center" value = "Выйти из аккаунта"/>
-                           </form>*@
-                        @* <form  asp-controller="Cabinet" asp-action="Main">
-                            <div asp-validation-summary="ModelOnly"></div>
-                            <input name = "firstname" type = "hidden" asp-for = "Email">
-                            <input type = "hidden" asp-for = "FirstName">
-                            <input type = "hidden" asp-for = "SecondName">
-                            <input type = "hidden" asp-for = "BirthDate">
-                            <input type = "hidden" asp-for = "PhoneNumber">
-                            <input type="submit" value="Войти" class="nav-link text-dark" @Url.Action("Cabinet", "Main",  new User{})/>
-
-                            </form>*@
-                        @*<a class="nav-link text-dark login-btn" asp-controller="Account" asp-action="AuthenticatedLogin" >Войти</a>*@
-                        @*<form method = "post" asp-controller = "Cabinet" asp-action = "Main">
-                            <input type = "hidden" asp-for="Id" value =  "@ViewData["email"]">
-                            <input type = "submit"  class="nav-link text-dark btn btn-primary" value = "Войти"/>
-                        </form>*@
-                       
-
                     }
                     else
                     {

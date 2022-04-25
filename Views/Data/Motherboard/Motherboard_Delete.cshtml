@@ -1,0 +1,29 @@
+﻿@model WebApplication1.Data.Products.Motherboard
+@{
+    ViewBag.Title = "Удаление материнской платы";
+}
+ <html>
+     <body>
+         <div>
+    <dl class="dl-horizontal my-text">
+        <dt>Название</dt>
+        <dd>
+            @Html.DisplayFor(model => model.ModelName)
+        </dd>
+ 
+        <dt>Производитель</dt>
+        <dd>
+            @Html.DisplayFor(model => model.Manufacturer.Name)
+        </dd>
+    </dl>
+ 
+    <div>
+        <form asp-controller="Data" asp-action="Motherboard_Delete" method="post">
+            <div class="form-group">
+                <input type="submit" class="btn btn-primary my-btn" value="Удалить" />
+            </div>
+        </form>
+    </div>
+</div>
+     </body>
+ </html>

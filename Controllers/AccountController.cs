@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using WebApplication1.Models;
-using WebApplication1.ViewModels;
 using WebApplication1.ViewModels.Account;
 
 namespace WebApplication1.Controllers
@@ -18,7 +17,6 @@ namespace WebApplication1.Controllers
             _signInManager = signInManager;
         }
 
-
         [HttpGet]
         [AllowAnonymous]
         public IActionResult Register(string returnUrl = null)
@@ -26,26 +24,25 @@ namespace WebApplication1.Controllers
             return View(new RegisterViewModel { ReturnUrl = returnUrl });
         }
 
-
         [HttpPost]
         [AllowAnonymous]
         public async Task<IActionResult> Register(RegisterViewModel model)
         {
-            User user = await _userManager.FindByNameAsync(model.Email);
-            if (user != null)
-            {
-                LoginViewModel loginViewModel = new LoginViewModel
-                {
-                    Email = model.Email,
-                    Password = model.Password,
-                    ReturnUrl = model.ReturnUrl,
-                    RememberMe = false
-                };
-                return View("~/Views/Account/Login.cshtml", loginViewModel);
-            }
-           
             if (ModelState.IsValid)
-            { 
+            {
+                User user = await _userManager.FindByNameAsync(model.Email);
+                if (user != null)
+                {
+                    LoginViewModel loginViewModel = new LoginViewModel
+                    {
+                        Email = model.Email,
+                        Password = model.Password,
+                        ReturnUrl = model.ReturnUrl,
+                        RememberMe = false
+                    };
+                    return View("~/Views/Account/Login.cshtml", loginViewModel);
+                }
+
                 user = new User
                 {
                     UserName = model.Email,
@@ -56,15 +53,12 @@ namespace WebApplication1.Controllers
                     BirthDate = model.BirthDate
                 };
 
-               
-                
                 var result = await _userManager.CreateAsync(user, model.Password);
 
                 if (result.Succeeded)
                 {
                     await _userManager.AddToRoleAsync(user, "User");
                     await _signInManager.SignInAsync(user, false);
-                    
 
                     if (!string.IsNullOrEmpty(model.ReturnUrl) && Url.IsLocalUrl(model.ReturnUrl))
                     {
@@ -73,15 +67,16 @@ namespace WebApplication1.Controllers
 
                     return RedirectToAction("Index", "Home");
                 }
+                else
+                {
+                    ModelState.AddModelError(string.Empty, "Данные введены некорректно");
+                }
+
+                return View(model);
             }
-            else
-            {
-                ModelState.AddModelError(string.Empty, "Данные введены некорректно");
-            } 
-            
+
             return View(model);
         }
-
 
         [HttpGet]
         [AllowAnonymous]
@@ -89,7 +84,6 @@ namespace WebApplication1.Controllers
         {
             return View(new LoginViewModel { ReturnUrl = returnUrl });
         }
-
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -103,17 +97,16 @@ namespace WebApplication1.Controllers
                 if (result.Succeeded)
                 {
                     if (!string.IsNullOrEmpty(model.ReturnUrl) && Url.IsLocalUrl(model.ReturnUrl))
-                    {
                         return Redirect(model.ReturnUrl);
-                    }
+                    
 
                     return RedirectToAction("Index", "Home");
                 }
 
+                ModelState.AddModelError(string.Empty, "Неверный пароль");
             }
             return View(model);
         }
-
 
         [HttpPost]
         [ValidateAntiForgeryToken]

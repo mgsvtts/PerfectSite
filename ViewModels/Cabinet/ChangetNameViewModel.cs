@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace WebApplication1.ViewModels.Cabinet
 {
@@ -10,12 +6,11 @@ namespace WebApplication1.ViewModels.Cabinet
     {
         public string Id { get; set; }
 
-
         public string ChangingLabel { get; set; }
 
         public string OldName { get; set; }
 
-
+        [Required(ErrorMessage = "Заполните поле"),MaxLength(50, ErrorMessage = "Длина должна быть меньше 50")]
         public string NewName { get; set; }
     }
 }

@@ -1,0 +1,36 @@
+﻿@model WebApplication1.Data.Products.ComputerFrame
+@{
+    ViewBag.Title = "Информация о корпусе";
+}
+
+<html>
+    <body>
+        <h2>Модель @Model.ModelName</h2>
+
+<div class = "my-text dl-horizontal">
+    <dl class="dl-horizontal">
+        <dt>ID</dt>
+        <dd>@Model.Id</dd>
+ 
+        <dt>Производитель</dt>
+        <dd>@Model.Manufacturer.Name</dd>
+
+        <dt>Форм фактор</dt>
+        <dd>@Model.Size</dd>
+
+        <dt>Максимальная длинна видеокарты</dt>
+        <dd>@Model.GPULength</dd>
+
+        <dt>Цена</dt>
+        <dd>@Model.Price</dd>
+
+        <dt>Осталось на складе</dt>
+        <dd>@Model.Amount</dd>
+
+        <dt>Куплен</dt>
+        <dd>@Model.BoughtTimes раз</dd>
+    </dl>
+    <a class = "btn btn-primary" asp-controller = "Store" asp-action = "HDDs">Назад</a>
+</div>
+    </body>
+</html>

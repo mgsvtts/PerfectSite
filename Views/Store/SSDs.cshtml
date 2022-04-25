@@ -1,0 +1,122 @@
+﻿@using WebApplication1.Data.Products
+@using WebApplication1.ViewModels.PageSortFilter
+@using WebApplication1.ViewModels.Store.SSDs
+@model ProductViewModel<SSD>
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = "SSDs";
+}
+<html>
+    <body>
+        <h1>Список товаров</h1>
+<form method = "get">
+     <div class="form-inline">
+         <label>Название</label>
+         <input name = "name" value="@Model.FilterViewModel.SelectedName" class = "form-control my-text my-border-color my-textbar-background"/>
+         <label>Компания </label>
+        <select name="manufacturer" asp-items="Model.FilterViewModel.Manufacturers" class="form-control my-text my-border-color my-textbar-background"></select>
+ 
+        <input type="submit" value="Фильтр" class="btn btn-primary my-btn" />
+     </div>
+</form>
+
+@{
+        if (User.IsInRole("God of the Site"))
+        {
+              <a asp-controller = "Data" asp-action="SSD_Create">Добавить</a>
+        }
+
+     }
+
+<table class="table my-text">
+    <tr>
+        <th>
+            <a asp-action = "SSDs" asp-route-sortOrder="@(Model.SortingViewModel.NameSort)"
+               asp-route-name="@(Model.FilterViewModel.SelectedName)"
+               asp-route-manufacturer="@(Model.FilterViewModel.SelectedManufacturer)">Название</a>
+        </th>
+        <th>
+              <a asp-action="SSDs" asp-route-sortOrder="@(Model.SortingViewModel.ManufacturerSort)"
+               asp-route-name="@(Model.FilterViewModel.SelectedName)"
+               asp-route-manufacturer="@(Model.FilterViewModel.SelectedManufacturer)">Компания</a>
+        </th>
+        <th>
+            <a asp-action="SSDs" asp-route-sortOrder="@(Model.SortingViewModel.PriceSort)"
+               asp-route-name="@(Model.FilterViewModel.SelectedName)"
+               asp-route-manufacturer="@(Model.FilterViewModel.SelectedManufacturer)">Цена</a>
+        </th>
+        <th>
+             <a asp-action="SSDs" asp-route-sortOrder="@(Model.SortingViewModel.AmountSort)"
+               asp-route-name="@(Model.FilterViewModel.SelectedName)"
+               asp-route-manufacturer="@(Model.FilterViewModel.SelectedManufacturer)">Осталось на складе</a>
+        </th>
+        <th>
+             <a asp-action="SSDs" asp-route-sortOrder="@(Model.SortingViewModel.PopularitySort)"
+               asp-route-name="@(Model.FilterViewModel.SelectedName)"
+               asp-route-manufacturer="@(Model.FilterViewModel.SelectedManufacturer)">Популярность</a>
+        </th>
+    </tr>
+        @foreach(var product in Model.Products)
+        {
+            <tr>
+                <td>
+                    <a asp-controller="ProductPage" asp-action="SSDPage" asp-route-id = "@product.Id">@product.ModelName</a>
+                </td>
+                <td >
+                    @product.Manufacturer.Name
+                </td>
+                <td >
+                    @product.Price
+                </td>
+                <td>
+                    @product.Amount
+                </td>
+                @{
+                    if (product.BoughtTimes > 100)
+                    {
+                        <td class  = "my-text">Высокая</td>
+                    }
+                    else if(product.BoughtTimes < 100 && product.BoughtTimes > 25)
+                    {
+                        <td  class  = "my-text">Средняя</td>
+                    }
+                    else
+                    {
+                        <td  class  = "my-text">Низкая</td>
+                    }
+                    if(User.IsInRole("God of the Site"))
+                    {
+                        <td>
+                            <a asp-action="SSD_Details" asp-controller="Data" asp-route-id="@product.Id">Подробнее</a> |
+                            <a asp-action="SSD_Edit" asp-controller="Data" asp-route-id="@product.Id">Изменить</a> |
+                            <a asp-action="SSD_Delete" asp-controller="Data" asp-route-id="@product.Id">Удалить</a>
+                        </td>
+                    }
+                }
+                
+            </tr>
+        }
+    </table>
+
+    @if (Model.PageViewModel.HasPreviousPage)
+    {
+         <a asp-action="CPUs"
+       asp-route-page="@(Model.PageViewModel.PageNumber - 1)"
+       asp-route-name="@(Model.FilterViewModel.SelectedName)"
+       asp-route-manufacturer="@(Model.FilterViewModel.SelectedManufacturer)"
+       asp-route-sortorder="@(Model.SortingViewModel.Current)"
+       class="btn btn-primary">Назад </a>
+    }
+    @if (Model.PageViewModel.HasNextPage)
+{
+    <a asp-action="CPUs"
+       asp-route-page="@(Model.PageViewModel.PageNumber + 1)"
+       asp-route-name="@(Model.FilterViewModel.SelectedName)"
+       asp-route-manufacturer="@(Model.FilterViewModel.SelectedManufacturer)"
+       asp-route-sortorder="@(Model.SortingViewModel.Current)"
+       class="btn btn-primary">
+        Вперед
+    </a>
+}
+</body>
+</html>

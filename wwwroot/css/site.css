@@ -18,10 +18,12 @@ html {
     position: relative;
     min-height: 100%;
 }
+
 header {
     color: #d1cdc7;
     background-color: #16191b;
 }
+
 .navbar {
     color: #d1cdc7;
     background-color: #16191b;
@@ -38,7 +40,6 @@ body {
     margin-bottom: 60px;
 }
 
-
 .my-btn {
     display: flex;
     justify-content: center;
@@ -46,12 +47,77 @@ body {
     margin-top: 1%;
     margin-bottom: 5%;
 }
+
 .change-password-btn {
     font-size: 150%;
-
 }
-.my-div{
+
+.my-div {
     top: 50%;
-    left:50%;
+    left: 50%;
 }
 
+.main-page-image {
+    width: 25%;
+    height: 25%;
+    object-fit: cover;
+    overflow: hidden;
+}
+
+.main-page-images {
+    left: 10%;
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+}
+
+    .main-page-images .main-page-image {
+        float: left;
+        margin-right: 2%;
+        margin-bottom: 2%;
+        width: 25%;
+        height: 25%;
+        overflow: hidden;
+    }
+
+    .main-page-images img {
+        width: 100%
+    }
+
+.my-text {
+    color: #d1cdc7;
+}
+
+.my-background {
+    background-color: #16191b;
+}
+
+.my-textbar-background {
+    background-color: #232627;
+}
+
+.my-border-color {
+    border-color: #16191b;
+}
+
+.field-validation-error {
+    color: #ff0000;
+}
+
+.field-validation-valid {
+    display: none;
+}
+
+.input-validation-error {
+    border: 1px solid:#ff0000;
+    background-color: #fee;
+}
+
+.validation-summary-errors {
+    font-weight: bold;
+    color: #f00
+}
+
+.validation-summary-valid {
+    display: none;
+}

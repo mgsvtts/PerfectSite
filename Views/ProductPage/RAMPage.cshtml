@@ -1,0 +1,35 @@
+﻿
+@model  WebApplication1.Data.Products.RAM;
+@{
+      Layout = "_Layout";
+    ViewData["Title"] = "Product Page";
+}
+
+<html> 
+    <body> 
+        <h1 class = "text-center" >Информация о  @Model.ModelName </h1> 
+        <h2 class = "text-center"> @Model.Price  рублей</h2> 
+        <div class="form - inline"> 
+        <p style = " font-size: 150%">Название модели:</p> 
+        <b style = " font-size: 200%"> @Model.ModelName </b> 
+        <p></p> 
+        <p style = " font-size: 150%">Производитель:</p> 
+        <b style = " font-size: 200%"> @Model.Manufacturer.Name</b> 
+        <p></p> 
+        <p style = " font-size: 150%">Объем памяти:</p> 
+        <b style = " font-size: 200%"> @Model.MemorySize GB</b> 
+        <p></p> 
+        <p style = " font-size: 150%">Частота:</p> 
+        <b style = " font-size: 200%"> @Model.Speed MHz</b> 
+        <p></p> 
+        @{
+            if((@Model.Description != null) && (!string.IsNullOrEmpty(@Model.Description)))
+            {
+                <p style = "font-size: 150%">Описание:</p> 
+                <b class = "text-center" style = " font-size: 125%"> @Model.Description </b>
+            }
+        }
+        <a class = "btn btn-primary my-btn" asp-controller = "Home" asp-action = "Buy">Купить</a> 
+        </div> 
+    </body> 
+</html>

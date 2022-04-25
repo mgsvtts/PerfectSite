@@ -1,13 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using WebApplication1.ViewModels;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using WebApplication1.Models;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using WebApplication1.Models;
 using WebApplication1.ViewModels.Cabinet;
 
 namespace WebApplication1.Controllers
@@ -16,7 +10,7 @@ namespace WebApplication1.Controllers
     public class CabinetController : Controller
     {
         private readonly ApplicationContext _db;
-       private readonly UserManager<User> _userManager;
+        private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
 
         public CabinetController(UserManager<User> userManager, SignInManager<User> signInManager, ApplicationContext db)
@@ -25,8 +19,6 @@ namespace WebApplication1.Controllers
             _signInManager = signInManager;
             _db = db;
         }
-
-
 
         public async Task<IActionResult> Main(string id)
         {
@@ -40,11 +32,9 @@ namespace WebApplication1.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-
         [HttpGet]
         public async Task<IActionResult> ChangePassword(string id)
         {
-
             User user = await _userManager.FindByIdAsync(id);
 
             if (user != null)
@@ -55,7 +45,6 @@ namespace WebApplication1.Controllers
 
             return RedirectToAction("Main", "Cabinet");
         }
-
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -69,25 +58,13 @@ namespace WebApplication1.Controllers
                     IdentityResult result = await _userManager.ChangePasswordAsync(user, model.OldPassword, model.NewPassword);
                     if (result.Succeeded)
                     {
-
                         return RedirectToAction("Main", "Cabinet", user.Id);
                     }
-                    else
-                    {
-                        foreach (var error in result.Errors)
-                        {
-                            ModelState.AddModelError(string.Empty, error.Description);
-                        }
-                    }
                 }
-                else
-                {
-                    ModelState.AddModelError(string.Empty, "Пользователь не найден");
-                }
+                ModelState.AddModelError(string.Empty, "Пользователь не найден");
             }
             return View(model);
         }
-
 
         [HttpGet]
         public async Task<IActionResult> ChangeEmail(string id)
@@ -103,15 +80,12 @@ namespace WebApplication1.Controllers
             return RedirectToAction("Main", "Cabinet");
         }
 
-
         [HttpPost]
         public async Task<IActionResult> ChangeEmail(ChangeEmailViewModel model)
         {
-            //return Content($"ID is {model.Id} newEmail is {model.NewEmail} oldEmail is {model.OldEmail}");
             User user = await _userManager.FindByIdAsync(model.Id);
 
-            User checkUser = await _userManager.FindByEmailAsync(user.Email);
-
+            User checkUser = await _userManager.FindByEmailAsync(model.NewEmail);
             if (checkUser == null)
             {
                 if (user.Email != model.NewEmail)
@@ -128,9 +102,7 @@ namespace WebApplication1.Controllers
 
             ModelState.AddModelError(string.Empty, "Пользователь с такой почтой уже зарегестрирован");
             return View(model);
-
         }
-
 
         [HttpGet]
         public async Task<IActionResult> ChangeFirstName(string id)
@@ -139,13 +111,12 @@ namespace WebApplication1.Controllers
 
             if (user != null)
             {
-                ChangeNameViewModel model = new ChangeNameViewModel { Id = user.Id, OldName = user.FirstName, ChangingLabel = "FirstName"};
+                ChangeNameViewModel model = new ChangeNameViewModel { Id = user.Id, OldName = user.FirstName, ChangingLabel = "FirstName" };
                 return View(model);
             }
 
             return RedirectToAction("Main", "Cabinet");
         }
-
 
         [HttpGet]
         public async Task<IActionResult> ChangeSecondName(string id)
@@ -161,36 +132,38 @@ namespace WebApplication1.Controllers
             return RedirectToAction("Main", "Cabinet");
         }
 
-
         [HttpPost]
         public async Task<IActionResult> ChangeName(ChangeNameViewModel model)
         {
-           
-            User user = await _userManager.FindByIdAsync(model.Id);
+            string currentPage = "Change" + model.ChangingLabel;
 
-            if (model.ChangingLabel == "FirstName" && model.OldName != model.NewName)
+            if (ModelState.IsValid)
             {
+                User user = await _userManager.FindByIdAsync(model.Id);
 
-                user.FirstName = model.NewName;
+                if (model.ChangingLabel == "FirstName" && model.OldName != model.NewName)
+                {
+                    user.FirstName = model.NewName;
 
-                await _db.SaveChangesAsync();
+                    await _db.SaveChangesAsync();
 
-                return RedirectToAction("Main", "Cabinet");
+                    return RedirectToAction("Main", "Cabinet");
+                }
+                else if (model.ChangingLabel == "SecondName" && model.OldName != model.NewName)
+                {
+                    user.SecondName = model.NewName;
+
+                    await _db.SaveChangesAsync();
+
+                    return RedirectToAction("Main", "Cabinet");
+                }
+
+                ModelState.AddModelError(string.Empty, "Новое имя не должно совпадать со старым");
+
+                return RedirectToAction(currentPage, model);
             }
 
-            else if (model.ChangingLabel == "SecondName" && model.OldName != model.NewName)
-            {
-                user.SecondName = model.NewName;
-
-                await _db.SaveChangesAsync();
-
-                return RedirectToAction("Main", "Cabinet");
-            }
-
-           
-            ModelState.AddModelError(string.Empty, "Новое имя не должно совпадать со старым");
-
-            return RedirectToAction(null, model);
+            return RedirectToAction(currentPage, model);
         }
     }
 }

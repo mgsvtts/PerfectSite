@@ -1,0 +1,55 @@
+﻿@model WebApplication1.Data.Products.CPU
+@{
+    ViewBag.Title = "Добавление CPU";
+}
+<html>
+    <body>
+        <form asp-action="CPU_Create" asp-controller="Data" class = "my-text my-border-color">
+            <div asp-validation-summary = "ModelOnly"></div>
+    <div class="form-group">
+        <label asp-for="ModelName" class="control-label">Название</label>
+        <input type="text" asp-for="ModelName" class="form-control my-text my-border-color my-textbar-background" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Manufacturer.Name" class="control-label">Произодитель</label>
+        <input type="text" asp-for="Manufacturer.Name" class="form-control my-text my-border-color my-textbar-background" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Speed" class="control-label">Частота ядра</label>
+        <input type="number" step = "any" asp-for="Speed" class="form-control my-text my-border-color my-textbar-background" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Cores" class="control-label">Колличество ядер</label>
+        <input type="number" asp-for="Cores" class="form-control my-text my-border-color my-textbar-background" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Threads" class="control-label">Колличество потоков</label>
+        <input type="number" asp-for="Threads" class="form-control my-text my-border-color my-textbar-background" />
+    </div>
+    
+    <div class="form-group">
+        <label asp-for="PowerUsage" class="control-label">TDP</label>
+        <input type="number" asp-for="PowerUsage" class="form-control my-text my-border-color my-textbar-background" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Socket" class="control-label">Сокет</label>
+        <input type="text" asp-for="Socket" class="form-control my-text my-border-color my-textbar-background" />
+    </div>
+     <div class="form-group">
+        <label asp-for="Price" class="control-label">Цена</label>
+        <input type="number" step = "any" asp-for="Price" class="form-control my-text my-border-color my-textbar-background" />
+    </div>
+     <div class="form-group">
+        <label asp-for="Amount" class="control-label">Колличество на складе</label>
+        <input type="number" asp-for="Amount" class="form-control my-text my-border-color my-textbar-background" />
+    </div>
+     <div class="form-group">
+        <input type="hidden" asp-for="BoughtTimes" value = 0/>
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Отправить" class="btn btn-primary" />
+    </div>
+
+</form>
+    </body>
+</html>

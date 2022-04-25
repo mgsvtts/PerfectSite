@@ -1,11 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using WebApplication1.Models;
 using WebApplication1.ViewModels.Role;
 
@@ -16,14 +11,14 @@ namespace WebApplication1.Controllers
     {
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly UserManager<User> _userManager;
+
         public RoleController(RoleManager<IdentityRole> roleManager, UserManager<User> userManager)
         {
             _roleManager = roleManager;
             _userManager = userManager;
         }
 
-
-        public IActionResult Main() 
+        public IActionResult Main()
         {
             return View(_roleManager.Roles.ToList());
         }
@@ -33,7 +28,6 @@ namespace WebApplication1.Controllers
             return View();
         }
 
-
         [HttpPost]
         public async Task<IActionResult> Create(string name)
         {
@@ -42,17 +36,14 @@ namespace WebApplication1.Controllers
                 IdentityResult result = await _roleManager.CreateAsync(new IdentityRole(name));
                 if (result.Succeeded)
                     return RedirectToAction("Main");
-                
                 else
                 {
                     foreach (var error in result.Errors)
                         ModelState.AddModelError(string.Empty, error.Description);
-                    
                 }
             }
             return View(name);
         }
-
 
         [HttpPost]
         public async Task<IActionResult> Delete(string id)
@@ -66,12 +57,10 @@ namespace WebApplication1.Controllers
             return RedirectToAction("Main");
         }
 
-
         public IActionResult UserList()
         {
             return View(_userManager.Users.ToList());
         }
-
 
         public async Task<IActionResult> Edit(string userId)
         {
@@ -94,7 +83,6 @@ namespace WebApplication1.Controllers
 
             return RedirectToAction("UserList", "Role");
         }
-
 
         [HttpPost]
         public async Task<IActionResult> Edit(string userId, List<string> roles)
