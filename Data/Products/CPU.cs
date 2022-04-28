@@ -5,6 +5,7 @@ namespace WebApplication1.Data.Products
 {
     public class CPU : VirtualProduct
     {
+
         public CPUManufacturer Manufacturer { get; set; }
         public double Speed { get; set; }
         public string Socket { get; set; }

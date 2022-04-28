@@ -6,10 +6,11 @@
 
 <html>
     <body>
+        <a style = "position:absolute; margin-left: 77%" class = "btn btn-primary" asp-action="MyOrders">Мои заказы</a>
         <h2 class = "text-center" >Здравствуйте, @Model.FirstName</h2>
         <h2 class = "text-center">Это ваш личный кабинет</h2>
           <div class = "form-group">
-                   <label asp-for="FirstName"  class = "col-md-4  control-label">Ваше имя:</label><br />
+              <label asp-for="FirstName"  class = "col-md-4  control-label">Ваше имя:</label><br />
                <div class = "col-md-4">
                    <input type = "text"  asp-for="FirstName" class = "form-control my-form" value = "@Model.FirstName" disabled style="background-color: #232627; color:#d1cdc7;  border-color:  #16191b;"/>
                      <a class = "btn btn-primary my-btn" asp-route-id = "@Model.Id" asp-controller = "Cabinet" asp-action = "ChangeFirstName">Изменить</a>

@@ -1,7 +1,10 @@
-﻿namespace WebApplication1.Data.VirtualClasses
+﻿using WebApplication1.Data.Products;
+
+namespace WebApplication1.Data.VirtualClasses
 {
     public class VirtualProduct
     {
+
         public int Id { get; set; }
         public virtual string? ModelName { get; set; }
         public string? Description { get; set; }

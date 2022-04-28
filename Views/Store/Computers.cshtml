@@ -29,11 +29,6 @@
                asp-route-manufacturer="@(Model.FilterViewModel.SelectedManufacturer)">Название</a>
         </th>
         <th>
-              <a asp-action="Computers" asp-route-sortOrder="@(Model.SortingViewModel.ManufacturerSort)"
-               asp-route-name="@(Model.FilterViewModel.SelectedName)"
-               asp-route-manufacturer="@(Model.FilterViewModel.SelectedManufacturer)">Компания</a>
-        </th>
-        <th>
             <a asp-action="Computers" asp-route-sortOrder="@(Model.SortingViewModel.PriceSort)"
                asp-route-name="@(Model.FilterViewModel.SelectedName)"
                asp-route-manufacturer="@(Model.FilterViewModel.SelectedManufacturer)">Цена</a>
@@ -48,6 +43,7 @@
                asp-route-name="@(Model.FilterViewModel.SelectedName)"
                asp-route-manufacturer="@(Model.FilterViewModel.SelectedManufacturer)">Популярность</a>
         </th>
+
     </tr>
         @foreach(var product in Model.Products)
         {
@@ -55,28 +51,15 @@
                 <td class = "my-text ">
                      <a asp-controller="ProductPage" asp-action="ComputerPage" asp-route-id = "@product.Id">@product.ModelName</a>
                 </td>
-               @* <td  class = "my-text ">
-                    @product.Manufacturer.Name
-                </td>*@
                 <td  class = "my-text ">
-                    @product.Price
+                    Бесценен
                 </td>
                 <td  class = "my-text ">
                     @product.Amount
                 </td>
+                <td class = "my-text">Наивысшая</td>
                 @{
-                    if (product.BoughtTimes > 100)
-                    {
-                        <td class  = "my-text">Высокая</td>
-                    }
-                    else if(product.BoughtTimes < 100 && product.BoughtTimes > 25)
-                    {
-                        <td  class  = "my-text">Средняя</td>
-                    }
-                    else
-                    {
-                        <td  class  = "my-text">Низкая</td>
-                    }
+                   
                     if(User.IsInRole("God of the Site"))
                     {
                         <td>

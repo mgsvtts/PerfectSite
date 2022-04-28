@@ -1,0 +1,29 @@
+﻿@model IEnumerable<WebApplication1.Models.Order>
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = "Orders";
+}
+<html>
+    <body>
+        <h2>Список заказов</h2>
+        <table class="table my-text">
+        <tr>
+            <th>ID</th>
+            <th>ID пользователя</th>
+            <th>ID товара</th>
+            <th>Колличество</th>
+        </tr>
+        @foreach (var order in Model)
+        {
+        <tr>
+            <td>@order.Id</td>
+            <td>@order.UserId</td>
+            <td>@order.ProductId</td>
+            <td>@order.Quantity</td>
+        </tr>
+        }
+</table>
+
+<a class =" btn btn-sm btn-primary" asp-controller = "Home" asp-action = "Index">Назад</a>
+    </body>
+</html>

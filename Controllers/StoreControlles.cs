@@ -428,10 +428,10 @@ namespace WebApplication1.Controllers
                     Motherboard = b450m_hdv_r4_0,
                     SSD = _870_evo_mz_77e250bw,
                     PowerSupply = kcas_plus_700,
-                    Amount = 2,
+                    Amount = 1,
                     Price = 0,
                     BoughtTimes = 100,
-                    Description = "Компьютер, на котором был написан этот, с позволения сказать, сайт"
+                    Description = "Компьютер, на котором был написан этот сайт"
                 };
                 _db.GPUs.AddRange(rx_6700_xt, rx_6800_xt, rx_6900_xt, rtx_3060, rtx_3070, rtx_3070_ti, rtx_3080, rtx_3080Ti, rx_5600_xt);
                 _db.GPUManufacturers.AddRange(gpu_amd, nvidia);
@@ -439,7 +439,6 @@ namespace WebApplication1.Controllers
                 _db.RAMs.AddRange(fury_beast_black_kf426c16bb_8);
                 _db.RAMManufacturers.Add(kingston);
                 _db.Computers.Add(my_pc);
-                //_db.ComputerManufacturers.Add(acer);
                 _db.HDDs.AddRange(blue_wd5000azlx, enterprise_capacity_mg09ava18te, exos_X20_st20000nm007d);
                 _db.HDDManufacturers.AddRange(wd, seagate);
                 _db.SSDs.AddRange(_870_evo_mz_77e250bw);

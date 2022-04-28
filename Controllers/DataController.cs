@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using WebApplication1.CustomUtilities;
 using WebApplication1.Data.Products;
+using WebApplication1.Data.VirtualClasses;
 
 namespace WebApplication1.Controllers
 {
@@ -29,7 +31,7 @@ namespace WebApplication1.Controllers
         [HttpPost]
         public async Task<IActionResult> CPU_Create(CPU product)
         {
-            if (ModelState.IsValid)
+            if (ModelState.ErrorCount <= 1)
             {
                 _db.CPUs.Add(product);
                 await _db.SaveChangesAsync();
@@ -92,7 +94,7 @@ namespace WebApplication1.Controllers
         [HttpPost]
         public async Task<IActionResult> CPU_Edit(CPU cpu)
         {
-            if (ModelState.IsValid)
+            if (ModelState.ErrorCount <= 1)
             {
                 _db.CPUs.Update(cpu);
                 await _db.SaveChangesAsync();
@@ -111,7 +113,7 @@ namespace WebApplication1.Controllers
         [HttpPost]
         public async Task<IActionResult> Frame_Create(ComputerFrame product)
         {
-            if (ModelState.IsValid)
+            if (ModelState.ErrorCount <= 1)
             {
                 _db.ComputerFrames.Add(product);
                 await _db.SaveChangesAsync();
@@ -173,7 +175,7 @@ namespace WebApplication1.Controllers
         [HttpPost]
         public async Task<IActionResult> Frame_Edit(ComputerFrame product)
         {
-            if (ModelState.IsValid)
+            if (ModelState.ErrorCount <= 1)
             {
                 _db.ComputerFrames.Update(product);
                 await _db.SaveChangesAsync();
@@ -191,7 +193,7 @@ namespace WebApplication1.Controllers
         [HttpPost]
         public async Task<IActionResult> GPU_Create(GPU product)
         {
-            if (ModelState.IsValid)
+            if (ModelState.ErrorCount <= 1)
             {
                 _db.GPUs.Add(product);
                 await _db.SaveChangesAsync();
@@ -253,7 +255,7 @@ namespace WebApplication1.Controllers
         [HttpPost]
         public async Task<IActionResult> GPU_Edit(GPU product)
         {
-            if (ModelState.IsValid)
+             if (ModelState.ErrorCount<=1)
             {
                 _db.GPUs.Update(product);
                 await _db.SaveChangesAsync();
@@ -271,7 +273,7 @@ namespace WebApplication1.Controllers
         [HttpPost]
         public async Task<IActionResult> HDD_Create(HDD product)
         {
-            if (ModelState.IsValid)
+            if (ModelState.ErrorCount <= 1)
             {
                 _db.HDDs.Add(product);
                 await _db.SaveChangesAsync();
@@ -333,7 +335,7 @@ namespace WebApplication1.Controllers
         [HttpPost]
         public async Task<IActionResult> HDD_Edit(HDD product)
         {
-            if (ModelState.IsValid)
+             if (ModelState.ErrorCount<=1)
             {
                 _db.HDDs.Update(product);
                 await _db.SaveChangesAsync();
@@ -351,7 +353,8 @@ namespace WebApplication1.Controllers
         [HttpPost]
         public async Task<IActionResult> Motherboard_Create(Motherboard product)
         {
-            if (ModelState.IsValid)
+           
+            if (ModelState.ErrorCount <= 1)
             {
                 _db.Motherboards.Add(product);
                 await _db.SaveChangesAsync();
@@ -413,7 +416,7 @@ namespace WebApplication1.Controllers
         [HttpPost]
         public async Task<IActionResult> Motherboard_Edit(Motherboard product)
         {
-            if (ModelState.IsValid)
+             if (ModelState.ErrorCount<=1)
             {
                 _db.Motherboards.Update(product);
                 await _db.SaveChangesAsync();
@@ -431,7 +434,7 @@ namespace WebApplication1.Controllers
         [HttpPost]
         public async Task<IActionResult> Phone_Create(Phone product)
         {
-            if (ModelState.IsValid)
+            if (ModelState.ErrorCount <= 1)
             {
                 _db.Phones.Add(product);
                 await _db.SaveChangesAsync();
@@ -493,7 +496,7 @@ namespace WebApplication1.Controllers
         [HttpPost]
         public async Task<IActionResult> Phone_Edit(Phone product)
         {
-            if (ModelState.IsValid)
+             if (ModelState.ErrorCount<=1)
             {
                 _db.Phones.Update(product);
                 await _db.SaveChangesAsync();
@@ -511,7 +514,7 @@ namespace WebApplication1.Controllers
         [HttpPost]
         public async Task<IActionResult> PowerSupply_Create(PowerSupply product)
         {
-            if (ModelState.IsValid)
+            if (ModelState.ErrorCount <= 1)
             {
                 _db.PowerSupplies.Add(product);
                 await _db.SaveChangesAsync();
@@ -537,8 +540,7 @@ namespace WebApplication1.Controllers
         {
             if (id != null)
             {
-                Phone product = await _db.Phones.Include(m => m.Manufacturer).FirstOrDefaultAsync(p => p.Id == id);
-
+                PowerSupply product = await _db.PowerSupplies.Include(m => m.Manufacturer).FirstOrDefaultAsync(p => p.Id == id);
                 if (product != null)
                     return View("~/Views/Data/PowerSupply/PowerSupply_Delete.cshtml", product);
             }
@@ -573,7 +575,7 @@ namespace WebApplication1.Controllers
         [HttpPost]
         public async Task<IActionResult> PowerSupply_Edit(PowerSupply product)
         {
-            if (ModelState.IsValid)
+             if (ModelState.ErrorCount<=1)
             {
                 _db.PowerSupplies.Update(product);
                 await _db.SaveChangesAsync();
@@ -591,7 +593,7 @@ namespace WebApplication1.Controllers
         [HttpPost]
         public async Task<IActionResult> RAM_Create(RAM product)
         {
-            if (ModelState.IsValid)
+            if (ModelState.ErrorCount <= 1)
             {
                 _db.RAMs.Add(product);
                 await _db.SaveChangesAsync();
@@ -641,6 +643,7 @@ namespace WebApplication1.Controllers
 
         public async Task<IActionResult> RAM_Edit(int? id)
         {
+            
             if (id != null)
             {
                 RAM product = await _db.RAMs.Include(m => m.Manufacturer).FirstOrDefaultAsync(p => p.Id == id);
@@ -653,7 +656,7 @@ namespace WebApplication1.Controllers
         [HttpPost]
         public async Task<IActionResult> RAM_Edit(RAM product)
         {
-            if (ModelState.IsValid)
+            if (ModelState.ErrorCount <= 1)
             {
                 _db.RAMs.Update(product);
                 await _db.SaveChangesAsync();
@@ -671,7 +674,7 @@ namespace WebApplication1.Controllers
         [HttpPost]
         public async Task<IActionResult> SSD_Create(SSD product)
         {
-            if (ModelState.IsValid)
+            if (ModelState.ErrorCount <= 1)
             {
                 _db.SSDs.Add(product);
                 await _db.SaveChangesAsync();
@@ -733,7 +736,7 @@ namespace WebApplication1.Controllers
         [HttpPost]
         public async Task<IActionResult> SSD_Edit(SSD product)
         {
-            if (ModelState.IsValid)
+             if (ModelState.ErrorCount<=1)
             {
                 _db.SSDs.Update(product);
                 await _db.SaveChangesAsync();

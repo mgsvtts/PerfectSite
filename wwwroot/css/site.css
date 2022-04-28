@@ -110,7 +110,7 @@ body {
 
 .input-validation-error {
     border: 1px solid:#ff0000;
-    background-color: #fee;
+    background-color: #ff0000;
 }
 
 .validation-summary-errors {

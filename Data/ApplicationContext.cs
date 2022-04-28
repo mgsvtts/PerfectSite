@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using WebApplication1.Data.Manufacturers;
 using WebApplication1.Data.Manufacturers.CPUManufacturers;
 using WebApplication1.Data.Manufacturers.GPUManufacturers;
 using WebApplication1.Data.Manufacturers.HDDManufacturers;
@@ -11,6 +12,7 @@ using WebApplication1.Data.Manufacturers.SSDManufacturers;
 using WebApplication1.Data.ManufacturersComputerFrameManufacturers;
 using WebApplication1.Data.ManufacturersComputerManufacturers;
 using WebApplication1.Data.Products;
+using WebApplication1.Data.VirtualClasses;
 using WebApplication1.Models;
 
 namespace WebApplication1
@@ -49,7 +51,7 @@ namespace WebApplication1
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            modelBuilder.Entity<CPU>().HasOne(cpu => cpu.Manufacturer).WithMany(c => c.Products).OnDelete(DeleteBehavior.NoAction);
+            //modelBuilder.Entity<CPU>().HasOne(cpu => cpu.Manufacturer).WithMany(c => c.Products).OnDelete(DeleteBehavior.NoAction);
             modelBuilder.Entity<Phone>().Property(p => p.Price).HasDefaultValue(0);
             modelBuilder.Entity<Computer>().Property(p => p.Price).HasDefaultValue(0);
             modelBuilder.Entity<ComputerFrame>().Property(p => p.Price).HasDefaultValue(0);
@@ -60,6 +62,29 @@ namespace WebApplication1
             modelBuilder.Entity<Motherboard>().Property(p => p.Price).HasDefaultValue(0);
             modelBuilder.Entity<PowerSupply>().Property(p => p.Price).HasDefaultValue(0);
             modelBuilder.Entity<RAM>().Property(p => p.Price).HasDefaultValue(0);
+            modelBuilder.Entity<CPU>().Property(p => p.ModelName).HasDefaultValue("Unknown");
+            modelBuilder.Entity<Phone>().Property(p => p.ModelName).HasDefaultValue("Unknown");
+            modelBuilder.Entity<Computer>().Property(p => p.ModelName).HasDefaultValue("Unknown");
+            modelBuilder.Entity<ComputerFrame>().Property(p => p.ModelName).HasDefaultValue("Unknown");
+            modelBuilder.Entity<CPU>().Property(p => p.ModelName).HasDefaultValue("Unknown");
+            modelBuilder.Entity<GPU>().Property(p => p.ModelName).HasDefaultValue("Unknown");
+            modelBuilder.Entity<HDD>().Property(p => p.ModelName).HasDefaultValue("Unknown");
+            modelBuilder.Entity<SSD>().Property(p => p.ModelName).HasDefaultValue("Unknown");
+            modelBuilder.Entity<Motherboard>().Property(p => p.ModelName).HasDefaultValue("Unknown");
+            modelBuilder.Entity<PowerSupply>().Property(p => p.ModelName).HasDefaultValue("Unknown");
+            modelBuilder.Entity<RAM>().Property(p => p.ModelName).HasDefaultValue("Unknown");
+            modelBuilder.Entity<CPU>().Property(p => p.Amount).HasDefaultValue(0);
+            modelBuilder.Entity<Phone>().Property(p => p.Amount).HasDefaultValue(0);
+            modelBuilder.Entity<Computer>().Property(p => p.Amount).HasDefaultValue(0);
+            modelBuilder.Entity<ComputerFrame>().Property(p => p.Amount).HasDefaultValue(0);
+            modelBuilder.Entity<CPU>().Property(p => p.Amount).HasDefaultValue(0);
+            modelBuilder.Entity<GPU>().Property(p => p.Amount).HasDefaultValue(0);
+            modelBuilder.Entity<HDD>().Property(p => p.Amount).HasDefaultValue(0);
+            modelBuilder.Entity<SSD>().Property(p => p.Amount).HasDefaultValue(0);
+            modelBuilder.Entity<Motherboard>().Property(p => p.Amount).HasDefaultValue(0);
+            modelBuilder.Entity<PowerSupply>().Property(p => p.Amount).HasDefaultValue(0);
+            modelBuilder.Entity<RAM>().Property(p => p.Amount).HasDefaultValue(0);
+            modelBuilder.Entity<Order>().Property(p => p.Quantity).HasDefaultValue(1);
         }
     }
 }

@@ -30,6 +30,8 @@ namespace WebApplication1
             }).AddEntityFrameworkStores<ApplicationContext>()
             .AddTokenProvider<DataProtectorTokenProvider<User>>(TokenOptions.DefaultProvider); ;
 
+            services.AddMemoryCache();
+            services.AddSession();
             services.AddAuthorization();
             services.AddControllersWithViews();
         }
@@ -47,6 +49,8 @@ namespace WebApplication1
             app.UseAuthentication();
 
             app.UseAuthorization();
+
+            
 
             app.UseEndpoints(endpoints =>
             {

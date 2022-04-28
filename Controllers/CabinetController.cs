@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using WebApplication1.Models;
 using WebApplication1.ViewModels.Cabinet;
 
@@ -164,6 +165,13 @@ namespace WebApplication1.Controllers
             }
 
             return RedirectToAction(currentPage, model);
+        }
+
+        public async Task<IActionResult> MyOrders()
+        {
+            User user = await _userManager.FindByEmailAsync(User.Identity.Name);
+            
+            return View(await _db.Orders.Where(u => u.UserId == user.Id).ToListAsync());
         }
     }
 }
