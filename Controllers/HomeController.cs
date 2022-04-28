@@ -32,5 +32,14 @@ namespace PerfectSite.Controllers
         {
             return View(await _db.Orders.ToListAsync());
         }
+
+        public IActionResult DownloadDocumentation()
+        {
+            string file_path = Path.Combine(_environment.WebRootPath, "Documentation/Important.png");
+            byte[] bytes = System.IO.File.ReadAllBytes(file_path);
+            string file_type = "image/png";
+            string file_name = "Важная документация.png";
+            return File(bytes, file_type, file_name);
+        }
     }
 }
