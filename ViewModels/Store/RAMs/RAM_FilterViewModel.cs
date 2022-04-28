@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
-using WebApplication1.Data.Manufacturers.RAMManufacturer;
-using WebApplication1.ViewModels.PageSortFilter;
+using PerfectSite.Data.Manufacturers.RAMManufacturer;
+using PerfectSite.ViewModels.PageSortFilter;
 
-namespace WebApplication1.ViewModels.Store.RAMs
+namespace PerfectSite.ViewModels.Store.RAMs
 {
     public class RAM_FilterViewModel : FilterViewModel
     {

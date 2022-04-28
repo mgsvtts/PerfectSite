@@ -1,7 +1,6 @@
-﻿using WebApplication1.Data.Products;
-using System.ComponentModel.DataAnnotations;
+﻿using PerfectSite.Data.Products;
 
-namespace WebApplication1.Data.Manufacturers.MotherboardManufacturers
+namespace PerfectSite.Data.Manufacturers.MotherboardManufacturers
 {
     public class MSI : MotherboardManufacturer
     {

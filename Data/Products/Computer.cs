@@ -1,11 +1,10 @@
-﻿using WebApplication1.Data.ManufacturersComputerManufacturers;
-using WebApplication1.Data.VirtualClasses;
+﻿using PerfectSite.Data.ManufacturersComputerManufacturers;
+using PerfectSite.Data.VirtualClasses;
 
-namespace WebApplication1.Data.Products
+namespace PerfectSite.Data.Products
 {
     public class Computer : VirtualProduct
     {
-
         public ComputerManufacturer? Manufacturer { get; set; }
         public int CPUId { get; set; }
         public CPU CPU { get; set; }

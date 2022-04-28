@@ -1,6 +1,6 @@
-﻿using WebApplication1.Data.Products;
+﻿using PerfectSite.Data.Products;
 
-namespace WebApplication1.Data.Manufacturers.RAMManufacturer
+namespace PerfectSite.Data.Manufacturers.RAMManufacturer
 {
     public class Kingston : RAMManufacturer
     {

@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
 
-namespace WebApplication1.ViewModels.PageSortFilter
+namespace PerfectSite.ViewModels.PageSortFilter
 {
     public class FilterViewModel
     {

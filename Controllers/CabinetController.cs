@@ -2,10 +2,10 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using WebApplication1.Models;
-using WebApplication1.ViewModels.Cabinet;
+using PerfectSite.Models;
+using PerfectSite.ViewModels.Cabinet;
 
-namespace WebApplication1.Controllers
+namespace PerfectSite.Controllers
 {
     [Authorize]
     public class CabinetController : Controller
@@ -170,7 +170,7 @@ namespace WebApplication1.Controllers
         public async Task<IActionResult> MyOrders()
         {
             User user = await _userManager.FindByEmailAsync(User.Identity.Name);
-            
+
             return View(await _db.Orders.Where(u => u.UserId == user.Id).ToListAsync());
         }
     }

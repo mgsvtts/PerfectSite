@@ -1,11 +1,10 @@
-﻿using WebApplication1.Data.Manufacturers.CPUManufacturers;
-using WebApplication1.Data.VirtualClasses;
+﻿using PerfectSite.Data.Manufacturers.CPUManufacturers;
+using PerfectSite.Data.VirtualClasses;
 
-namespace WebApplication1.Data.Products
+namespace PerfectSite.Data.Products
 {
     public class CPU : VirtualProduct
     {
-
         public CPUManufacturer Manufacturer { get; set; }
         public double Speed { get; set; }
         public string Socket { get; set; }

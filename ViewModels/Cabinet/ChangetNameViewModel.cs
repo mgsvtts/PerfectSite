@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace WebApplication1.ViewModels.Cabinet
+namespace PerfectSite.ViewModels.Cabinet
 {
     public class ChangeNameViewModel
     {
@@ -10,7 +10,7 @@ namespace WebApplication1.ViewModels.Cabinet
 
         public string OldName { get; set; }
 
-        [Required(ErrorMessage = "Заполните поле"),MaxLength(50, ErrorMessage = "Длина должна быть меньше 50")]
+        [Required(ErrorMessage = "Заполните поле"), MaxLength(50, ErrorMessage = "Длина должна быть меньше 50")]
         public string NewName { get; set; }
     }
 }

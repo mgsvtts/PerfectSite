@@ -1,7 +1,7 @@
-﻿using WebApplication1.Data.ManufacturersComputerFrameManufacturers;
-using WebApplication1.Data.Products;
+﻿using PerfectSite.Data.ManufacturersComputerFrameManufacturers;
+using PerfectSite.Data.Products;
 
-namespace WebApplication1.Data.Manufacturers.ComputerFrameManufacturers
+namespace PerfectSite.Data.Manufacturers.ComputerFrameManufacturers
 {
     public class AeroCool : ComputerFrameManufacturer
     {

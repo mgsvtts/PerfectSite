@@ -1,10 +1,10 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using WebApplication1.Models;
-using WebApplication1.ViewModels.Account;
+using PerfectSite.Models;
+using PerfectSite.ViewModels.Account;
 
-namespace WebApplication1.Controllers
+namespace PerfectSite.Controllers
 {
     public class AccountController : Controller
     {
@@ -98,7 +98,6 @@ namespace WebApplication1.Controllers
                 {
                     if (!string.IsNullOrEmpty(model.ReturnUrl) && Url.IsLocalUrl(model.ReturnUrl))
                         return Redirect(model.ReturnUrl);
-                    
 
                     return RedirectToAction("Index", "Home");
                 }

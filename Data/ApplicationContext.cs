@@ -1,21 +1,19 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using WebApplication1.Data.Manufacturers;
-using WebApplication1.Data.Manufacturers.CPUManufacturers;
-using WebApplication1.Data.Manufacturers.GPUManufacturers;
-using WebApplication1.Data.Manufacturers.HDDManufacturers;
-using WebApplication1.Data.Manufacturers.MotherboardManufacturers;
-using WebApplication1.Data.Manufacturers.PhoneManufacturers;
-using WebApplication1.Data.Manufacturers.PowerSupplyManufacturers;
-using WebApplication1.Data.Manufacturers.RAMManufacturer;
-using WebApplication1.Data.Manufacturers.SSDManufacturers;
-using WebApplication1.Data.ManufacturersComputerFrameManufacturers;
-using WebApplication1.Data.ManufacturersComputerManufacturers;
-using WebApplication1.Data.Products;
-using WebApplication1.Data.VirtualClasses;
-using WebApplication1.Models;
+using PerfectSite.Data.Manufacturers.CPUManufacturers;
+using PerfectSite.Data.Manufacturers.GPUManufacturers;
+using PerfectSite.Data.Manufacturers.HDDManufacturers;
+using PerfectSite.Data.Manufacturers.MotherboardManufacturers;
+using PerfectSite.Data.Manufacturers.PhoneManufacturers;
+using PerfectSite.Data.Manufacturers.PowerSupplyManufacturers;
+using PerfectSite.Data.Manufacturers.RAMManufacturer;
+using PerfectSite.Data.Manufacturers.SSDManufacturers;
+using PerfectSite.Data.ManufacturersComputerFrameManufacturers;
+using PerfectSite.Data.ManufacturersComputerManufacturers;
+using PerfectSite.Data.Products;
+using PerfectSite.Models;
 
-namespace WebApplication1
+namespace PerfectSite
 {
     public class ApplicationContext : IdentityDbContext<User>
     {
@@ -51,7 +49,7 @@ namespace WebApplication1
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            //modelBuilder.Entity<CPU>().HasOne(cpu => cpu.Manufacturer).WithMany(c => c.Products).OnDelete(DeleteBehavior.NoAction);
+            modelBuilder.Entity<CPU>().HasOne(cpu => cpu.Manufacturer).WithMany(c => c.Products).OnDelete(DeleteBehavior.NoAction);
             modelBuilder.Entity<Phone>().Property(p => p.Price).HasDefaultValue(0);
             modelBuilder.Entity<Computer>().Property(p => p.Price).HasDefaultValue(0);
             modelBuilder.Entity<ComputerFrame>().Property(p => p.Price).HasDefaultValue(0);

@@ -1,6 +1,6 @@
-﻿namespace WebApplication1.Data.VirtualClasses
+﻿namespace PerfectSite.Data.VirtualClasses
 {
-    public class VirtualManufacturer 
+    public class VirtualManufacturer
     {
         public int Id { get; set; }
         public virtual string Name { get; set; }

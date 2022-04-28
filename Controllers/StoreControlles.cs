@@ -1,30 +1,29 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using WebApplication1.Data.Manufacturers.CPUManufacturers;
-using WebApplication1.Data.Manufacturers.GPUManufacturers;
-using WebApplication1.Data.Manufacturers.HDDManufacturers;
-using WebApplication1.Data.Manufacturers.MotherboardManufacturers;
-using WebApplication1.Data.Manufacturers.PhoneManufacturers;
-using WebApplication1.Data.Manufacturers.PowerSupplyManufacturers;
-using WebApplication1.Data.Manufacturers.RAMManufacturer;
-using WebApplication1.Data.Manufacturers.SSDManufacturers;
-using WebApplication1.Data.ManufacturersComputerFrameManufacturers;
-using WebApplication1.Data.ManufacturersComputerManufacturers;
-using WebApplication1.Data.Products;
-using WebApplication1.ViewModels.PageSortFilter;
-using WebApplication1.ViewModels.Store;
-using WebApplication1.ViewModels.Store.ComputerFrames;
-using WebApplication1.ViewModels.Store.Computers;
-using WebApplication1.ViewModels.Store.CPUs;
-using WebApplication1.ViewModels.Store.GPUs;
-using WebApplication1.ViewModels.Store.HDDs;
-using WebApplication1.ViewModels.Store.Motherboards;
-using WebApplication1.ViewModels.Store.Phones;
-using WebApplication1.ViewModels.Store.PowerSupplies;
-using WebApplication1.ViewModels.Store.RAMs;
-using WebApplication1.ViewModels.Store.SSDs;
+using PerfectSite.Data.Manufacturers.CPUManufacturers;
+using PerfectSite.Data.Manufacturers.GPUManufacturers;
+using PerfectSite.Data.Manufacturers.HDDManufacturers;
+using PerfectSite.Data.Manufacturers.MotherboardManufacturers;
+using PerfectSite.Data.Manufacturers.PhoneManufacturers;
+using PerfectSite.Data.Manufacturers.PowerSupplyManufacturers;
+using PerfectSite.Data.Manufacturers.RAMManufacturer;
+using PerfectSite.Data.Manufacturers.SSDManufacturers;
+using PerfectSite.Data.ManufacturersComputerFrameManufacturers;
+using PerfectSite.Data.Products;
+using PerfectSite.ViewModels.PageSortFilter;
+using PerfectSite.ViewModels.Store;
+using PerfectSite.ViewModels.Store.ComputerFrames;
+using PerfectSite.ViewModels.Store.Computers;
+using PerfectSite.ViewModels.Store.CPUs;
+using PerfectSite.ViewModels.Store.GPUs;
+using PerfectSite.ViewModels.Store.HDDs;
+using PerfectSite.ViewModels.Store.Motherboards;
+using PerfectSite.ViewModels.Store.Phones;
+using PerfectSite.ViewModels.Store.PowerSupplies;
+using PerfectSite.ViewModels.Store.RAMs;
+using PerfectSite.ViewModels.Store.SSDs;
 
-namespace WebApplication1.Controllers
+namespace PerfectSite.Controllers
 {
     public class StoreController : Controller
     {
@@ -39,6 +38,22 @@ namespace WebApplication1.Controllers
                 CPUManufacturer intel = new Data.Manufacturers.CPUManufacturers.Intel { Name = "Intel" };
                 CPUManufacturer cpu_amd = new Data.Manufacturers.CPUManufacturers.AMD { Name = "AMD" };
                 PhoneManufacturer phone_asus = new Data.Manufacturers.PhoneManufacturers.Asus { Name = "Asus" };
+                CPUManufacturer baikal = new CPUManufacturer { Name = "Baikal" };
+
+                CPU baikal_t1 = new CPU
+                {
+                    ModelName = "Baikal-T1",
+                    Amount = 100,
+                    Cores = 2,
+                    Threads = 0,
+                    Manufacturer = baikal,
+                    PowerUsage = 5,
+                    Price = 999_999,
+                    Socket = "POWERFUL",
+                    Speed = 1.2,
+                    BoughtTimes = 0,
+                    Description = "Baikal-T1 — российский процессор семейства Baikal, созданный российской бесфабричной компанией Baikal Electronics с использованием двух 32-битных процессорных ядер P5600 архитектуры MIPS32 Release 5 от компании Imagination Technologies."
+                };
 
                 CPU ryzen_5_3600 = new CPU
                 {
@@ -56,7 +71,6 @@ namespace WebApplication1.Controllers
                     "а также обеспечивает эффективность многозадачного режима. Устройство поддерживает систему Wraith Stealth, отвечающую за охлаждение и предотвращающую перегрев." +
                     "Рабочая частота AMD Ryzen 5 3600 составляет 3,6 ГГц, но в режиме Turbo она увеличивается до 4,2 ГГц, что приводит к увеличению мощности ПК. Процессор совместим с двухканальной оперативной памятью DDR4."
                 };
-
                 CPU i5_9400f = new CPU
                 {
                     ModelName = "Intel Core I5-9400F",
@@ -121,6 +135,9 @@ namespace WebApplication1.Controllers
                     "Удобный в использовании процессор AMD Ryzen 5 5600X имеет поддержку памяти типа DDR4 с 2 каналами. Графическое ядро отсутствует, поэтому пользователю важно самостоятельно подобрать видеокарту. Тепловыделение процессора достигает 65 Вт, что важно учитывать при выборе системы охлаждения. Ведь кулер в комплектацию данной модели не входит."
                 };
 
+                PhoneManufacturer apple = new PhoneManufacturer { Name = "Apple" };
+                PhoneManufacturer samsung = new PhoneManufacturer { Name = "Samsung" };
+                PhoneManufacturer xiaomi = new PhoneManufacturer { Name = "Xiaomi" };
                 Phone zenfone_5z = new Phone
                 {
                     ModelName = "Zenfone 5Z",
@@ -129,10 +146,34 @@ namespace WebApplication1.Controllers
                     Price = 25_000
                 };
 
+                Phone iPhone_12_256gb = new Phone
+                {
+                    ModelName = "Apple iPhone 12 256Gb",
+                    Amount = 10,
+                    BoughtTimes = 0,
+                    Manufacturer = apple,
+                    Price = 83_990
+                };
+
+                Phone galaxy_z_flip3_8 = new Phone
+                {
+                    ModelName = " Galaxy Z Flip3 8",
+                    Manufacturer = samsung,
+                    BoughtTimes = 0,
+                    Price = 94_990,
+                };
+                Phone xiaomi_12x_8 = new Phone
+                {
+                    ModelName = "Xiaomi 12X 8",
+                    Manufacturer = xiaomi,
+                    BoughtTimes = 0,
+                    Price = 79_990
+                };
                 Data.Manufacturers.ComputerFrameManufacturers.AeroCool frame_aerocool = new Data.Manufacturers.ComputerFrameManufacturers.AeroCool { Name = "AeroCool" };
 
                 Zalman zalman = new Zalman { Name = "Zalman" };
-
+                CoolerMaster coolerMaster = new CoolerMaster { Name = "Cooler Master" };
+                Data.ManufacturersComputerFrameManufacturers.Thermaltake thermaltake = new Data.ManufacturersComputerFrameManufacturers.Thermaltake { Name = "Thermaltake" };
                 ComputerFrame quartz_revo = new ComputerFrame
                 {
                     ModelName = "Quartz REVO",
@@ -165,6 +206,27 @@ namespace WebApplication1.Controllers
                     Size = "MIDI Tower",
                     BoughtTimes = 0
                 };
+                ComputerFrame mastercase_h100_iron_grey_argb = new ComputerFrame
+                {
+                    ModelName = "MasterCase H100 Iron Grey ARGB",
+                    Manufacturer = coolerMaster,
+                    Amount = 20,
+                    Price = 5530,
+                    GPULength = 210,
+                    Size = "Micro-Tower",
+                    BoughtTimes = 0
+                };
+
+                ComputerFrame ah_t600_snow_full_tower_chassis = new ComputerFrame
+                {
+                    ModelName = "AH T600 Snow Full Tower Chassis",
+                    Manufacturer = thermaltake,
+                    Amount = 15,
+                    Price = 15599,
+                    GPULength = 440,
+                    Size = "Full Tower",
+                    BoughtTimes = 0
+                };
 
                 GPUManufacturer nvidia = new GPUManufacturer { Name = "Nvidia" };
                 GPUManufacturer gpu_amd = new GPUManufacturer { Name = "AMD" };
@@ -187,7 +249,7 @@ namespace WebApplication1.Controllers
 
                 GPU rx_6900_xt = new GPU
                 {
-                    ModelName = "RX 6900XT",
+                    ModelName = "Radeon RX 6900XT",
                     Manufacturer = gpu_amd,
                     Amount = 7,
                     Price = 158_990,
@@ -261,7 +323,7 @@ namespace WebApplication1.Controllers
 
                 GPU rx_6800_xt = new GPU
                 {
-                    ModelName = "RX 6800XT",
+                    ModelName = "Radeon RX 6800XT",
                     Manufacturer = gpu_amd,
                     Amount = 15,
                     Price = 145_990,
@@ -275,7 +337,7 @@ namespace WebApplication1.Controllers
 
                 GPU rx_5600_xt = new GPU
                 {
-                    ModelName = "RX 5600XT",
+                    ModelName = "Radeon RX 5600XT",
                     Manufacturer = gpu_amd,
                     Amount = 25,
                     Price = 65_990,
@@ -289,7 +351,7 @@ namespace WebApplication1.Controllers
 
                 GPU rx_6700_xt = new GPU
                 {
-                    ModelName = "RX 6700XT",
+                    ModelName = "Radeon RX 6700XT",
                     Manufacturer = gpu_amd,
                     Amount = 200,
                     Price = 99_990,
@@ -301,6 +363,19 @@ namespace WebApplication1.Controllers
                     BoughtTimes = 60
                 };
 
+                GPU rx_6500_xt = new GPU
+                {
+                    ModelName = "Radeon RX 6500XT",
+                    Manufacturer = gpu_amd,
+                    Amount = 500,
+                    Price = 34_000,
+                    Size = 282,
+                    MemorySize = 4,
+                    MemoryFrequency = 1800,
+                    GPUFrequency = 2685,
+                    MemoryType = "GDDR6",
+                    BoughtTimes = 0
+                };
                 HDDManufacturer seagate = new HDDManufacturer { Name = "Seagate" };
                 HDDManufacturer toshiba = new HDDManufacturer { Name = "Toshiba" };
                 HDDManufacturer wd = new HDDManufacturer { Name = "WD" };
@@ -344,6 +419,35 @@ namespace WebApplication1.Controllers
 
                 MotherboardManufacturer motherboard_asus = new MotherboardManufacturer { Name = "Asus" };
                 MotherboardManufacturer asrock = new MotherboardManufacturer { Name = "ASRock" };
+                MotherboardManufacturer gigabyte = new MotherboardManufacturer { Name = "GIGABYTE" };
+                MotherboardManufacturer msi = new MotherboardManufacturer { Name = "MSI" };
+
+                Motherboard trx40_aorus_pro_wifi = new Motherboard
+                {
+                    ModelName = "GIGABYTE TRX40 AORUS PRO WIFI",
+                    Amount = 400,
+                    FormFactor = "ATX",
+                    Manufacturer = gigabyte,
+                    MemorySlots = 8,
+                    MemoryType = "DDR4",
+                    Socket = "sTRX4",
+                    Price = 36_700,
+                    BoughtTimes = 0
+                };
+
+                Motherboard z490_a_pro = new Motherboard
+                {
+                    ModelName = "MSI Z490-A PRO",
+                    Amount = 5,
+                    FormFactor = "ATX",
+                    Manufacturer = msi,
+                    MemorySlots = 4,
+                    MemoryType = "DDR4",
+                    Socket = "LGA 1200",
+                    BoughtTimes = 0,
+                    Price = 16_799
+                };
+
                 Motherboard rog_maximus_z690_apex = new Motherboard
                 {
                     ModelName = "Asus ROG MAXIMUS Z690 APEX",
@@ -353,6 +457,7 @@ namespace WebApplication1.Controllers
                     MemorySlots = 2,
                     MemoryType = "DDR5",
                     Socket = "LGA 1700",
+                    BoughtTimes = 0,
                     Price = 70_080
                 };
 
@@ -373,6 +478,9 @@ namespace WebApplication1.Controllers
                 };
 
                 PowerSupplyManufacturer aerocool = new PowerSupplyManufacturer { Name = "AeroCool" };
+                PowerSupplyManufacturer be_quiet = new PowerSupplyManufacturer { Name = "Be Quiet!" };
+                PowerSupplyManufacturer corsair = new PowerSupplyManufacturer { Name = "Corsair" };
+                PowerSupplyManufacturer powerSupply_thermaltake = new PowerSupplyManufacturer { Name = "Thermaltake" };
 
                 PowerSupply kcas_plus_700 = new PowerSupply
                 {
@@ -387,8 +495,80 @@ namespace WebApplication1.Controllers
                     "AEROCOOL KCAS PLUS 700 укомплектован набором кабелей. Это гарантирует надежное и безопасное подключение элементов системы. В комплекте также имеются крепежные винты, обеспечивающие надежную фиксацию блока. Достоинством данного БП считается высокий уровень КПД, степень защиты, удобство монтажа и малошумность."
                 };
 
-                RAMManufacturer kingston = new RAMManufacturer { Name = "Kingston" };
+                PowerSupply hxi1200 = new PowerSupply
+                {
+                    ModelName = "Corsair HXi1200",
+                    Manufacturer = corsair,
+                    Amount = 55,
+                    Certificate = "80 PLUS PLATINUM",
+                    Power = 1200,
+                    Price = 30_140,
+                    BoughtTimes = 0,
+                    Description = "Блок питания CORSAIR HX Series™ отличается высокой эффективностью, подтвержденной сертификацией 80 PLUS PLATINUM, чрезвычайно точной регулировкой напряжения и режимом нулевой скорости вращения вентилятора Zero RPM, что обеспечивает практически бесшумную работу."
+                };
 
+                PowerSupply dark_power_pro_12 = new PowerSupply
+                {
+                    ModelName = "DARK POWER PRO 12",
+                    Manufacturer = be_quiet,
+                    Amount = 100,
+                    BoughtTimes = 0,
+                    Certificate = "80 PLUS TITANIUM",
+                    Power = 1500,
+                    Price = 47_999,
+                    Description = "be quiet! Dark Power Pro 12 1500W с эффективностью 80 PLUS® Titanium и производительностью мирового класса благодаря полностью цифровому управлению и бескаркасной концепции вентилятора."
+                };
+
+                PowerSupply toughpower_pf1_argb = new PowerSupply
+                {
+                    ModelName = "Thermaltake Toughpower PF1 ARGB",
+                    Manufacturer = powerSupply_thermaltake,
+                    Amount = 1000,
+                    BoughtTimes = 0,
+                    Certificate = "80 PLUS PLATINUM",
+                    Power = 1050,
+                    Price = 24_700,
+                    Description = "Полностью модульный БП соответствующий стандарту 80 PLUS Platinum аналогового типа с вентилятором имеющим подсветку состоящей из 18 RGB адресных светодиодов."
+                };
+
+                RAMManufacturer kingston = new RAMManufacturer { Name = "Kingston" };
+                RAMManufacturer ram_corsair = new RAMManufacturer { Name = "Corsair" };
+                RAMManufacturer gskill = new RAMManufacturer { Name = "G.Skill" };
+                RAMManufacturer ram_samsung = new RAMManufacturer { Name = "Samsung" };
+
+                RAM dominator_platimun_rgb_cmt32gx5m2b5600c36_ddr5 = new RAM
+                {
+                    ModelName = "Corsair DOMINATOR PLATINUM RGB CMT32GX5M2B5600C36 DDR5",
+                    Manufacturer = ram_corsair,
+                    Amount = 100,
+                    MemorySize = 16,
+                    Speed = 5600,
+                    Price = 41_990,
+                    BoughtTimes = 0
+                };
+
+                RAM m378a5244cb0_cwe_ddr4 = new RAM
+                {
+                    ModelName = "Samsung M378A5244CB0-CWE DDR4",
+                    Manufacturer = ram_samsung,
+                    Amount = 200,
+                    MemorySize = 4,
+                    Speed = 3200,
+                    Price = 1990,
+                    BoughtTimes = 0
+                };
+
+                RAM trident_z5 = new RAM
+                {
+                    ModelName = "G.Skill TRIDENT Z5",
+                    Manufacturer = gskill,
+                    Amount = 180,
+                    MemorySize = 32,
+                    Speed = 5600,
+                    Price = 47990,
+                    BoughtTimes = 0,
+                    Description = "Оперативная память G.Skill TRIDENT Z5, представляющая из себя комплект из двух модулей по 16 ГБ, рассчитана на интенсивный характер эксплуатации в составе игрового системного блока высокого класса. Справиться с повышенной теплоотдачей способны массивные радиаторы оригинальной конструкции, предусмотренные конструкцией модулей. Тип памяти – DDR5. Устройство способно проявить себя и в составе мощного компьютера универсального назначения."
+                };
                 RAM fury_beast_black_kf426c16bb_8 = new RAM
                 {
                     ModelName = "Kingston Fury Beast Black KF426C16BB/8",
@@ -396,15 +576,30 @@ namespace WebApplication1.Controllers
                     Amount = 75,
                     MemorySize = 8,
                     Speed = 2666,
-                    Price = 3800
+                    Price = 3800,
+                    BoughtTimes = 0
                 };
 
-                SSDManufacturer samsung = new SSDManufacturer { Name = "Samsung" };
+                SSDManufacturer ssd_samsung = new SSDManufacturer { Name = "Samsung" };
+                SSDManufacturer ssd_intel = new SSDManufacturer { Name = "Intel" };
+                SSDManufacturer sanDisk = new SSDManufacturer { Name = "SanDisk" };
+                SSD dc_d3_s4510_ssdsc2kb038t801_3_8 = new SSD
+                {
+                    ModelName = "Intel DC D3-S4510 SSDSC2KB038T801 3.8ТБ",
+                    Manufacturer = ssd_intel,
+                    Amount = 250,
+                    FormFactor = 2.5,
+                    Bandwidth = 560,
+                    Interface = "SATA III",
+                    BoughtTimes = 0,
+                    Price = 139_990,
+                    Description = "Сочетая в себе высокую производительность и низкое энергопотребление SSD накопитель INTEL DC D3-S4510 SSDSC2KB038T801 способен улучшить эффективность работы центров обработки данных. Представленная модель выделяется высоким качеством и экономичностью. Идеально подходит для использования в компьютерной технике при необходимости проведения видеоконференций или для обработки большого объема информации."
+                };
 
                 SSD _870_evo_mz_77e250bw = new SSD
                 {
                     ModelName = "Samsung 870 EVO MZ-77E250BW",
-                    Manufacturer = samsung,
+                    Manufacturer = ssd_samsung,
                     Amount = 200,
                     FormFactor = 2.5,
                     Bandwidth = 530,
@@ -415,7 +610,17 @@ namespace WebApplication1.Controllers
                     "Представленный SSD накопитель SAMSUNG 870 EVO MZ-77E250BW работает бесшумно, потребляет незначительное количество энергии – 3.5 Вт (в режиме ожидания 0.03 Вт), имеет память типа 3D TLC и функционирует при помощи оригинального контроллера Samsung MGX. Перечисленные характеристики положительно влияют на скорость чтения и записи информации. Распространенный интерфейс SATA III обеспечит покупателю удобное подключение SSD к компьютеру, ноутбуку или другой технике."
                 };
 
-                ComputerManufacturer acer = new ComputerManufacturer { Name = "Acer" };
+                SSD sandisk_2_5_ultra_3d_2tb = new SSD
+                {
+                    ModelName = "SanDisk 2.5 Ultra 3D 2TB",
+                    Manufacturer = sanDisk,
+                    Amount = 100,
+                    FormFactor = 2.5,
+                    Bandwidth = 560,
+                    Interface = "SATA III",
+                    BoughtTimes = 0,
+                    Price = 26_000,
+                };
 
                 Computer my_pc = new Computer
                 {
@@ -430,27 +635,27 @@ namespace WebApplication1.Controllers
                     PowerSupply = kcas_plus_700,
                     Amount = 1,
                     Price = 0,
-                    BoughtTimes = 100,
+                    BoughtTimes = 0,
                     Description = "Компьютер, на котором был написан этот сайт"
                 };
-                _db.GPUs.AddRange(rx_6700_xt, rx_6800_xt, rx_6900_xt, rtx_3060, rtx_3070, rtx_3070_ti, rtx_3080, rtx_3080Ti, rx_5600_xt);
+                _db.GPUs.AddRange(rx_6700_xt, rx_6800_xt, rx_6900_xt, rtx_3060, rtx_3070, rtx_3070_ti, rtx_3080, rtx_3080Ti, rx_5600_xt, rx_6500_xt);
                 _db.GPUManufacturers.AddRange(gpu_amd, nvidia);
                 _db.CPUManufacturers.AddRange(intel, cpu_amd);
-                _db.RAMs.AddRange(fury_beast_black_kf426c16bb_8);
+                _db.RAMs.AddRange(fury_beast_black_kf426c16bb_8, dominator_platimun_rgb_cmt32gx5m2b5600c36_ddr5, m378a5244cb0_cwe_ddr4, trident_z5);
                 _db.RAMManufacturers.Add(kingston);
                 _db.Computers.Add(my_pc);
                 _db.HDDs.AddRange(blue_wd5000azlx, enterprise_capacity_mg09ava18te, exos_X20_st20000nm007d);
                 _db.HDDManufacturers.AddRange(wd, seagate);
-                _db.SSDs.AddRange(_870_evo_mz_77e250bw);
-                _db.SSDManufacturers.Add(samsung);
-                _db.Motherboards.AddRange(b450m_hdv_r4_0, rog_maximus_z690_apex);
+                _db.SSDs.AddRange(_870_evo_mz_77e250bw, sandisk_2_5_ultra_3d_2tb, dc_d3_s4510_ssdsc2kb038t801_3_8);
+                _db.SSDManufacturers.Add(ssd_samsung);
+                _db.Motherboards.AddRange(b450m_hdv_r4_0, rog_maximus_z690_apex, trx40_aorus_pro_wifi, z490_a_pro);
                 _db.MotherboardManufacturers.AddRange(asrock, motherboard_asus);
-                _db.PowerSupplies.Add(kcas_plus_700);
-                _db.CPUs.AddRange(ryzen_5_3600, i5_9400f, i3_10100F, ryzen_5_5600G, core_i9_11900);
+                _db.PowerSupplies.AddRange(kcas_plus_700, hxi1200, dark_power_pro_12, toughpower_pf1_argb);
+                _db.CPUs.AddRange(ryzen_5_3600, i5_9400f, i3_10100F, ryzen_5_5600G, core_i9_11900, baikal_t1);
                 _db.PowerSupplyManufacturers.Add(aerocool);
-                _db.Phones.Add(zenfone_5z);
+                _db.Phones.AddRange(zenfone_5z, iPhone_12_256gb, xiaomi_12x_8, galaxy_z_flip3_8);
                 _db.PhoneManufacturers.Add(phone_asus);
-                _db.ComputerFrames.AddRange(quartz_revo, cs_109_white, z11_plus_black);
+                _db.ComputerFrames.AddRange(quartz_revo, cs_109_white, z11_plus_black, mastercase_h100_iron_grey_argb, ah_t600_snow_full_tower_chassis);
 
                 _db.SaveChanges();
             }

@@ -1,13 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using WebApplication1.Data.VirtualClasses;
-using WebApplication1.Models;
+﻿using System.ComponentModel.DataAnnotations;
 
-namespace WebApplication1.ViewModels.Home
+namespace PerfectSite.ViewModels.Home
 {
     public class BuyViewModel
     {
@@ -18,10 +11,12 @@ namespace WebApplication1.ViewModels.Home
 
         [Required(ErrorMessage = "Введите адрес доставки")]
         public string Address { get; set; }
+
         public int ProductId { get; set; }
 
-        [Range(1,10, ErrorMessage = "Нельзя покупать меньше 1 или больше 10 товаров за раз")]
+        [Range(1, 10, ErrorMessage = "Нельзя покупать меньше 1 или больше 10 товаров за раз")]
         public int Quantity { get; set; }
+
         public DateTime CreatedAt { get; set; }
     }
 }

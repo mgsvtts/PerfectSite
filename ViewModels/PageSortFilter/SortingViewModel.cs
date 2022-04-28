@@ -1,4 +1,4 @@
-﻿namespace WebApplication1.ViewModels.PageSortFilter
+﻿namespace PerfectSite.ViewModels.PageSortFilter
 {
     public enum SortState
     {

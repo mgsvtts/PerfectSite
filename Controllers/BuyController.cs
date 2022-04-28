@@ -1,21 +1,17 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using WebApplication1.Data.Products;
-using WebApplication1.Models;
-using WebApplication1.ViewModels.Home;
+using PerfectSite.Data.Products;
+using PerfectSite.Models;
+using PerfectSite.ViewModels.Home;
 
-namespace WebApplication1.Controllers
+namespace PerfectSite.Controllers
 {
     public class BuyController : Controller
     {
         private readonly ApplicationContext _db;
         private readonly UserManager<User> _userManager;
+
         public BuyController(ApplicationContext db, UserManager<User> userManager)
         {
             _db = db;
@@ -25,13 +21,13 @@ namespace WebApplication1.Controllers
         [HttpGet]
         public async Task<IActionResult> CPU_Buy(int cpuId)
         {
-            if(cpuId != null)
+            if (cpuId != null)
             {
                 if (User.Identity.IsAuthenticated)
                 {
                     User user = await _userManager.FindByNameAsync(User.Identity.Name);
 
-                    return View(new BuyViewModel { ProductId = cpuId, CreatedAt = DateTime.Now, UserName = user.FirstName});
+                    return View(new BuyViewModel { ProductId = cpuId, CreatedAt = DateTime.Now, UserName = user.FirstName });
                 }
 
                 return RedirectToAction("Login", "Account");
@@ -42,21 +38,26 @@ namespace WebApplication1.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> CPU_Buy(BuyViewModel model)
-        {  
+        {
+            CPU cpu = await _db.CPUs.FirstOrDefaultAsync(p => p.Id == model.ProductId);
+            if (cpu.Amount < model.Quantity)
+            {
+                ModelState.AddModelError("Quantity", "На складе недостаточно товаров");
+                return View(model);
+            }
+
             if (ModelState.IsValid)
             {
                 User user = await _userManager.FindByNameAsync(User.Identity.Name);
                 Order order = new Order { CreatedAt = model.CreatedAt, ProductId = model.ProductId, UserId = user.Id, Quantity = model.Quantity };
-                CPU cpu = await _db.CPUs.FirstOrDefaultAsync(p => p.Id == model.ProductId);
-                
                 cpu.Amount -= model.Quantity;
                 cpu.BoughtTimes += model.Quantity;
 
                 _db.Orders.Add(order);
                 _db.CPUs.Update(cpu);
-                
+
                 await _db.SaveChangesAsync();
-                
+
                 return View("~/Views/Buy/ThanksPage.cshtml", order);
             }
 
@@ -84,11 +85,16 @@ namespace WebApplication1.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Frame_Buy(BuyViewModel model)
         {
+            ComputerFrame frame = await _db.ComputerFrames.FirstOrDefaultAsync(p => p.Id == model.ProductId);
+            if (frame.Amount < model.Quantity)
+            {
+                ModelState.AddModelError("Quantity", "На складе недостаточно товаров");
+                return View(model);
+            }
             if (ModelState.IsValid)
             {
                 User user = await _userManager.FindByNameAsync(User.Identity.Name);
                 Order order = new Order { CreatedAt = model.CreatedAt, ProductId = model.ProductId, UserId = user.Id, Quantity = model.Quantity };
-                ComputerFrame frame = await _db.ComputerFrames.FirstOrDefaultAsync(p => p.Id == model.ProductId);
 
                 frame.Amount -= model.Quantity;
                 frame.BoughtTimes += model.Quantity;
@@ -125,11 +131,16 @@ namespace WebApplication1.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> GPU_Buy(BuyViewModel model)
         {
+            GPU gpu = await _db.GPUs.FirstOrDefaultAsync(p => p.Id == model.ProductId);
+            if (gpu.Amount < model.Quantity)
+            {
+                ModelState.AddModelError("Quantity", "На складе недостаточно товаров");
+                return View(model);
+            }
             if (ModelState.IsValid)
             {
                 User user = await _userManager.FindByNameAsync(User.Identity.Name);
                 Order order = new Order { CreatedAt = model.CreatedAt, ProductId = model.ProductId, UserId = user.Id, Quantity = model.Quantity };
-                GPU gpu = await _db.GPUs.FirstOrDefaultAsync(p => p.Id == model.ProductId);
 
                 gpu.Amount -= model.Quantity;
                 gpu.BoughtTimes += model.Quantity;
@@ -166,11 +177,16 @@ namespace WebApplication1.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> HDD_Buy(BuyViewModel model)
         {
+            HDD hdd = await _db.HDDs.FirstOrDefaultAsync(p => p.Id == model.ProductId);
+            if (hdd.Amount < model.Quantity)
+            {
+                ModelState.AddModelError("Quantity", "На складе недостаточно товаров");
+                return View(model);
+            }
             if (ModelState.IsValid)
             {
                 User user = await _userManager.FindByNameAsync(User.Identity.Name);
                 Order order = new Order { CreatedAt = model.CreatedAt, ProductId = model.ProductId, UserId = user.Id, Quantity = model.Quantity };
-                HDD hdd = await _db.HDDs.FirstOrDefaultAsync(p => p.Id == model.ProductId);
 
                 hdd.Amount -= model.Quantity;
                 hdd.BoughtTimes += model.Quantity;
@@ -207,11 +223,16 @@ namespace WebApplication1.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Motherboard_Buy(BuyViewModel model)
         {
+            Motherboard motherboard = await _db.Motherboards.FirstOrDefaultAsync(p => p.Id == model.ProductId);
+            if (motherboard.Amount < model.Quantity)
+            {
+                ModelState.AddModelError("Quantity", "На складе недостаточно товаров");
+                return View(model);
+            }
             if (ModelState.IsValid)
             {
                 User user = await _userManager.FindByNameAsync(User.Identity.Name);
                 Order order = new Order { CreatedAt = model.CreatedAt, ProductId = model.ProductId, UserId = user.Id, Quantity = model.Quantity };
-                Motherboard motherboard = await _db.Motherboards.FirstOrDefaultAsync(p => p.Id == model.ProductId);
 
                 motherboard.Amount -= model.Quantity;
                 motherboard.BoughtTimes += model.Quantity;
@@ -248,11 +269,16 @@ namespace WebApplication1.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Phone_Buy(BuyViewModel model)
         {
+            Phone phone = await _db.Phones.FirstOrDefaultAsync(p => p.Id == model.ProductId);
+            if (phone.Amount < model.Quantity)
+            {
+                ModelState.AddModelError("Quantity", "На складе недостаточно товаров");
+                return View(model);
+            }
             if (ModelState.IsValid)
             {
                 User user = await _userManager.FindByNameAsync(User.Identity.Name);
                 Order order = new Order { CreatedAt = model.CreatedAt, ProductId = model.ProductId, UserId = user.Id, Quantity = model.Quantity };
-                Phone phone = await _db.Phones.FirstOrDefaultAsync(p => p.Id == model.ProductId);
 
                 phone.Amount -= model.Quantity;
                 phone.BoughtTimes += model.Quantity;
@@ -289,11 +315,16 @@ namespace WebApplication1.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> PowerSupply_Buy(BuyViewModel model)
         {
+            PowerSupply powerSupply = await _db.PowerSupplies.FirstOrDefaultAsync(p => p.Id == model.ProductId);
+            if (powerSupply.Amount < model.Quantity)
+            {
+                ModelState.AddModelError("Quantity", "На складе недостаточно товаров");
+                return View(model);
+            }
             if (ModelState.IsValid)
             {
                 User user = await _userManager.FindByNameAsync(User.Identity.Name);
                 Order order = new Order { CreatedAt = model.CreatedAt, ProductId = model.ProductId, UserId = user.Id, Quantity = model.Quantity };
-                PowerSupply powerSupply = await _db.PowerSupplies.FirstOrDefaultAsync(p => p.Id == model.ProductId);
 
                 powerSupply.Amount -= model.Quantity;
                 powerSupply.BoughtTimes += model.Quantity;
@@ -330,11 +361,16 @@ namespace WebApplication1.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> RAM_Buy(BuyViewModel model)
         {
+            RAM ram = await _db.RAMs.FirstOrDefaultAsync(p => p.Id == model.ProductId);
+            if (ram.Amount < model.Quantity)
+            {
+                ModelState.AddModelError("Quantity", "На складе недостаточно товаров");
+                return View(model);
+            }
             if (ModelState.IsValid)
             {
                 User user = await _userManager.FindByNameAsync(User.Identity.Name);
                 Order order = new Order { CreatedAt = model.CreatedAt, ProductId = model.ProductId, UserId = user.Id, Quantity = model.Quantity };
-                RAM ram = await _db.RAMs.FirstOrDefaultAsync(p => p.Id == model.ProductId);
 
                 ram.Amount -= model.Quantity;
                 ram.BoughtTimes += model.Quantity;
@@ -371,11 +407,16 @@ namespace WebApplication1.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> SSD_Buy(BuyViewModel model)
         {
+            SSD ssd = await _db.SSDs.FirstOrDefaultAsync(p => p.Id == model.ProductId);
+            if (ssd.Amount < model.Quantity)
+            {
+                ModelState.AddModelError("Quantity", "На складе недостаточно товаров");
+                return View(model);
+            }
             if (ModelState.IsValid)
             {
                 User user = await _userManager.FindByNameAsync(User.Identity.Name);
                 Order order = new Order { CreatedAt = model.CreatedAt, ProductId = model.ProductId, UserId = user.Id, Quantity = model.Quantity };
-                SSD ssd = await _db.SSDs.FirstOrDefaultAsync(p => p.Id == model.ProductId);
 
                 ssd.Amount -= model.Quantity;
                 ssd.BoughtTimes += model.Quantity;

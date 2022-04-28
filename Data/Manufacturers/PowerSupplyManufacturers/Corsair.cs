@@ -1,6 +1,6 @@
-﻿using WebApplication1.Data.Products;
+﻿using PerfectSite.Data.Products;
 
-namespace WebApplication1.Data.Manufacturers.PowerSupplyManufacturers
+namespace PerfectSite.Data.Manufacturers.PowerSupplyManufacturers
 {
     public class Corsair : PowerSupplyManufacturer
     {

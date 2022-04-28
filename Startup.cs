@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using WebApplication1.Models;
+using PerfectSite.Models;
 
-namespace WebApplication1
+namespace PerfectSite
 {
     public class Startup
     {
@@ -38,8 +38,6 @@ namespace WebApplication1
 
         public void Configure(IApplicationBuilder app)
         {
-            app.UseDeveloperExceptionPage();
-
             app.UseHttpsRedirection();
 
             app.UseStaticFiles();
@@ -49,8 +47,6 @@ namespace WebApplication1
             app.UseAuthentication();
 
             app.UseAuthorization();
-
-            
 
             app.UseEndpoints(endpoints =>
             {

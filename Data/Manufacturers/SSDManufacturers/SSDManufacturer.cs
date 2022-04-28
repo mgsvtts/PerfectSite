@@ -1,13 +1,10 @@
-﻿using WebApplication1.Data.Products;
-using WebApplication1.Data.VirtualClasses;
-using System.ComponentModel.DataAnnotations;
+﻿using PerfectSite.Data.Products;
+using PerfectSite.Data.VirtualClasses;
 
-namespace WebApplication1.Data.Manufacturers.SSDManufacturers
+namespace PerfectSite.Data.Manufacturers.SSDManufacturers
 {
-
     public class SSDManufacturer : VirtualManufacturer
     {
-
         public List<SSD> Products { get; set; }
     }
 }

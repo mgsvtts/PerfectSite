@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
-using WebApplication1.Data.Manufacturers.MotherboardManufacturers;
-using WebApplication1.ViewModels.PageSortFilter;
+using PerfectSite.Data.Manufacturers.MotherboardManufacturers;
+using PerfectSite.ViewModels.PageSortFilter;
 
-namespace WebApplication1.ViewModels.Store.Motherboards
+namespace PerfectSite.ViewModels.Store.Motherboards
 {
     public class Motherboard_FilterViewModel : FilterViewModel
     {

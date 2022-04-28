@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
-using WebApplication1.Data.Manufacturers.GPUManufacturers;
-using WebApplication1.ViewModels.PageSortFilter;
+using PerfectSite.Data.Manufacturers.GPUManufacturers;
+using PerfectSite.ViewModels.PageSortFilter;
 
-namespace WebApplication1.ViewModels.Store.GPUs
+namespace PerfectSite.ViewModels.Store.GPUs
 {
     public class GPU_FilterViewModel : FilterViewModel
     {

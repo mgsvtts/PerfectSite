@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
-using WebApplication1.Data.Manufacturers.PowerSupplyManufacturers;
-using WebApplication1.ViewModels.PageSortFilter;
+using PerfectSite.Data.Manufacturers.PowerSupplyManufacturers;
+using PerfectSite.ViewModels.PageSortFilter;
 
-namespace WebApplication1.ViewModels.Store.PowerSupplies
+namespace PerfectSite.ViewModels.Store.PowerSupplies
 {
     public class PowerSupply_FilterViewModel : FilterViewModel
     {

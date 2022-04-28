@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using WebApplication1.Data.Products;
+using PerfectSite.Data.Products;
 
-namespace WebApplication1.Controllers
+namespace PerfectSite.Controllers
 {
     public class ProductPageController : Controller
     {
@@ -79,7 +79,7 @@ namespace WebApplication1.Controllers
         public async Task<IActionResult> ComputerPage(int? id)
         {
             Computer computer = await _db.Computers.Include(m => m.Manufacturer)
-                                                   .Include(c=>c.CPU)
+                                                   .Include(c => c.CPU)
                                                    .Include(c => c.GPU)
                                                    .Include(c => c.HDD)
                                                    .Include(c => c.Motherboard)

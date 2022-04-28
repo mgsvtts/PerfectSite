@@ -1,7 +1,6 @@
-﻿using WebApplication1.Data.Products;
-using System.ComponentModel.DataAnnotations;
+﻿using PerfectSite.Data.Products;
 
-namespace WebApplication1.Data.ManufacturersComputerManufacturers
+namespace PerfectSite.Data.ManufacturersComputerManufacturers
 {
     public class Acer : ComputerManufacturer
     {

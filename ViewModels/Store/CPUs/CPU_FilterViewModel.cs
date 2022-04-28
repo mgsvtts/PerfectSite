@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
-using WebApplication1.Data.Manufacturers.CPUManufacturers;
-using WebApplication1.ViewModels.PageSortFilter;
+using PerfectSite.Data.Manufacturers.CPUManufacturers;
+using PerfectSite.ViewModels.PageSortFilter;
 
-namespace WebApplication1.ViewModels.Store.CPUs
+namespace PerfectSite.ViewModels.Store.CPUs
 {
     public class CPU_FilterViewModel : FilterViewModel
     {

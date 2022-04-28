@@ -1,7 +1,6 @@
-﻿using WebApplication1.Data.Products;
-using System.ComponentModel.DataAnnotations;
+﻿using PerfectSite.Data.Products;
 
-namespace WebApplication1.Data.ManufacturersComputerFrameManufacturers
+namespace PerfectSite.Data.ManufacturersComputerFrameManufacturers
 {
     public class CoolerMaster : ComputerFrameManufacturer
     {

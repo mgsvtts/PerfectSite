@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 
-namespace WebApplication1.ViewModels.Role
+namespace PerfectSite.ViewModels.Role
 {
     public class ChangeRoleViewModel
     {

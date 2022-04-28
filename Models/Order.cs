@@ -1,8 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-using WebApplication1.Data.Products;
-using WebApplication1.Data.VirtualClasses;
-
-namespace WebApplication1.Models
+﻿namespace PerfectSite.Models
 {
     public class Order
     {

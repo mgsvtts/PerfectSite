@@ -1,8 +1,7 @@
-﻿using WebApplication1.Data.ManufacturersComputerManufacturers;
-using WebApplication1.Data.Products;
-using System.ComponentModel.DataAnnotations;
+﻿using PerfectSite.Data.ManufacturersComputerManufacturers;
+using PerfectSite.Data.Products;
 
-namespace WebApplication1.Data.Manufacturers.ComputerManufacturers
+namespace PerfectSite.Data.Manufacturers.ComputerManufacturers
 {
     public class HP : ComputerManufacturer
     {

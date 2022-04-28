@@ -2,16 +2,16 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using WebApplication1.Data.VirtualClasses;
-using WebApplication1.Models;
+using PerfectSite.Models;
 
-namespace WebApplication1.Controllers
+namespace PerfectSite.Controllers
 {
     public class HomeController : Controller
     {
         private readonly IWebHostEnvironment _environment;
         private readonly ApplicationContext _db;
         private readonly UserManager<User> _userManager;
+
         public HomeController(IWebHostEnvironment environment, ApplicationContext db, UserManager<User> userManager)
         {
             _environment = environment;

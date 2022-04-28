@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 
-namespace WebApplication1.Models
+namespace PerfectSite.Models
 {
     public class User : IdentityUser
     {

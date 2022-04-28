@@ -1,8 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using WebApplication1.Data.VirtualClasses;
-using WebApplication1.ViewModels.PageSortFilter;
+using PerfectSite.Data.VirtualClasses;
+using PerfectSite.ViewModels.PageSortFilter;
 
-namespace WebApplication1.ViewModels.Store
+namespace PerfectSite.ViewModels.Store
 {
     public class ControllerActions<T> where T : VirtualProduct
     {

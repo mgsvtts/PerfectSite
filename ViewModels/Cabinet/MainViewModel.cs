@@ -1,4 +1,4 @@
-﻿namespace WebApplication1.ViewModels.Cabinet
+﻿namespace PerfectSite.ViewModels.Cabinet
 {
     public class MainViewModel
     {

@@ -1,7 +1,7 @@
-﻿using WebApplication1.Data.Manufacturers.SSDManufacturers;
-using WebApplication1.Data.VirtualClasses;
+﻿using PerfectSite.Data.Manufacturers.SSDManufacturers;
+using PerfectSite.Data.VirtualClasses;
 
-namespace WebApplication1.Data.Products
+namespace PerfectSite.Data.Products
 {
     public class SSD : VirtualProduct
     {
@@ -9,5 +9,10 @@ namespace WebApplication1.Data.Products
         public double FormFactor { get; set; }
         public string Interface { get; set; }
         public double Bandwidth { get; set; }
+
+        public static implicit operator SSD?(ComputerFrame? v)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

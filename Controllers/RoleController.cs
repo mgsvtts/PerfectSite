@@ -1,10 +1,10 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using WebApplication1.Models;
-using WebApplication1.ViewModels.Role;
+using PerfectSite.Models;
+using PerfectSite.ViewModels.Role;
 
-namespace WebApplication1.Controllers
+namespace PerfectSite.Controllers
 {
     [Authorize(Roles = "God of the Site")]
     public class RoleController : Controller

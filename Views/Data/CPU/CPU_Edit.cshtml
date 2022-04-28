@@ -1,4 +1,4 @@
-﻿@model WebApplication1.Data.Products.CPU
+﻿@model PerfectSite.Data.Products.CPU
 @{
     ViewBag.Title = "Редактирование CPU";
 }
@@ -15,7 +15,7 @@
     </div>
     <div class="form-group">
         <label asp-for="Speed" class="control-label">Частота ядра</label>
-        <input type="number" step = "any" asp-for="Speed" class="form-control my-text my-border-color my-textbar-background" value = "@Model.Speed"/>
+        <input type="number" step="0.1" min="0" max = "100" asp-for="Speed" class="form-control my-text my-border-color my-textbar-background" value = "@Model.Speed"/>
     </div>
     <div class="form-group">
         <label asp-for="Cores" class="control-label">Колличество ядер</label>
@@ -41,6 +41,10 @@
      <div class="form-group">
         <label asp-for="Amount" class="control-label">Колличество на складе</label>
         <input type="number" asp-for="Amount" class="form-control my-text my-border-color my-textbar-background" value = "@Model.Amount"/>
+    </div>
+     <div class="form-group">
+        <label asp-for="Description" class="control-label">Описание</label>
+        <input type="text" asp-for="Description" class="form-control my-text my-border-color my-textbar-background" value = "@Model.Description"/>
     </div>
       <div class="form-group">
         <input type="hidden" asp-for="BoughtTimes" value = "@Model.BoughtTimes"/>

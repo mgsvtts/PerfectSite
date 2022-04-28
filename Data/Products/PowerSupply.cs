@@ -1,7 +1,7 @@
-﻿using WebApplication1.Data.Manufacturers.PowerSupplyManufacturers;
-using WebApplication1.Data.VirtualClasses;
+﻿using PerfectSite.Data.Manufacturers.PowerSupplyManufacturers;
+using PerfectSite.Data.VirtualClasses;
 
-namespace WebApplication1.Data.Products
+namespace PerfectSite.Data.Products
 {
     public class PowerSupply : VirtualProduct
     {

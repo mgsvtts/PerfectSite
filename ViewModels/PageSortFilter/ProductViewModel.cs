@@ -1,6 +1,6 @@
-﻿using WebApplication1.Data.VirtualClasses;
+﻿using PerfectSite.Data.VirtualClasses;
 
-namespace WebApplication1.ViewModels.PageSortFilter
+namespace PerfectSite.ViewModels.PageSortFilter
 {
     public class ProductViewModel<T> where T : VirtualProduct
     {

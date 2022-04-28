@@ -1,4 +1,4 @@
-﻿@model WebApplication1.Data.Products.Motherboard
+﻿@model PerfectSite.Data.Products.Motherboard
 @{
     ViewBag.Title = "Добавление материнской платы";
 }
@@ -37,6 +37,10 @@
      <div class="form-group">
         <label asp-for="Amount" class="control-label">Колличество на складе</label>
         <input type="number" asp-for="Amount" class="form-control my-text my-border-color my-textbar-background" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Description" class="control-label">Описание</label>
+        <input type="text" asp-for="Description" class="form-control my-text my-border-color my-textbar-background" value = "@Model.Description"/>
     </div>
      <div class="form-group">
         <input type="hidden" asp-for="BoughtTimes" value = 0/>

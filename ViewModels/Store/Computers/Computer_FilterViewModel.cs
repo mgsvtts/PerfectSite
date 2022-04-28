@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
-using WebApplication1.Data.ManufacturersComputerManufacturers;
-using WebApplication1.ViewModels.PageSortFilter;
+using PerfectSite.Data.ManufacturersComputerManufacturers;
+using PerfectSite.ViewModels.PageSortFilter;
 
-namespace WebApplication1.ViewModels.Store.Computers
+namespace PerfectSite.ViewModels.Store.Computers
 {
     public class Computer_FilterViewModel : FilterViewModel
     {

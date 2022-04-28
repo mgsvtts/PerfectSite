@@ -1,7 +1,7 @@
-﻿using WebApplication1.Data.ManufacturersComputerFrameManufacturers;
-using WebApplication1.Data.VirtualClasses;
+﻿using PerfectSite.Data.ManufacturersComputerFrameManufacturers;
+using PerfectSite.Data.VirtualClasses;
 
-namespace WebApplication1.Data.Products
+namespace PerfectSite.Data.Products
 {
     public class ComputerFrame : VirtualProduct
     {

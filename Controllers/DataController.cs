@@ -1,11 +1,9 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using WebApplication1.CustomUtilities;
-using WebApplication1.Data.Products;
-using WebApplication1.Data.VirtualClasses;
+using PerfectSite.Data.Products;
 
-namespace WebApplication1.Controllers
+namespace PerfectSite.Controllers
 {
     [Authorize(Roles = "God of the Site")]
     public class DataController : Controller
@@ -255,7 +253,7 @@ namespace WebApplication1.Controllers
         [HttpPost]
         public async Task<IActionResult> GPU_Edit(GPU product)
         {
-             if (ModelState.ErrorCount<=1)
+            if (ModelState.ErrorCount <= 1)
             {
                 _db.GPUs.Update(product);
                 await _db.SaveChangesAsync();
@@ -335,7 +333,7 @@ namespace WebApplication1.Controllers
         [HttpPost]
         public async Task<IActionResult> HDD_Edit(HDD product)
         {
-             if (ModelState.ErrorCount<=1)
+            if (ModelState.ErrorCount <= 1)
             {
                 _db.HDDs.Update(product);
                 await _db.SaveChangesAsync();
@@ -353,7 +351,6 @@ namespace WebApplication1.Controllers
         [HttpPost]
         public async Task<IActionResult> Motherboard_Create(Motherboard product)
         {
-           
             if (ModelState.ErrorCount <= 1)
             {
                 _db.Motherboards.Add(product);
@@ -416,7 +413,7 @@ namespace WebApplication1.Controllers
         [HttpPost]
         public async Task<IActionResult> Motherboard_Edit(Motherboard product)
         {
-             if (ModelState.ErrorCount<=1)
+            if (ModelState.ErrorCount <= 1)
             {
                 _db.Motherboards.Update(product);
                 await _db.SaveChangesAsync();
@@ -496,7 +493,7 @@ namespace WebApplication1.Controllers
         [HttpPost]
         public async Task<IActionResult> Phone_Edit(Phone product)
         {
-             if (ModelState.ErrorCount<=1)
+            if (ModelState.ErrorCount <= 1)
             {
                 _db.Phones.Update(product);
                 await _db.SaveChangesAsync();
@@ -575,7 +572,7 @@ namespace WebApplication1.Controllers
         [HttpPost]
         public async Task<IActionResult> PowerSupply_Edit(PowerSupply product)
         {
-             if (ModelState.ErrorCount<=1)
+            if (ModelState.ErrorCount <= 1)
             {
                 _db.PowerSupplies.Update(product);
                 await _db.SaveChangesAsync();
@@ -643,7 +640,6 @@ namespace WebApplication1.Controllers
 
         public async Task<IActionResult> RAM_Edit(int? id)
         {
-            
             if (id != null)
             {
                 RAM product = await _db.RAMs.Include(m => m.Manufacturer).FirstOrDefaultAsync(p => p.Id == id);
@@ -736,7 +732,7 @@ namespace WebApplication1.Controllers
         [HttpPost]
         public async Task<IActionResult> SSD_Edit(SSD product)
         {
-             if (ModelState.ErrorCount<=1)
+            if (ModelState.ErrorCount <= 1)
             {
                 _db.SSDs.Update(product);
                 await _db.SaveChangesAsync();
