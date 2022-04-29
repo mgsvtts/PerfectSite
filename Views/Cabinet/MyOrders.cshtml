@@ -13,6 +13,7 @@
         </tr>
         @foreach (var order in Model)
         {
+            string id = order.UserId;
         <tr>
             <td>@order.Id</td>
             <td>@order.ProductId</td>
@@ -21,4 +22,4 @@
         </tr>
         }
 </table>
-<a class = "btn btn-primary my-btn" asp-action="Main">Вернуться в личный кабинет</a>
+<a class = "btn btn-primary my-btn" asp-controller = "Cabinet" asp-action="Main" asp-route-id = "@Model.FirstOrDefault()?.UserId">Вернуться в личный кабинет</a>

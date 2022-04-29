@@ -10,7 +10,7 @@ namespace PerfectSite.ViewModels.Account
         [Required(ErrorMessage = "Введите фамилию"), MaxLength(50, ErrorMessage = "Длина должна быть меньше 50")]
         public string SecondName { get; set; }
 
-        [Required(ErrorMessage = "Введите пароль"), MinLength(4, ErrorMessage = "Минимальная длина пароля = 6")]
+        [Required(ErrorMessage = "Введите пароль"), MinLength(6, ErrorMessage = "Минимальная длина пароля = 6")]
         [DataType(DataType.Password)]
         public string Password { get; set; }
 

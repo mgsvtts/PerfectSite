@@ -90,6 +90,14 @@ namespace PerfectSite.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> Login(LoginViewModel model)
         {
+            User user = await _userManager.FindByEmailAsync(model.Email);
+
+            if(user == null)
+            {
+                ModelState.AddModelError("Email", "Пользователь с таким адресом не существует");
+                return View(model);
+            }
+
             if (ModelState.IsValid)
             {
                 var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, false);
@@ -102,7 +110,7 @@ namespace PerfectSite.Controllers
                     return RedirectToAction("Index", "Home");
                 }
 
-                ModelState.AddModelError(string.Empty, "Неверный пароль");
+                ModelState.AddModelError("Password", "Неверный пароль");
             }
             return View(model);
         }

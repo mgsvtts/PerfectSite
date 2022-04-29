@@ -7,36 +7,36 @@ html {
 @media (min-width: 768px) {
     html {
         color: #d1cdc7;
-        background-color: #16191b;
+        background-color: #121415;
         font-size: 16px;
     }
 }
-
+#121415
 html {
     color: #d1cdc7;
-    background-color: #16191b;
+    background-color: #121415;
     position: relative;
     min-height: 100%;
 }
 
 header {
     color: #d1cdc7;
-    background-color: #16191b;
+    background-color: #121415;
 }
 
 .navbar {
     color: #d1cdc7;
-    background-color: #16191b;
+    background-color: #121415;
 }
 
 container-fluid {
     color: #d1cdc7;
-    background-color: #16191b;
+    background-color: #121415;
 }
 
 body {
     color: #d1cdc7;
-    background-color: #16191b;
+    background-color: #121415;
     margin-bottom: 60px;
 }
 
@@ -89,7 +89,7 @@ body {
 }
 
 .my-background {
-    background-color: #16191b;
+    background-color: #121415;
 }
 
 .my-textbar-background {
@@ -97,7 +97,7 @@ body {
 }
 
 .my-border-color {
-    border-color: #16191b;
+    border-color: #121415;
 }
 
 .field-validation-error {

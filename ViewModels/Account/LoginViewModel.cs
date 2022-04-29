@@ -5,7 +5,7 @@ namespace PerfectSite.ViewModels.Account
     public class LoginViewModel
     {
         [Required(ErrorMessage = "Введите почту")]
-        [EmailAddress]
+        [EmailAddress(ErrorMessage = "Некорректный формат адреса")]
         public string Email { get; set; }
 
         [Required(ErrorMessage = "Введите пароль")]

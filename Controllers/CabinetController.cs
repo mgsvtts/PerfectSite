@@ -44,13 +44,19 @@ namespace PerfectSite.Controllers
                 return View(model);
             }
 
-            return RedirectToAction("Main", "Cabinet");
+            return RedirectToAction("Index", "Home");
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> ChangePassword(ChangePasswordViewModel model)
         {
+            if(model.OldPassword == model.NewPassword)
+            {
+                ModelState.AddModelError("NewPassword", "Новый пароль не должен совпадать со старым");
+                return View(model);
+            }
+
             if (ModelState.IsValid)
             {
                 User user = await _userManager.FindByIdAsync(model.Id);
@@ -59,10 +65,10 @@ namespace PerfectSite.Controllers
                     IdentityResult result = await _userManager.ChangePasswordAsync(user, model.OldPassword, model.NewPassword);
                     if (result.Succeeded)
                     {
-                        return RedirectToAction("Main", "Cabinet", user.Id);
+                        return View("~/Views/Cabinet/Main.cshtml", user);
                     }
                 }
-                ModelState.AddModelError(string.Empty, "Пользователь не найден");
+                ModelState.AddModelError("OldPassword", "Пользователь с таким паролем не найден");
             }
             return View(model);
         }
@@ -78,7 +84,7 @@ namespace PerfectSite.Controllers
                 return View(model);
             }
 
-            return RedirectToAction("Main", "Cabinet");
+            return RedirectToAction("Index", "Home");
         }
 
         [HttpPost]
@@ -86,23 +92,29 @@ namespace PerfectSite.Controllers
         {
             User user = await _userManager.FindByIdAsync(model.Id);
 
-            User checkUser = await _userManager.FindByEmailAsync(model.NewEmail);
-            if (checkUser == null)
+            if (user.Email == model.NewEmail)
             {
-                if (user.Email != model.NewEmail)
-                {
-                    var token = await _userManager.GenerateChangeEmailTokenAsync(user, model.NewEmail);
-
-                    await _userManager.ChangeEmailAsync(user, model.NewEmail, token.ToString());
-
-                    return RedirectToAction("Main", "Cabinet");
-                }
-                ModelState.AddModelError(string.Empty, "Новая почта не должна совпадать со старой");
+                ModelState.AddModelError("NewEmail", "Новая почта не должна совпадать со старой");
                 return View(model);
             }
 
-            ModelState.AddModelError(string.Empty, "Пользователь с такой почтой уже зарегестрирован");
-            return View(model);
+            User checkUser = await _userManager.FindByEmailAsync(model.NewEmail);
+
+            if (checkUser != null)
+            {
+                ModelState.AddModelError("NewEmail", "Пользователь с такой почтой уже зарегестрирован");
+                return View(model);
+            }
+
+            if (ModelState.IsValid)
+            {
+                var token = await _userManager.GenerateChangeEmailTokenAsync(user, model.NewEmail);
+
+                await _userManager.ChangeEmailAsync(user, model.NewEmail, token.ToString());
+
+                return View("~/Views/Cabinet/Main.cshtml", user);
+            }
+           return View(model);
         }
 
         [HttpGet]
@@ -112,7 +124,7 @@ namespace PerfectSite.Controllers
 
             if (user != null)
             {
-                ChangeNameViewModel model = new ChangeNameViewModel { Id = user.Id, OldName = user.FirstName, ChangingLabel = "FirstName" };
+                ChangeNameViewModel model = new ChangeNameViewModel { Id = user.Id, OldName = user.FirstName };
                 return View(model);
             }
 
@@ -126,7 +138,7 @@ namespace PerfectSite.Controllers
 
             if (user != null)
             {
-                ChangeNameViewModel model = new ChangeNameViewModel { Id = user.Id, OldName = user.FirstName, ChangingLabel = "SecondName" };
+                ChangeNameViewModel model = new ChangeNameViewModel { Id = user.Id, OldName = user.SecondName };
                 return View(model);
             }
 
@@ -134,37 +146,47 @@ namespace PerfectSite.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> ChangeName(ChangeNameViewModel model)
+        public async Task<IActionResult> ChangeFirstName(ChangeNameViewModel model)
         {
-            string currentPage = "Change" + model.ChangingLabel;
-
             if (ModelState.IsValid)
             {
                 User user = await _userManager.FindByIdAsync(model.Id);
-
-                if (model.ChangingLabel == "FirstName" && model.OldName != model.NewName)
+                if (model.OldName != model.NewName)
                 {
                     user.FirstName = model.NewName;
 
                     await _db.SaveChangesAsync();
 
-                    return RedirectToAction("Main", "Cabinet");
+                    return RedirectToAction("Main", "Cabinet", user.Id);
                 }
-                else if (model.ChangingLabel == "SecondName" && model.OldName != model.NewName)
+
+                ModelState.AddModelError("NewName", "Новое имя не должно совпадать со старым");
+
+                return View(model);
+            }
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ChangeSecondName(ChangeNameViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                User user = await _userManager.FindByIdAsync(model.Id);
+                if (model.OldName != model.NewName)
                 {
                     user.SecondName = model.NewName;
 
                     await _db.SaveChangesAsync();
 
-                    return RedirectToAction("Main", "Cabinet");
+                    return RedirectToAction("Main", "Cabinet", user.Id);
                 }
 
-                ModelState.AddModelError(string.Empty, "Новое имя не должно совпадать со старым");
+                ModelState.AddModelError("NewName", "Новое имя не должно совпадать со старым");
 
-                return RedirectToAction(currentPage, model);
+                return View(model);
             }
-
-            return RedirectToAction(currentPage, model);
+            return View(model);
         }
 
         public async Task<IActionResult> MyOrders()

@@ -6,25 +6,25 @@
 
 <html>
     <body>
-        <a style = "position:absolute; margin-left: 77%" class = "btn btn-primary" asp-action="MyOrders">Мои заказы</a>
+         <a style = "position:absolute; margin-left: 75.7%;" class = "btn btn-primary btn-lg" asp-action="MyOrders">Мои заказы</a>
         <h2 class = "text-center" >Здравствуйте, @Model.FirstName</h2>
         <h2 class = "text-center">Это ваш личный кабинет</h2>
-          <div class = "form-group">
+         <div class = "form-group">
               <label asp-for="FirstName"  class = "col-md-4  control-label">Ваше имя:</label><br />
                <div class = "col-md-4">
-                   <input type = "text"  asp-for="FirstName" class = "form-control my-form" value = "@Model.FirstName" disabled style="background-color: #232627; color:#d1cdc7;  border-color:  #16191b;"/>
+                   <input type = "text"  asp-for="FirstName" class = "form-control my-form" value = "@Model.FirstName" disabled style="background-color: #232627; color:#d1cdc7;  border-color:  #121415;"/>
                      <a class = "btn btn-primary my-btn" asp-route-id = "@Model.Id" asp-controller = "Cabinet" asp-action = "ChangeFirstName">Изменить</a>
               </div>
               
                    <label asp-for="SecondName"  class = "col-md-4  control-label center">Ваша фамилия:</label><br />
                <div class = "col-md-4">
-                   <input type = "text" asp-for="SecondName" class = "form-control center" value = "@Model.SecondName" disabled  style="background-color: #232627; color:#d1cdc7;  border-color:  #16191b;"/>
+                   <input type = "text" asp-for="SecondName" class = "form-control center" value = "@Model.SecondName" disabled  style="background-color: #232627; color:#d1cdc7;  border-color:  #121415;"/>
                      <a class = "btn btn-primary my-btn" asp-route-id = "@Model.Id" asp-controller = "Cabinet" asp-action = "ChangeSecondName">Изменить</a>
               </div>
-              <form method="post" asp-controller="Cabinet" asp-action="ChangeEmail"  style="color:#d1cdc7; border-color:  #16191b;">
+              <form method="post" asp-controller="Cabinet" asp-action="ChangeEmail"  style="color:#d1cdc7; border-color:  #121415;">
                    <label asp-for="Email"  class = "col-md-4  control-label">Ваш Email:</label><br />
                <div class = "col-md-4">
-                   <input type = "text" class = "form-control center" value = "@Model.Email" disabled  style="background-color: #232627; color:#d1cdc7;  border-color:  #16191b;"/>
+                   <input type = "text" class = "form-control center" value = "@Model.Email" disabled  style="background-color: #232627; color:#d1cdc7;  border-color:  #121415;"/>
                     <a class = "btn btn-primary my-btn" asp-route-id = "@Model.Id" asp-route-oldEmail = "@Model.Email" asp-controller = "Cabinet" asp-action = "ChangeEmail">Изменить</a>
               
               </div>
