@@ -35,11 +35,15 @@ namespace PerfectSite.Controllers
             {
                 IdentityResult result = await _roleManager.CreateAsync(new IdentityRole(name));
                 if (result.Succeeded)
+                {
                     return RedirectToAction("Main");
+                }
                 else
                 {
-                    foreach (var error in result.Errors)
+                    foreach (IdentityError? error in result.Errors)
+                    {
                         ModelState.AddModelError(string.Empty, error.Description);
+                    }
                 }
             }
             return View(name);
@@ -67,8 +71,8 @@ namespace PerfectSite.Controllers
             User user = await _userManager.FindByIdAsync(userId);
             if (user != null)
             {
-                var userRoles = await _userManager.GetRolesAsync(user);
-                var allRoles = _roleManager.Roles.ToList();
+                IList<string>? userRoles = await _userManager.GetRolesAsync(user);
+                List<IdentityRole>? allRoles = _roleManager.Roles.ToList();
                 ChangeRoleViewModel model = new ChangeRoleViewModel
                 {
                     UserId = user.Id,
@@ -90,13 +94,13 @@ namespace PerfectSite.Controllers
             User user = await _userManager.FindByIdAsync(userId);
             if (user != null)
             {
-                var userRoles = await _userManager.GetRolesAsync(user);
+                IList<string>? userRoles = await _userManager.GetRolesAsync(user);
 
-                var allRoles = _roleManager.Roles.ToList();
+                List<IdentityRole>? allRoles = _roleManager.Roles.ToList();
 
-                var addedRoles = roles.Except(userRoles);
+                IEnumerable<string>? addedRoles = roles.Except(userRoles);
 
-                var removedRoles = userRoles.Except(roles);
+                IEnumerable<string>? removedRoles = userRoles.Except(roles);
 
                 await _userManager.AddToRolesAsync(user, addedRoles);
 

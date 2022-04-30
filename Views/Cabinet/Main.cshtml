@@ -1,15 +1,13 @@
 ﻿@model PerfectSite.Models.User
 @{
     Layout = "_Layout";
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Cabinet";
 }
-
 <html>
     <body>
-         <a style = "position:absolute; margin-left: 75.7%;" class = "btn btn-primary btn-lg" asp-action="MyOrders">Мои заказы</a>
         <h2 class = "text-center" >Здравствуйте, @Model.FirstName</h2>
         <h2 class = "text-center">Это ваш личный кабинет</h2>
-         <div class = "form-group">
+         <div class = "form-group ">
               <label asp-for="FirstName"  class = "col-md-4  control-label">Ваше имя:</label><br />
                <div class = "col-md-4">
                    <input type = "text"  asp-for="FirstName" class = "form-control my-form" value = "@Model.FirstName" disabled style="background-color: #232627; color:#d1cdc7;  border-color:  #121415;"/>
@@ -29,18 +27,21 @@
               
               </div>
               </form>
-                <wbr />
+               <wbr />
               <a asp-controller="Cabinet"  asp-action="ChangePassword" asp-route-id = "@Model.Id" class = "btn btn-primary my-btn change-password-btn">Изменить пароль</a>
               </div>
-              &nbsp;
-              &nbsp;
+           <div style = "padding-bottom: 2%;">
+              <a class = "btn btn-primary btn-lg" asp-action="MyOrders">Мои заказы</a>
+            </div>
                <form method = "post" asp-controller = "Account" asp-action = "Logout">
-             <input type = "submit" class = "btn btn-primary my-btn" value = "Выйти из аккаунта"/>
+                    <input type = "submit" class = "btn btn-primary my-btn" value = "Выйти из аккаунта"/>
                </form>
-         </div>
+               <a class="btn btn-primary btn-sm" asp-action = "DeleteAccount" asp-route-id="@Model.Id">Удалить аккаунт</a>
+              
+           
               <div class="col-xl-12" style="margin-top:40px;">
         
-     </div>
+             </div>
     </body>
 </html>
 

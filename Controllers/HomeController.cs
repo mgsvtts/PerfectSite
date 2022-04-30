@@ -22,7 +22,9 @@ namespace PerfectSite.Controllers
         public IActionResult Index()
         {
             if (User.IsInRole("God of the Site"))
+            {
                 return View("GodIndex");
+            }
 
             return View();
         }

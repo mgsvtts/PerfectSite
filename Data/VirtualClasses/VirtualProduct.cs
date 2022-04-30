@@ -15,6 +15,7 @@ namespace PerfectSite.Data.VirtualClasses
 
         [Range(0, int.MaxValue, ErrorMessage = "Колличество не может быть меньше нуля")]
         public virtual int? Amount { get; set; }
+
         public virtual int? BoughtTimes { get; set; }
     }
 }

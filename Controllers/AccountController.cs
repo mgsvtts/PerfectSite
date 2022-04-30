@@ -40,7 +40,14 @@ namespace PerfectSite.Controllers
                         ReturnUrl = model.ReturnUrl,
                         RememberMe = false
                     };
+                    ModelState.AddModelError("Email", "Пользователь уже зарегестрирован, попробуйте войти");
                     return View("~/Views/Account/Login.cshtml", loginViewModel);
+                }
+
+                if (!string.IsNullOrEmpty(model.BirthDate.ToString()) && model.BirthDate.Value.Year + 18 > DateTime.Today.Year)
+                {
+                    ModelState.AddModelError("BirthDate", "Возраст должен быть больше 18");
+                    return View(model);
                 }
 
                 user = new User
@@ -53,7 +60,7 @@ namespace PerfectSite.Controllers
                     BirthDate = model.BirthDate
                 };
 
-                var result = await _userManager.CreateAsync(user, model.Password);
+                IdentityResult? result = await _userManager.CreateAsync(user, model.Password);
 
                 if (result.Succeeded)
                 {
@@ -90,22 +97,24 @@ namespace PerfectSite.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> Login(LoginViewModel model)
         {
-            User user = await _userManager.FindByEmailAsync(model.Email);
-
-            if(user == null)
-            {
-                ModelState.AddModelError("Email", "Пользователь с таким адресом не существует");
-                return View(model);
-            }
-
             if (ModelState.IsValid)
             {
-                var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, false);
+                User user = await _userManager.FindByEmailAsync(model.Email);
+
+                if (user == null)
+                {
+                    ModelState.AddModelError("Email", "Пользователь с таким адресом не существует");
+                    return View(model);
+                }
+
+                Microsoft.AspNetCore.Identity.SignInResult? result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, false);
 
                 if (result.Succeeded)
                 {
                     if (!string.IsNullOrEmpty(model.ReturnUrl) && Url.IsLocalUrl(model.ReturnUrl))
+                    {
                         return Redirect(model.ReturnUrl);
+                    }
 
                     return RedirectToAction("Index", "Home");
                 }

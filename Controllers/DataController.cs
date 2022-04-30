@@ -8,7 +8,7 @@ namespace PerfectSite.Controllers
     [Authorize(Roles = "God of the Site")]
     public class DataController : Controller
     {
-        private ApplicationContext _db;
+        private readonly ApplicationContext _db;
 
         public DataController(ApplicationContext db)
         {
@@ -45,7 +45,9 @@ namespace PerfectSite.Controllers
             {
                 CPU cpu = await _db.CPUs.Include(m => m.Manufacturer).FirstOrDefaultAsync(p => p.Id == id);
                 if (cpu != null)
+                {
                     return View("~/Views/Data/CPU/CPU_Details.cshtml", cpu);
+                }
             }
             return NotFound();
         }
@@ -59,7 +61,9 @@ namespace PerfectSite.Controllers
                 CPU cpu = await _db.CPUs.Include(m => m.Manufacturer).FirstOrDefaultAsync(p => p.Id == id);
 
                 if (cpu != null)
+                {
                     return View("~/Views/Data/CPU/CPU_Delete.cshtml", cpu);
+                }
             }
             return NotFound();
         }
@@ -84,7 +88,9 @@ namespace PerfectSite.Controllers
             {
                 CPU cpu = await _db.CPUs.Include(m => m.Manufacturer).FirstOrDefaultAsync(p => p.Id == id);
                 if (cpu != null)
+                {
                     return View("~/Views/Data/CPU/CPU_Edit.cshtml", cpu);
+                }
             }
             return NotFound();
         }
@@ -126,7 +132,9 @@ namespace PerfectSite.Controllers
             {
                 ComputerFrame product = await _db.ComputerFrames.Include(m => m.Manufacturer).FirstOrDefaultAsync(p => p.Id == id);
                 if (product != null)
+                {
                     return View("~/Views/Data/Frame/Frame_Details.cshtml", product);
+                }
             }
             return NotFound();
         }
@@ -140,7 +148,9 @@ namespace PerfectSite.Controllers
                 ComputerFrame product = await _db.ComputerFrames.Include(m => m.Manufacturer).FirstOrDefaultAsync(p => p.Id == id);
 
                 if (product != null)
+                {
                     return View("~/Views/Data/Frame/Frame_Delete.cshtml", product);
+                }
             }
             return NotFound();
         }
@@ -165,7 +175,9 @@ namespace PerfectSite.Controllers
             {
                 ComputerFrame product = await _db.ComputerFrames.Include(m => m.Manufacturer).FirstOrDefaultAsync(p => p.Id == id);
                 if (product != null)
+                {
                     return View("~/Views/Data/Frame/Frame_Edit.cshtml", product);
+                }
             }
             return NotFound();
         }
@@ -206,7 +218,9 @@ namespace PerfectSite.Controllers
             {
                 GPU product = await _db.GPUs.Include(m => m.Manufacturer).FirstOrDefaultAsync(p => p.Id == id);
                 if (product != null)
+                {
                     return View("~/Views/Data/GPU/GPU_Details.cshtml", product);
+                }
             }
             return NotFound();
         }
@@ -220,7 +234,9 @@ namespace PerfectSite.Controllers
                 GPU product = await _db.GPUs.Include(m => m.Manufacturer).FirstOrDefaultAsync(p => p.Id == id);
 
                 if (product != null)
+                {
                     return View("~/Views/Data/GPU/GPU_Delete.cshtml", product);
+                }
             }
             return NotFound();
         }
@@ -245,7 +261,9 @@ namespace PerfectSite.Controllers
             {
                 GPU product = await _db.GPUs.Include(m => m.Manufacturer).FirstOrDefaultAsync(p => p.Id == id);
                 if (product != null)
+                {
                     return View("~/Views/Data/GPU/GPU_Edit.cshtml", product);
+                }
             }
             return NotFound();
         }
@@ -286,7 +304,9 @@ namespace PerfectSite.Controllers
             {
                 HDD product = await _db.HDDs.Include(m => m.Manufacturer).FirstOrDefaultAsync(p => p.Id == id);
                 if (product != null)
+                {
                     return View("~/Views/Data/HDD/HDD_Details.cshtml", product);
+                }
             }
             return NotFound();
         }
@@ -300,7 +320,9 @@ namespace PerfectSite.Controllers
                 HDD product = await _db.HDDs.Include(m => m.Manufacturer).FirstOrDefaultAsync(p => p.Id == id);
 
                 if (product != null)
+                {
                     return View("~/Views/Data/HDD/HDD_Delete.cshtml", product);
+                }
             }
             return NotFound();
         }
@@ -325,7 +347,9 @@ namespace PerfectSite.Controllers
             {
                 HDD product = await _db.HDDs.Include(m => m.Manufacturer).FirstOrDefaultAsync(p => p.Id == id);
                 if (product != null)
+                {
                     return View("~/Views/Data/HDD/HDD_Edit.cshtml", product);
+                }
             }
             return NotFound();
         }
@@ -366,7 +390,9 @@ namespace PerfectSite.Controllers
             {
                 Motherboard product = await _db.Motherboards.Include(m => m.Manufacturer).FirstOrDefaultAsync(p => p.Id == id);
                 if (product != null)
+                {
                     return View("~/Views/Data/Motherboard/Motherboard_Details.cshtml", product);
+                }
             }
             return NotFound();
         }
@@ -380,7 +406,9 @@ namespace PerfectSite.Controllers
                 Motherboard product = await _db.Motherboards.Include(m => m.Manufacturer).FirstOrDefaultAsync(p => p.Id == id);
 
                 if (product != null)
+                {
                     return View("~/Views/Data/Motherboard/Motherboard_Delete.cshtml", product);
+                }
             }
             return NotFound();
         }
@@ -405,7 +433,9 @@ namespace PerfectSite.Controllers
             {
                 Motherboard product = await _db.Motherboards.Include(m => m.Manufacturer).FirstOrDefaultAsync(p => p.Id == id);
                 if (product != null)
+                {
                     return View("~/Views/Data/Motherboard/Motherboard_Edit.cshtml", product);
+                }
             }
             return NotFound();
         }
@@ -446,7 +476,9 @@ namespace PerfectSite.Controllers
             {
                 Phone product = await _db.Phones.Include(m => m.Manufacturer).FirstOrDefaultAsync(p => p.Id == id);
                 if (product != null)
+                {
                     return View("~/Views/Data/Phone/Phone_Details.cshtml", product);
+                }
             }
             return NotFound();
         }
@@ -460,7 +492,9 @@ namespace PerfectSite.Controllers
                 Phone product = await _db.Phones.Include(m => m.Manufacturer).FirstOrDefaultAsync(p => p.Id == id);
 
                 if (product != null)
+                {
                     return View("~/Views/Data/Phone/Phone_Delete.cshtml", product);
+                }
             }
             return NotFound();
         }
@@ -485,7 +519,9 @@ namespace PerfectSite.Controllers
             {
                 Phone product = await _db.Phones.Include(m => m.Manufacturer).FirstOrDefaultAsync(p => p.Id == id);
                 if (product != null)
+                {
                     return View("~/Views/Data/Phone/Phone_Edit.cshtml", product);
+                }
             }
             return NotFound();
         }
@@ -526,7 +562,9 @@ namespace PerfectSite.Controllers
             {
                 PowerSupply product = await _db.PowerSupplies.Include(m => m.Manufacturer).FirstOrDefaultAsync(p => p.Id == id);
                 if (product != null)
+                {
                     return View("~/Views/Data/PowerSupply/PowerSupply_Details.cshtml", product);
+                }
             }
             return NotFound();
         }
@@ -539,7 +577,9 @@ namespace PerfectSite.Controllers
             {
                 PowerSupply product = await _db.PowerSupplies.Include(m => m.Manufacturer).FirstOrDefaultAsync(p => p.Id == id);
                 if (product != null)
+                {
                     return View("~/Views/Data/PowerSupply/PowerSupply_Delete.cshtml", product);
+                }
             }
             return NotFound();
         }
@@ -564,7 +604,9 @@ namespace PerfectSite.Controllers
             {
                 PowerSupply product = await _db.PowerSupplies.Include(m => m.Manufacturer).FirstOrDefaultAsync(p => p.Id == id);
                 if (product != null)
+                {
                     return View("~/Views/Data/PowerSupply/PowerSupply_Edit.cshtml", product);
+                }
             }
             return NotFound();
         }
@@ -605,7 +647,9 @@ namespace PerfectSite.Controllers
             {
                 RAM product = await _db.RAMs.Include(m => m.Manufacturer).FirstOrDefaultAsync(p => p.Id == id);
                 if (product != null)
+                {
                     return View("~/Views/Data/RAM/RAM_Details.cshtml", product);
+                }
             }
             return NotFound();
         }
@@ -619,7 +663,9 @@ namespace PerfectSite.Controllers
                 RAM product = await _db.RAMs.Include(m => m.Manufacturer).FirstOrDefaultAsync(p => p.Id == id);
 
                 if (product != null)
+                {
                     return View("~/Views/Data/RAM/RAM_Delete.cshtml", product);
+                }
             }
             return NotFound();
         }
@@ -644,7 +690,9 @@ namespace PerfectSite.Controllers
             {
                 RAM product = await _db.RAMs.Include(m => m.Manufacturer).FirstOrDefaultAsync(p => p.Id == id);
                 if (product != null)
+                {
                     return View("~/Views/Data/RAM/RAM_Edit.cshtml", product);
+                }
             }
             return NotFound();
         }
@@ -685,7 +733,9 @@ namespace PerfectSite.Controllers
             {
                 SSD product = await _db.SSDs.Include(m => m.Manufacturer).FirstOrDefaultAsync(p => p.Id == id);
                 if (product != null)
+                {
                     return View("~/Views/Data/SSD/SSD_Details.cshtml", product);
+                }
             }
             return NotFound();
         }
@@ -699,7 +749,9 @@ namespace PerfectSite.Controllers
                 SSD product = await _db.SSDs.Include(m => m.Manufacturer).FirstOrDefaultAsync(p => p.Id == id);
 
                 if (product != null)
+                {
                     return View("~/Views/Data/SSD/SSD_Delete.cshtml", product);
+                }
             }
             return NotFound();
         }
@@ -724,7 +776,9 @@ namespace PerfectSite.Controllers
             {
                 SSD product = await _db.SSDs.Include(m => m.Manufacturer).FirstOrDefaultAsync(p => p.Id == id);
                 if (product != null)
+                {
                     return View("~/Views/Data/SSD/SSD_Edit.cshtml", product);
+                }
             }
             return NotFound();
         }

@@ -19,7 +19,7 @@ namespace PerfectSite.ViewModels.Account
         public string ConfirmPassword { get; set; }
 
         [Required(ErrorMessage = "Введите адресс электронной почты")]
-        [EmailAddress]
+        [EmailAddress(ErrorMessage = "Некорректный формат адреса")]
         public string? Email { get; set; }
 
         [Phone]

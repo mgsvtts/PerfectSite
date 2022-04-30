@@ -12,14 +12,8 @@
             TotalPages = (int)Math.Ceiling(count / (double)PageSize);
         }
 
-        public bool HasPreviousPage
-        {
-            get { return (PageNumber > 1); }
-        }
+        public bool HasPreviousPage => (PageNumber > 1);
 
-        public bool HasNextPage
-        {
-            get { return (PageNumber < TotalPages); }
-        }
+        public bool HasNextPage => (PageNumber < TotalPages);
     }
 }

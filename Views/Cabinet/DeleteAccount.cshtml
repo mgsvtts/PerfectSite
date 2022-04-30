@@ -1,0 +1,28 @@
+﻿@model PerfectSite.ViewModels.Cabinet.DeleteAccountViewModel
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = "Delete account";
+}
+
+<html>
+    <body>
+        <h1 class = "text-center">Вы точно хотите удалить данный аккаунт</h1>
+        <h2 class = "text-center">(отменить это действие будет невозможно)</h2>
+        <p>Заполните следующие поля для подтверждения</p>
+        <form asp-action = "DeleteAccount" asp-controller = "Cabinet">
+            <div asp-validation-summary = "ModelOnly"></div>
+            <input type = "hidden" asp-for = "Id"/>
+             <div class="form-group">
+                <label asp-for="Email" class="control-label">Почта:</label>
+                <input type="text" asp-for="Email" class="form-control" style="background-color: #232627; color:#d1cdc7;  border-color:  #121415;"/>
+                <span asp-validation-for = "Email"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Password" class="control-label">Пароль:</label>
+                <input type="password" asp-for="Password"  class="form-control" style="background-color: #232627; color:#d1cdc7;  border-color:  #121415;"/>
+                <span asp-validation-for = "Password"></span>
+            </div>
+            <input type="submit" class="btn btn-primary" value = "Удалить"/>
+        </form>
+    </body>
+</html>

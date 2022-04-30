@@ -63,10 +63,14 @@ namespace PerfectSite.ViewModels.Store
         public IQueryable<T> AddFilter(int? manufacturer, string name)
         {
             if (manufacturer != null && manufacturer != 0)
+            {
                 _products = _products.Where(p => p.ManufacturerId == manufacturer);
+            }
 
-            if (!String.IsNullOrEmpty(name))
+            if (!string.IsNullOrEmpty(name))
+            {
                 _products = _products.Where(p => p.ModelName.Contains(name));
+            }
 
             return _products;
         }
@@ -75,8 +79,8 @@ namespace PerfectSite.ViewModels.Store
         {
             int pageSize = PageViewModel.PageSize;
 
-            var count = await _products.CountAsync();
-            var items = await _products.Skip((page - 1) * pageSize).Take(pageSize).ToListAsync();
+            int count = await _products.CountAsync();
+            List<T>? items = await _products.Skip((page - 1) * pageSize).Take(pageSize).ToListAsync();
             return (count, page, items);
         }
     }

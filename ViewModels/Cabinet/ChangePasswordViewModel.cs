@@ -7,7 +7,7 @@ namespace PerfectSite.ViewModels.Cabinet
         public string Id { get; set; }
 
         [Required(ErrorMessage = "Введите адресс электронной почты")]
-        [EmailAddress]
+        [EmailAddress(ErrorMessage = "Некорректный формат адреса")]
         public string Email { get; set; }
 
         [Required(ErrorMessage = "Введите старый пароль")]

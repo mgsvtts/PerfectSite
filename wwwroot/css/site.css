@@ -11,7 +11,6 @@ html {
         font-size: 16px;
     }
 }
-#121415
 html {
     color: #d1cdc7;
     background-color: #121415;
@@ -109,7 +108,7 @@ body {
 }
 
 .input-validation-error {
-    border: 1px solid:#ff0000;
+    border: 1px solid #ff0000;
     background-color: #ff0000;
 }
 

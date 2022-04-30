@@ -44,14 +44,14 @@ namespace PerfectSite.Controllers
                 return View(model);
             }
 
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Main", "Cabinet", id);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> ChangePassword(ChangePasswordViewModel model)
         {
-            if(model.OldPassword == model.NewPassword)
+            if (model.OldPassword == model.NewPassword)
             {
                 ModelState.AddModelError("NewPassword", "Новый пароль не должен совпадать со старым");
                 return View(model);
@@ -84,7 +84,7 @@ namespace PerfectSite.Controllers
                 return View(model);
             }
 
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Main", "Cabinet", id);
         }
 
         [HttpPost]
@@ -108,13 +108,13 @@ namespace PerfectSite.Controllers
 
             if (ModelState.IsValid)
             {
-                var token = await _userManager.GenerateChangeEmailTokenAsync(user, model.NewEmail);
+                string? token = await _userManager.GenerateChangeEmailTokenAsync(user, model.NewEmail);
 
                 await _userManager.ChangeEmailAsync(user, model.NewEmail, token.ToString());
 
                 return View("~/Views/Cabinet/Main.cshtml", user);
             }
-           return View(model);
+            return View(model);
         }
 
         [HttpGet]
@@ -128,7 +128,7 @@ namespace PerfectSite.Controllers
                 return View(model);
             }
 
-            return RedirectToAction("Main", "Cabinet");
+            return RedirectToAction("Main", "Cabinet", id);
         }
 
         [HttpGet]
@@ -142,7 +142,7 @@ namespace PerfectSite.Controllers
                 return View(model);
             }
 
-            return RedirectToAction("Main", "Cabinet");
+            return RedirectToAction("Main", "Cabinet", id);
         }
 
         [HttpPost]
@@ -186,6 +186,53 @@ namespace PerfectSite.Controllers
 
                 return View(model);
             }
+            return View(model);
+        }
+
+
+        [HttpGet]
+        public async Task<IActionResult> DeleteAccount(string id)
+        {
+            if (id != null)
+            {
+                DeleteAccountViewModel model = new DeleteAccountViewModel { Id = id };
+
+                return View(model);
+            }
+            return RedirectToAction("Main", "Cabinet", id);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> DeleteAccount(DeleteAccountViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                User user = await _userManager.FindByIdAsync(model.Id);
+
+                if (user == null)
+                {
+                    ModelState.AddModelError("Email", "Пользователь не найден");
+                    return View(model);
+                }
+
+                if (user.Email != model.Email || string.IsNullOrEmpty(model.Email))
+                {
+                    ModelState.AddModelError("Email", "Неверный адрес электронной почты");
+                    return View(model);
+                }
+
+                bool check = await _userManager.CheckPasswordAsync(user, model.Password);
+                if (!check)
+                {
+                    ModelState.AddModelError("Password", "Неверный пароль");
+                    return View(model);
+                }
+
+                await _userManager.DeleteAsync(user);
+                await _db.SaveChangesAsync();
+                return RedirectToAction("Index", "Home");
+            }
+
             return View(model);
         }
 

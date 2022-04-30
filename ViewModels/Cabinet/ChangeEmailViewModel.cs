@@ -6,10 +6,10 @@ namespace PerfectSite.ViewModels.Cabinet
     {
         public string Id { get; set; }
 
-        [EmailAddress]
+        [EmailAddress(ErrorMessage = "Некорректный формат адреса")]
         public string OldEmail { get; set; }
 
-        [EmailAddress]
+        [EmailAddress(ErrorMessage = "Некорректный формат адреса")]
         public string NewEmail { get; set; }
     }
 }

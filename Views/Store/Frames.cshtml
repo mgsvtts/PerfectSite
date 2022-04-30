@@ -100,7 +100,7 @@
 
     @if (Model.PageViewModel.HasPreviousPage)
     {
-         <a asp-action="CPUs"
+         <a asp-action="Frames"
        asp-route-page="@(Model.PageViewModel.PageNumber - 1)"
        asp-route-name="@(Model.FilterViewModel.SelectedName)"
        asp-route-manufacturer="@(Model.FilterViewModel.SelectedManufacturer)"
@@ -109,7 +109,7 @@
     }
     @if (Model.PageViewModel.HasNextPage)
 {
-    <a asp-action="CPUs"
+    <a asp-action="Frames"
        asp-route-page="@(Model.PageViewModel.PageNumber + 1)"
        asp-route-name="@(Model.FilterViewModel.SelectedName)"
        asp-route-manufacturer="@(Model.FilterViewModel.SelectedManufacturer)"
