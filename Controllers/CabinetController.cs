@@ -12,12 +12,10 @@ namespace PerfectSite.Controllers
     {
         private readonly ApplicationContext _db;
         private readonly UserManager<User> _userManager;
-        private readonly SignInManager<User> _signInManager;
 
-        public CabinetController(UserManager<User> userManager, SignInManager<User> signInManager, ApplicationContext db)
+        public CabinetController(UserManager<User> userManager, ApplicationContext db)
         {
             _userManager = userManager;
-            _signInManager = signInManager;
             _db = db;
         }
 
@@ -44,7 +42,7 @@ namespace PerfectSite.Controllers
                 return View(model);
             }
 
-            return RedirectToAction("Main", "Cabinet", id);
+            return RedirectToAction("Index", "Home");
         }
 
         [HttpPost]
@@ -84,7 +82,7 @@ namespace PerfectSite.Controllers
                 return View(model);
             }
 
-            return RedirectToAction("Main", "Cabinet", id);
+            return RedirectToAction("Index", "Home");
         }
 
         [HttpPost]
@@ -128,7 +126,7 @@ namespace PerfectSite.Controllers
                 return View(model);
             }
 
-            return RedirectToAction("Main", "Cabinet", id);
+            return RedirectToAction("Index", "Home");
         }
 
         [HttpGet]
@@ -142,7 +140,7 @@ namespace PerfectSite.Controllers
                 return View(model);
             }
 
-            return RedirectToAction("Main", "Cabinet", id);
+            return RedirectToAction("Index", "Home");
         }
 
         [HttpPost]
@@ -182,7 +180,7 @@ namespace PerfectSite.Controllers
                     return RedirectToAction("Main", "Cabinet", user.Id);
                 }
 
-                ModelState.AddModelError("NewName", "Новое имя не должно совпадать со старым");
+                ModelState.AddModelError("NewName", "Новая фамилия не должна совпадать со старой");
 
                 return View(model);
             }
@@ -199,7 +197,7 @@ namespace PerfectSite.Controllers
 
                 return View(model);
             }
-            return RedirectToAction("Main", "Cabinet", id);
+            return RedirectToAction("Index", "Home");
         }
 
         [HttpPost]
