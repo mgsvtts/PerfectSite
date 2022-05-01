@@ -13,30 +13,37 @@
     <div class="form-group">
         <label asp-for="Manufacturer.Name" class="control-label">Произодитель</label>
         <input type="text" asp-for="Manufacturer.Name" class="form-control my-text my-border-color my-textbar-background" />
+        <span asp-validation-for="Manufacturer.Name"></span>
     </div>
     <div class="form-group">
         <label asp-for="Socket" class="control-label">Сокет</label>
         <input type="text" step = "any" asp-for="Socket" class="form-control my-text my-border-color my-textbar-background" />
+        <span asp-validation-for="Socket"></span>
     </div>
      <div class="form-group">
         <label asp-for="FormFactor" class="control-label">Форм фактор</label>
         <input type="text" asp-for="FormFactor" class="form-control my-text my-border-color my-textbar-background" />
+        <span asp-validation-for="FormFactor"></span>
     </div>
     <div class="form-group">
         <label asp-for="MemorySlots" class="control-label">Колличество слотов памяти</label>
         <input type="number" asp-for="MemorySlots" class="form-control my-text my-border-color my-textbar-background" />
+          <span asp-validation-for="MemorySlots"></span>
     </div>
     <div class="form-group">
         <label asp-for="MemoryType" class="control-label">Тип памяти</label>
         <input type="text" asp-for="MemoryType" class="form-control my-text my-border-color my-textbar-background" />
+        <span asp-validation-for="MemoryType"></span>
     </div>
      <div class="form-group">
         <label asp-for="Price" class="control-label">Цена</label>
         <input type="number" step = "any" asp-for="Price" class="form-control my-text my-border-color my-textbar-background" />
+        <span asp-validation-for="Price"></span>
     </div>
      <div class="form-group">
         <label asp-for="Amount" class="control-label">Колличество на складе</label>
         <input type="number" asp-for="Amount" class="form-control my-text my-border-color my-textbar-background" />
+        <span asp-validation-for="Amount"></span>
     </div>
     <div class="form-group">
         <label asp-for="Description" class="control-label">Описание</label>

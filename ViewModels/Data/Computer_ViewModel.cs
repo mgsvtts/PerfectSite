@@ -27,6 +27,7 @@ namespace PerfectSite.ViewModels.Data
         [Required(ErrorMessage = "Наличие корпуса обязательно")]
         public string FrameName { get; set; }
 
+
         public string? HDDName { get; set; }
         public string? SSDName { get; set; }
         public string? GPUName { get; set; }

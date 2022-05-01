@@ -13,35 +13,43 @@
     <div class="form-group">
         <label asp-for="Manufacturer.Name" class="control-label">Произодитель</label>
         <input type="text" asp-for="Manufacturer.Name" class="form-control my-text my-border-color my-textbar-background" />
+        <span asp-validation-for="Manufacturer.Name"></span>
     </div>
     <div class="form-group">
         <label asp-for="Speed" class="control-label">Частота ядра</label>
         <input type="number" step="0.1" min="0" max = "100" asp-for="Speed" class="form-control my-text my-border-color my-textbar-background"/>
+         <span asp-validation-for="Speed"></span>
     </div>
     <div class="form-group">
         <label asp-for="Cores" class="control-label">Колличество ядер</label>
         <input type="number" asp-for="Cores" class="form-control my-text my-border-color my-textbar-background" />
+         <span asp-validation-for="Cores"></span>
     </div>
     <div class="form-group">
         <label asp-for="Threads" class="control-label">Колличество потоков</label>
         <input type="number" asp-for="Threads" class="form-control my-text my-border-color my-textbar-background" />
+         <span asp-validation-for="Threads"></span>
     </div>
     
     <div class="form-group">
         <label asp-for="PowerUsage" class="control-label">TDP</label>
         <input type="number" asp-for="PowerUsage" class="form-control my-text my-border-color my-textbar-background" />
+         <span asp-validation-for="PowerUsage"></span>
     </div>
     <div class="form-group">
         <label asp-for="Socket" class="control-label">Сокет</label>
         <input type="text" asp-for="Socket" class="form-control my-text my-border-color my-textbar-background" />
+        <span asp-validation-for="Socket"></span>
     </div>
      <div class="form-group">
         <label asp-for="Price" class="control-label">Цена</label>
         <input type="number" step = "any" asp-for="Price" class="form-control my-text my-border-color my-textbar-background" />
+         <span asp-validation-for="Price"></span>
     </div>
      <div class="form-group">
         <label asp-for="Amount" class="control-label">Колличество на складе</label>
         <input type="number" asp-for="Amount" class="form-control my-text my-border-color my-textbar-background" />
+         <span asp-validation-for="Amount"></span>
     </div>
     <div class="form-group">
         <label asp-for="Description" class="control-label">Описание</label>

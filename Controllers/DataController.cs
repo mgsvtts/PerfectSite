@@ -186,7 +186,8 @@ namespace PerfectSite.Controllers
                         ModelName = model.ModelName,
                         Price = model.Price,
                         Amount = model.Amount,
-                        Id = computer.Id
+                        Id = computer.Id,
+                        
 
                     };
 
@@ -248,7 +249,7 @@ namespace PerfectSite.Controllers
                 return RedirectToAction("CPUs", "Store");
             }
 
-            return View("~/Views/Data/CPU/CPU_Create.cshtml");
+            return View("~/Views/Data/CPU/CPU_Create.cshtml", product);
         }
 
         public async Task<IActionResult> CPU_Details(int? id)

@@ -9,26 +9,32 @@
     <div class="form-group">
         <label asp-for="ModelName" class="control-label">Название</label>
         <input type="text" asp-for="ModelName" class="form-control my-text my-border-color my-textbar-background" />
+
     </div>
     <div class="form-group">
         <label asp-for="Manufacturer.Name" class="control-label">Произодитель</label>
         <input type="text" asp-for="Manufacturer.Name" class="form-control my-text my-border-color my-textbar-background" />
+        <span asp-validation-for="Manufacturer.Name"></span>
     </div>
     <div class="form-group">
         <label asp-for="Power" class="control-label">Мощность</label>
         <input type="number" step = "any" asp-for="Power" class="form-control my-text my-border-color my-textbar-background" />
+         <span asp-validation-for="Power"></span>
     </div>
     <div class="form-group">
         <label asp-for="Certificate" class="control-label">Сертификат</label>
         <input type="text" asp-for="Certificate" class="form-control my-text my-border-color my-textbar-background" />
+        <span asp-validation-for="Certificate"></span>
     </div>
      <div class="form-group">
         <label asp-for="Price" class="control-label">Цена</label>
         <input type="number" step = "any" asp-for="Price" class="form-control my-text my-border-color my-textbar-background" />
+        <span asp-validation-for="Price"></span>
     </div>
      <div class="form-group">
         <label asp-for="Amount" class="control-label">Колличество на складе</label>
         <input type="number" asp-for="Amount" class="form-control my-text my-border-color my-textbar-background" />
+        <span asp-validation-for="Amount"></span>
     </div>
     <div class="form-group">
         <label asp-for="Description" class="control-label">Описание</label>

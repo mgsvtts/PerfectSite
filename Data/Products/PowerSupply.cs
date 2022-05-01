@@ -1,12 +1,18 @@
 ﻿using PerfectSite.Data.Manufacturers.PowerSupplyManufacturers;
 using PerfectSite.Data.VirtualClasses;
+using System.ComponentModel.DataAnnotations;
 
 namespace PerfectSite.Data.Products
 {
     public class PowerSupply : VirtualProduct
     {
-        public PowerSupplyManufacturer Manufacturer { get; set; }
-        public int Power { get; set; }
-        public string Certificate { get; set; }
+        [Required(ErrorMessage = "Введите имя производителя")]
+        public PowerSupplyManufacturer? Manufacturer { get; set; }
+
+        [Required(ErrorMessage = "Введите мощность")]
+        public int? Power { get; set; }
+
+        [Required(ErrorMessage = "Введите сертификат")]
+        public string? Certificate { get; set; }
     }
 }

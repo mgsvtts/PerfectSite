@@ -50,16 +50,6 @@ namespace PerfectSite
         {
             base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<CPU>().HasOne(cpu => cpu.Manufacturer).WithMany(c => c.Products).OnDelete(DeleteBehavior.NoAction);
-            modelBuilder.Entity<Phone>().Property(p => p.Price).HasDefaultValue(0);
-            modelBuilder.Entity<Computer>().Property(p => p.Price).HasDefaultValue(0);
-            modelBuilder.Entity<ComputerFrame>().Property(p => p.Price).HasDefaultValue(0);
-            modelBuilder.Entity<CPU>().Property(p => p.Price).HasDefaultValue(0);
-            modelBuilder.Entity<GPU>().Property(p => p.Price).HasDefaultValue(0);
-            modelBuilder.Entity<HDD>().Property(p => p.Price).HasDefaultValue(0);
-            modelBuilder.Entity<SSD>().Property(p => p.Price).HasDefaultValue(0);
-            modelBuilder.Entity<Motherboard>().Property(p => p.Price).HasDefaultValue(0);
-            modelBuilder.Entity<PowerSupply>().Property(p => p.Price).HasDefaultValue(0);
-            modelBuilder.Entity<RAM>().Property(p => p.Price).HasDefaultValue(0);
             modelBuilder.Entity<CPU>().Property(p => p.ModelName).HasDefaultValue("Unknown");
             modelBuilder.Entity<Phone>().Property(p => p.ModelName).HasDefaultValue("Unknown");
             modelBuilder.Entity<Computer>().Property(p => p.ModelName).HasDefaultValue("Unknown");

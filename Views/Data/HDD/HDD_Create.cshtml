@@ -13,22 +13,27 @@
     <div class="form-group">
         <label asp-for="Manufacturer.Name" class="control-label">Произодитель</label>
         <input type="text" asp-for="Manufacturer.Name" class="form-control my-text my-border-color my-textbar-background" />
+        <span asp-validation-for="Manufacturer.Name"></span>
     </div>
     <div class="form-group">
         <label asp-for="Interface" class="control-label">Интерфейс</label>
         <input type="text" asp-for="Interface" class="form-control my-text my-border-color my-textbar-background" />
+        <span asp-validation-for="Interface"></span>
     </div>
     <div class="form-group">
         <label asp-for="Bandwidth" class="control-label">Пропускная способность</label>
         <input type="number" asp-for="Bandwidth" class="form-control my-text my-border-color my-textbar-background" />
+         <span asp-validation-for="Bandwidth"></span>
     </div>
      <div class="form-group">
         <label asp-for="Price" class="control-label">Цена</label>
         <input type="number" step = "any" asp-for="Price" class="form-control my-text my-border-color my-textbar-background" />
+         <span asp-validation-for="Price"></span>
     </div>
      <div class="form-group">
         <label asp-for="Amount" class="control-label">Колличество на складе</label>
         <input type="number" asp-for="Amount" class="form-control my-text my-border-color my-textbar-background" />
+         <span asp-validation-for="Amount"></span>
     </div>
     <div class="form-group">
         <label asp-for="Description" class="control-label">Описание</label>

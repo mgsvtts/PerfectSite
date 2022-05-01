@@ -1,14 +1,24 @@
 ﻿using PerfectSite.Data.Manufacturers.MotherboardManufacturers;
 using PerfectSite.Data.VirtualClasses;
+using System.ComponentModel.DataAnnotations;
 
 namespace PerfectSite.Data.Products
 {
     public class Motherboard : VirtualProduct
     {
-        public MotherboardManufacturer Manufacturer { get; set; }
-        public string Socket { get; set; }
-        public int MemorySlots { get; set; }
-        public string MemoryType { get; set; }
-        public string FormFactor { get; set; }
+        [Required(ErrorMessage = "Введите имя производителя")]
+        public MotherboardManufacturer? Manufacturer { get; set; }
+
+        [Required(ErrorMessage = "Введите сокет")]
+        public string? Socket { get; set; }
+
+        [Required(ErrorMessage = "Введите колличество слотов памяти")]
+        public int? MemorySlots { get; set; }
+
+        [Required(ErrorMessage = "Введите тип памяти")]
+        public string? MemoryType { get; set; }
+
+        [Required(ErrorMessage = "Введите форм фактор")]
+        public string? FormFactor { get; set; }
     }
 }

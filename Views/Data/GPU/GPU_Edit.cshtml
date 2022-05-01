@@ -15,31 +15,38 @@
     <div class="form-group">
         <label asp-for="Manufacturer.Name" class="control-label">Произодитель</label>
         <input type="text" asp-for="Manufacturer.Name" class="form-control my-text my-border-color my-textbar-background" />
+        <span asp-validation-for="Manufacturer.Name"></span>
     </div>
     <div class="form-group">
         <label asp-for="GPUFrequency" class="control-label">Частота ядра</label>
         <input type="number" step = "any" asp-for="GPUFrequency" class="form-control my-text my-border-color my-textbar-background" />
+        <span asp-validation-for="GPUFrequency"></span>
     </div>
     <div class="form-group">
         <label asp-for="MemorySize" class="control-label">Колличество видеопамяти</label>
         <input type="number" asp-for="MemorySize" class="form-control my-text my-border-color my-textbar-background" />
+        <span asp-validation-for="MemorySize"></span>
     </div>
     <div class="form-group">
         <label asp-for="MemoryType" class="control-label">Тип памяти</label>
         <input type="text"  asp-for="MemoryType" class="form-control my-text my-border-color my-textbar-background" />
+         <span asp-validation-for="MemoryType"></span>
     </div>
     
     <div class="form-group">
         <label asp-for="MemoryFrequency" class="control-label">Частота памяти</label>
         <input type="number" step = "any" asp-for="MemoryFrequency" class="form-control my-text my-border-color my-textbar-background" />
+        <span asp-validation-for="MemoryFrequency"></span>
     </div>
      <div class="form-group">
         <label asp-for="Price" class="control-label">Цена</label>
         <input type="number" step = "any" asp-for="Price" class="form-control my-text my-border-color my-textbar-background" />
+        <span asp-validation-for="Price"></span>
     </div>
      <div class="form-group">
         <label asp-for="Amount" class="control-label">Колличество на складе</label>
         <input type="number" asp-for="Amount" class="form-control my-text my-border-color my-textbar-background" />
+        <span asp-validation-for="Amount"></span>
     </div>
     <div class="form-group">
         <label asp-for="Description" class="control-label">Описание</label>
