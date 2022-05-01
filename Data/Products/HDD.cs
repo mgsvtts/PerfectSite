@@ -14,5 +14,8 @@ namespace PerfectSite.Data.Products
 
         [Required(ErrorMessage = "Введите пропускную способность")]
         public double? Bandwidth { get; set; }
+
+        [Required(ErrorMessage = "Введите форм фактор")]
+        public double? FormFactor { get; set; }
     }
 }

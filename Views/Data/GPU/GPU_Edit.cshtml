@@ -39,6 +39,11 @@
         <span asp-validation-for="MemoryFrequency"></span>
     </div>
      <div class="form-group">
+        <label asp-for="Size" class="control-label">Длина видеокарты</label>
+        <input type="number" step = "any" asp-for="Size" class="form-control my-text my-border-color my-textbar-background" />
+        <span asp-validation-for="Size"></span>
+    </div>
+     <div class="form-group">
         <label asp-for="Price" class="control-label">Цена</label>
         <input type="number" step = "any" asp-for="Price" class="form-control my-text my-border-color my-textbar-background" />
         <span asp-validation-for="Price"></span>

@@ -26,6 +26,11 @@
         <span asp-validation-for="Bandwidth"></span>
     </div>
      <div class="form-group">
+        <label asp-for="FormFactor" class="control-label">Форм фактор</label>
+        <input type="number" asp-for="FormFactor" class="form-control my-text my-border-color my-textbar-background" />
+         <span asp-validation-for="FormFactor"></span>
+    </div>
+     <div class="form-group">
         <label asp-for="Price" class="control-label">Цена</label>
         <input type="number" step = "any" asp-for="Price" class="form-control my-text my-border-color my-textbar-background" />
          <span asp-validation-for="Price"></span>
