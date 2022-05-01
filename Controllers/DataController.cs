@@ -1,7 +1,10 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using PerfectSite.CustomUtilities;
+using PerfectSite.Data.ManufacturersComputerManufacturers;
 using PerfectSite.Data.Products;
+using PerfectSite.ViewModels.Data;
 
 namespace PerfectSite.Controllers
 {
@@ -21,6 +24,215 @@ namespace PerfectSite.Controllers
         }
 
         [HttpGet]
+        public IActionResult Computer_Create()
+        {
+            return View("~/Views/Data/Computer/Computer_Create.cshtml");
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Computer_Create(Computer_ViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                CPU cpu = await _db.CPUs.FirstOrDefaultAsync(u=>u.ModelName == model.CPUName);
+                RAM ram = await _db.RAMs.FirstOrDefaultAsync(u => u.ModelName == model.RAMName);
+                Motherboard motherboard = await _db.Motherboards.FirstOrDefaultAsync(u => u.ModelName == model.MotherboardName);
+                PowerSupply powerSupply= await _db.PowerSupplies.FirstOrDefaultAsync(u => u.ModelName == model.PowerSupplyName);
+                ComputerFrame frame = await _db.ComputerFrames.FirstOrDefaultAsync(u => u.ModelName == model.FrameName);
+                GPU? gpu = await _db.GPUs.FirstOrDefaultAsync(u => u.ModelName == model.GPUName);
+                HDD? hdd = await _db.HDDs.FirstOrDefaultAsync(u => u.ModelName == model.HDDName);
+                SSD? ssd = await _db.SSDs.FirstOrDefaultAsync(u => u.ModelName == model.SSDName);
+                ComputerManufacturer? manufacturer = await _db.ComputerManufacturers.FirstOrDefaultAsync(u => u.Name == model.ManufacturerName);
+
+                ComputerValidation.Validate(cpu, gpu, ram, motherboard, powerSupply, frame, ssd, hdd, this, model);
+
+                if(ModelState.ErrorCount > 0)
+                    return View("~/Views/Data/Computer/Computer_Create.cshtml", model);
+                
+                
+                Computer computer = new Computer
+                {
+                    CPU = cpu,
+                    RAM = ram,
+                    Motherboard = motherboard,
+                    PowerSupply = powerSupply,
+                    Frame = frame,
+                    GPU = gpu,
+                    HDD = hdd,
+                    SSD = ssd,
+                    Manufacturer = manufacturer,
+                    Amount = model.Amount,
+                    BoughtTimes = model.BoughtTimes,
+                    Description = model.Description,
+                    ModelName = model.ModelName,
+                    Price = model.Price
+                    
+                };
+
+                _db.Computers.Add(computer);
+                await _db.SaveChangesAsync();
+                return RedirectToAction("Computers", "Store");
+            }
+
+            return View("~/Views/Data/Computer/Computer_Create.cshtml", model);
+        }
+
+        public async Task<IActionResult> Computer_Details(int? id)
+        {
+            if (id != null)
+            {
+                Computer computer = await _db.Computers
+                                          .Include(m => m.Manufacturer)
+                                          .Include(m => m.CPU)
+                                          .Include(m => m.GPU)
+                                          .Include(m => m.SSD)
+                                          .Include(m => m.HDD)
+                                          .Include(m => m.RAM)
+                                          .Include(m => m.Motherboard)
+                                          .Include(m => m.PowerSupply)
+                                          .Include(m => m.Frame)
+                                          .FirstOrDefaultAsync(p => p.Id == id);
+                if (computer != null)
+                {
+                    return View("~/Views/Data/Computer/Computer_Details.cshtml", computer);
+                }
+            }
+            return NotFound();
+        }
+
+        public async Task<IActionResult> Computer_Edit(int? id)
+        {
+            if (id != null)
+            {
+                Computer computer = await _db.Computers
+                                          .Include(m => m.Manufacturer)
+                                          .Include(m => m.CPU)
+                                          .Include(m => m.GPU)
+                                          .Include(m => m.SSD)
+                                          .Include(m => m.HDD)
+                                          .Include(m => m.RAM)
+                                          .Include(m => m.Motherboard)
+                                          .Include(m => m.PowerSupply)
+                                          .Include(m => m.Frame)
+                                          .FirstOrDefaultAsync(p => p.Id == id);
+               
+                if (computer != null)
+                {
+                    Computer_ViewModel model = new Computer_ViewModel
+                    {
+                        ModelName = computer.ModelName,
+                        ManufacturerName = computer.Manufacturer?.Name,
+                        CPUName = computer.CPU?.ModelName,
+                        GPUName = computer.GPU?.ModelName,
+                        SSDName = computer.SSD?.ModelName,
+                        HDDName = computer.HDD?.ModelName,
+                        RAMName = computer.RAM?.ModelName,
+                        MotherboardName = computer.Motherboard?.ModelName,
+                        PowerSupplyName = computer.PowerSupply?.ModelName,
+                        FrameName = computer.Frame?.ModelName,
+                        Price = computer.Price,
+                        Amount = computer.Amount,
+                        BoughtTimes  = computer.BoughtTimes,
+                        Description = computer.Description,
+                        Manufacturer = computer.Manufacturer,
+                        Id = computer.Id 
+                        
+                    };
+                    
+                    return View("~/Views/Data/Computer/Computer_Edit.cshtml", model);
+                }
+            }
+            return NotFound();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Computer_Edit(Computer_ViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                Computer computer = _db.Computers.FirstOrDefault(p => p.Id == model.Id);
+                if (computer != null)
+                {
+                    ComputerManufacturer? manufacturer = await _db.ComputerManufacturers.FirstOrDefaultAsync(m => m.Name == model.ManufacturerName);
+                    CPU cpu = await _db.CPUs.FirstOrDefaultAsync(m => m.ModelName == model.CPUName);
+                    GPU? gpu = await _db.GPUs.FirstOrDefaultAsync(m => m.ModelName == model.GPUName); 
+                    SSD? ssd = await _db.SSDs.FirstOrDefaultAsync(m => m.ModelName == model.SSDName);
+                    HDD? hdd = await _db.HDDs.FirstOrDefaultAsync(m => m.ModelName == model.HDDName);
+                    RAM ram = await _db.RAMs.FirstOrDefaultAsync(m => m.ModelName == model.RAMName);
+                    Motherboard motherboard = await _db.Motherboards.FirstOrDefaultAsync(m => m.ModelName == model.MotherboardName);
+                    PowerSupply powerSupply = await _db.PowerSupplies.FirstOrDefaultAsync(m => m.ModelName == model.PowerSupplyName);
+                    ComputerFrame frame = await _db.ComputerFrames.FirstOrDefaultAsync(m => m.ModelName == model.FrameName);
+
+
+                    ComputerValidation.Validate(cpu, gpu, ram, motherboard, powerSupply, frame, ssd, hdd, this, model);
+
+                    if (ModelState.ErrorCount > 0)
+                        return View("~/Views/Data/Computer/Computer_Edti.cshtml", model);
+
+
+                    Computer newcomputer = new Computer
+                    {
+                        Manufacturer = manufacturer,
+                        CPU = cpu,
+                        GPU = gpu,
+                        SSD = ssd,
+                        HDD = hdd,
+                        RAM = ram,
+                        Motherboard = motherboard,
+                        PowerSupply = powerSupply,
+                        Frame = frame,
+                        BoughtTimes = model.BoughtTimes,
+                        Description = model.Description,
+                        ModelName = model.ModelName,
+                        Price = model.Price,
+                        Amount = model.Amount,
+                        Id = computer.Id
+
+                    };
+
+                    _db.Computers.Remove(computer);
+                    _db.Computers.Add(newcomputer);
+                    await _db.SaveChangesAsync();
+                    return RedirectToAction("Computers", "Store");
+                    
+
+                }
+            }
+            
+            return View("~/Views/Data/Computer/Computer_Edit.cshtml", model);
+        }
+
+        [HttpGet]
+        [ActionName("Computer_Delete")]
+        public async Task<IActionResult> Computer_GetDelete(int? id)
+        {
+            if (id != null)
+            {
+                Computer computer = await _db.Computers.FirstOrDefaultAsync(p => p.Id == id);
+
+                if (computer != null)
+                {
+                    return View("~/Views/Data/Computer/Computer_Delete.cshtml", computer);
+                }
+            }
+            return NotFound();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Computer_Delete(int? id)
+        {
+            if (id != null)
+            {
+                Computer computer = new Computer { Id = id.Value };
+                _db.Entry(computer).State = EntityState.Deleted;
+                await _db.SaveChangesAsync();
+
+                return RedirectToAction("Computers", "Store");
+            }
+            return NotFound();
+        }
+
+        [HttpGet]
         public IActionResult CPU_Create()
         {
             return View("~/Views/Data/CPU/CPU_Create.cshtml");
@@ -29,7 +241,7 @@ namespace PerfectSite.Controllers
         [HttpPost]
         public async Task<IActionResult> CPU_Create(CPU product)
         {
-            if (ModelState.ErrorCount <= 1)
+            if (ModelState.IsValid)
             {
                 _db.CPUs.Add(product);
                 await _db.SaveChangesAsync();
@@ -98,7 +310,7 @@ namespace PerfectSite.Controllers
         [HttpPost]
         public async Task<IActionResult> CPU_Edit(CPU cpu)
         {
-            if (ModelState.ErrorCount <= 1)
+            if (ModelState.IsValid)
             {
                 _db.CPUs.Update(cpu);
                 await _db.SaveChangesAsync();
@@ -117,7 +329,7 @@ namespace PerfectSite.Controllers
         [HttpPost]
         public async Task<IActionResult> Frame_Create(ComputerFrame product)
         {
-            if (ModelState.ErrorCount <= 1)
+            if (ModelState.IsValid)
             {
                 _db.ComputerFrames.Add(product);
                 await _db.SaveChangesAsync();
@@ -185,7 +397,7 @@ namespace PerfectSite.Controllers
         [HttpPost]
         public async Task<IActionResult> Frame_Edit(ComputerFrame product)
         {
-            if (ModelState.ErrorCount <= 1)
+            if (ModelState.IsValid)
             {
                 _db.ComputerFrames.Update(product);
                 await _db.SaveChangesAsync();
@@ -203,7 +415,7 @@ namespace PerfectSite.Controllers
         [HttpPost]
         public async Task<IActionResult> GPU_Create(GPU product)
         {
-            if (ModelState.ErrorCount <= 1)
+            if (ModelState.IsValid)
             {
                 _db.GPUs.Add(product);
                 await _db.SaveChangesAsync();
@@ -271,7 +483,7 @@ namespace PerfectSite.Controllers
         [HttpPost]
         public async Task<IActionResult> GPU_Edit(GPU product)
         {
-            if (ModelState.ErrorCount <= 1)
+            if (ModelState.IsValid)
             {
                 _db.GPUs.Update(product);
                 await _db.SaveChangesAsync();
@@ -289,7 +501,7 @@ namespace PerfectSite.Controllers
         [HttpPost]
         public async Task<IActionResult> HDD_Create(HDD product)
         {
-            if (ModelState.ErrorCount <= 1)
+            if (ModelState.IsValid)
             {
                 _db.HDDs.Add(product);
                 await _db.SaveChangesAsync();
@@ -357,7 +569,7 @@ namespace PerfectSite.Controllers
         [HttpPost]
         public async Task<IActionResult> HDD_Edit(HDD product)
         {
-            if (ModelState.ErrorCount <= 1)
+            if (ModelState.IsValid)
             {
                 _db.HDDs.Update(product);
                 await _db.SaveChangesAsync();
@@ -375,7 +587,7 @@ namespace PerfectSite.Controllers
         [HttpPost]
         public async Task<IActionResult> Motherboard_Create(Motherboard product)
         {
-            if (ModelState.ErrorCount <= 1)
+            if (ModelState.IsValid)
             {
                 _db.Motherboards.Add(product);
                 await _db.SaveChangesAsync();
@@ -443,7 +655,7 @@ namespace PerfectSite.Controllers
         [HttpPost]
         public async Task<IActionResult> Motherboard_Edit(Motherboard product)
         {
-            if (ModelState.ErrorCount <= 1)
+            if (ModelState.IsValid)
             {
                 _db.Motherboards.Update(product);
                 await _db.SaveChangesAsync();
@@ -461,7 +673,7 @@ namespace PerfectSite.Controllers
         [HttpPost]
         public async Task<IActionResult> Phone_Create(Phone product)
         {
-            if (ModelState.ErrorCount <= 1)
+            if (ModelState.IsValid)
             {
                 _db.Phones.Add(product);
                 await _db.SaveChangesAsync();
@@ -529,7 +741,7 @@ namespace PerfectSite.Controllers
         [HttpPost]
         public async Task<IActionResult> Phone_Edit(Phone product)
         {
-            if (ModelState.ErrorCount <= 1)
+            if (ModelState.IsValid)
             {
                 _db.Phones.Update(product);
                 await _db.SaveChangesAsync();
@@ -547,7 +759,7 @@ namespace PerfectSite.Controllers
         [HttpPost]
         public async Task<IActionResult> PowerSupply_Create(PowerSupply product)
         {
-            if (ModelState.ErrorCount <= 1)
+            if (ModelState.IsValid)
             {
                 _db.PowerSupplies.Add(product);
                 await _db.SaveChangesAsync();
@@ -614,7 +826,7 @@ namespace PerfectSite.Controllers
         [HttpPost]
         public async Task<IActionResult> PowerSupply_Edit(PowerSupply product)
         {
-            if (ModelState.ErrorCount <= 1)
+            if (ModelState.IsValid)
             {
                 _db.PowerSupplies.Update(product);
                 await _db.SaveChangesAsync();
@@ -632,7 +844,7 @@ namespace PerfectSite.Controllers
         [HttpPost]
         public async Task<IActionResult> RAM_Create(RAM product)
         {
-            if (ModelState.ErrorCount <= 1)
+            if (ModelState.IsValid)
             {
                 _db.RAMs.Add(product);
                 await _db.SaveChangesAsync();
@@ -700,7 +912,7 @@ namespace PerfectSite.Controllers
         [HttpPost]
         public async Task<IActionResult> RAM_Edit(RAM product)
         {
-            if (ModelState.ErrorCount <= 1)
+            if (ModelState.IsValid)
             {
                 _db.RAMs.Update(product);
                 await _db.SaveChangesAsync();
@@ -718,7 +930,7 @@ namespace PerfectSite.Controllers
         [HttpPost]
         public async Task<IActionResult> SSD_Create(SSD product)
         {
-            if (ModelState.ErrorCount <= 1)
+            if (ModelState.IsValid)
             {
                 _db.SSDs.Add(product);
                 await _db.SaveChangesAsync();
@@ -786,7 +998,7 @@ namespace PerfectSite.Controllers
         [HttpPost]
         public async Task<IActionResult> SSD_Edit(SSD product)
         {
-            if (ModelState.ErrorCount <= 1)
+            if (ModelState.IsValid)
             {
                 _db.SSDs.Update(product);
                 await _db.SaveChangesAsync();

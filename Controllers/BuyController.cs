@@ -431,5 +431,51 @@ namespace PerfectSite.Controllers
 
             return View(model);
         }
+
+        [HttpGet]
+        public async Task<IActionResult> Computer_Buy(int ComputerId)
+        {
+            if (ComputerId != null)
+            {
+                if (User.Identity.IsAuthenticated)
+                {
+                    User user = await _userManager.FindByNameAsync(User.Identity.Name);
+
+                    return View(new BuyViewModel { ProductId = ComputerId, CreatedAt = DateTime.Now, UserName = user.FirstName });
+                }
+
+                return RedirectToAction("Login", "Account");
+            }
+            return NotFound();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Computer_Buy(BuyViewModel model)
+        {
+            Computer computer = await _db.Computers.FirstOrDefaultAsync(p => p.Id == model.ProductId);
+            if (computer.Amount < model.Quantity)
+            {
+                ModelState.AddModelError("Quantity", "На складе недостаточно товаров");
+                return View(model);
+            }
+            if (ModelState.IsValid)
+            {
+                User user = await _userManager.FindByNameAsync(User.Identity.Name);
+                Order order = new Order { CreatedAt = model.CreatedAt, ProductId = model.ProductId, UserId = user.Id, Quantity = model.Quantity };
+
+                computer.Amount -= model.Quantity;
+                computer.BoughtTimes += model.Quantity;
+
+                _db.Orders.Add(order);
+                _db.Computers.Update(computer);
+
+                await _db.SaveChangesAsync();
+
+                return View("~/Views/Buy/ThanksPage.cshtml", order);
+            }
+
+            return View(model);
+        }
     }
 }

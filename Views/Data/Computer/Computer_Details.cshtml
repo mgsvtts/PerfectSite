@@ -1,0 +1,92 @@
+﻿@model PerfectSite.Data.Products.Computer
+@{
+    ViewBag.Title = "Информация компьютера";
+}
+
+<html>
+    <body>
+        <h2>Модель @Model.ModelName</h2>
+
+<div class = "my-text dl-horizontal">
+    <dl class="dl-horizontal">
+        <dt>ID</dt>
+        <dd>@Model.Id</dd>
+     @{
+                if (@Model?.Manufacturer?.Name != null)
+                {
+                    <dt>Производитель</dt>
+                    <dd>@Model.Manufacturer.Name</dd>
+                }  
+          
+            
+       
+
+        <dt>Процессор</dt>
+        <dd>@Model.CPU.ModelName</dd>
+        <dd>Ядра: @Model.CPU.Cores</dd>
+        <dd>Потоки: @Model.CPU.Threads</dd>
+        <dd>Частота: @Model.CPU.Speed</dd>
+        
+                if (@Model.GPU != null)
+                {
+                     <dt>Видеокарта</dt>
+                     <dd>@Model.GPU.ModelName</dd>
+                     <dd>Тип памяти: @Model.GPU.MemoryType</dd>
+                     <dd>Размер памяти: @Model.GPU.MemorySize</dd>
+                     <dd>Частота памяти: @Model.GPU.MemoryFrequency</dd>
+                     <dd>Частота ядра: @Model.GPU.GPUFrequency</dd>
+                }
+               
+
+        <dt>Материнская плата</dt>
+        <dd>@Model.Motherboard.ModelName</dd>
+        <dd>Колличество слотов памяти: @Model.Motherboard.MemorySlots</dd>
+        <dd>Тип памяти: @Model.Motherboard.MemoryType</dd>
+        <dd>Сокет: @Model.Motherboard.Socket</dd>
+
+                if (@Model.HDD != null)
+                {
+                    <dt>HDD</dt>
+                    <dd>@Model.HDD.ModelName</dd>
+                    <dd>Интерфейс: @Model.HDD.Interface</dd>
+                    <dd>Пропускная способность: @Model.HDD.Bandwidth</dd>
+                }
+                if (@Model.SSD != null)
+                {
+                    <dt>SSD</dt>
+                    <dd>@Model.SSD.ModelName</dd>
+                    <dd>Интерфейс: @Model.SSD.Interface</dd>
+                    <dd>Пропускная способность: @Model.SSD.Bandwidth</dd>
+                }
+
+
+        <dt>Оперативная память</dt>
+        <dd>@Model.RAM.ModelName</dd>
+        <dd>Объем памяти: @Model.RAM.MemorySize</dd>
+        <dd>Частота: @Model.RAM.Speed</dd>
+
+        <dt>Корпус</dt>
+        <dd>@Model.Frame.ModelName</dd>
+        <dd>Максимальная длинна видеокарты: @Model.Frame.GPULength</dd>
+        <dd>Форм фактор: @Model.Frame.Size</dd>
+
+        <dt>Блок питания</dt>
+        <dd>@Model.PowerSupply.ModelName</dd>
+        <dd>Сертификат: @Model.PowerSupply.Certificate</dd>
+        <dd>Мощность: @Model.PowerSupply.Power</dd>
+
+    }
+        <dt>Цена</dt>
+        <dd>@Model.Price</dd>
+
+        <dt>Осталось на складе</dt>
+        <dd>@Model.Amount</dd>
+
+        <dt>Куплен</dt>
+        <dd>@Model.BoughtTimes раз</dd>
+    </dl>
+    
+    <a class = "btn btn-primary" asp-controller = "Store" asp-action = "Computers">Назад</a>
+    </div>
+    </body>
+</html>

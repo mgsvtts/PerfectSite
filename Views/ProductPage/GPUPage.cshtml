@@ -33,7 +33,7 @@
         <b style = " font-size: 200%">@Model.Size см</b> 
         <p></p>
         @{
-            if((@Model.Description != null) && (!string.IsNullOrEmpty(@Model.Description)))
+            if((!string.IsNullOrEmpty(@Model.Description)))
             {
                 <p style = "font-size: 150%">Описание:</p> 
                 <b class = "text-center" style = " font-size: 125%"> @Model.Description </b>

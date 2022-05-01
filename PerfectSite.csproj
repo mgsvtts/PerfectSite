@@ -7,6 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Include="Views\Data\Computer\Computer_Create.cshtml" />
     <None Include="Views\Data\Main.cshtml" />
     <None Include="Views\Role\Main.cshtml" />
   </ItemGroup>

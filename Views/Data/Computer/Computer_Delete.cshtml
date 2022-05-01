@@ -1,0 +1,24 @@
+﻿@model PerfectSite.Data.Products.Computer
+@{
+    ViewBag.Title = "Удаление компьютера";
+}
+ <html>
+     <body>
+         <div>
+    <dl class="dl-horizontal my-text">
+        <dt>Название</dt>
+        <dd>
+            @Html.DisplayFor(model => model.ModelName)
+        </dd>
+    </dl>
+ 
+    <div>
+        <form asp-controller="Data" asp-action="Computer_Delete" method="post">
+            <div class="form-group">
+                <input type="submit" class="btn btn-primary my-btn" value="Удалить" />
+            </div>
+        </form>
+    </div>
+</div>
+     </body>
+ </html>

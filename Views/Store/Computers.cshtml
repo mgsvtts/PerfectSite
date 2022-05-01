@@ -20,13 +20,24 @@
      </div>
 </form>
 
+    @{
+        if (User.IsInRole("God of the Site"))
+        {
+              <a asp-controller = "Data" asp-action="Computer_Create" class = "btn-primary btn">Добавить</a>
+        }
+
+     }
 <table class="table" >
-    <tr>
+   <tr>
         <th>
-            
             <a class = "my-link" asp-action = "Computers" asp-route-sortOrder="@(Model.SortingViewModel.NameSort)"
                asp-route-name="@(Model.FilterViewModel.SelectedName)"
                asp-route-manufacturer="@(Model.FilterViewModel.SelectedManufacturer)">Название</a>
+        </th>
+        <th>
+              <a class = "my-link" asp-action="Computers" asp-route-sortOrder="@(Model.SortingViewModel.ManufacturerSort)"
+               asp-route-name="@(Model.FilterViewModel.SelectedName)"
+               asp-route-manufacturer="@(Model.FilterViewModel.SelectedManufacturer)">Компания</a>
         </th>
         <th>
              <a class = "my-link" asp-action="Computers" asp-route-sortOrder="@(Model.SortingViewModel.AmountSort)"
@@ -43,42 +54,61 @@
                asp-route-name="@(Model.FilterViewModel.SelectedName)"
                asp-route-manufacturer="@(Model.FilterViewModel.SelectedManufacturer)">Цена</a>
         </th>
-         @{
+            @{
                 if(User.IsInRole("God of the Site"))
                 {
                     <th style="color: #0d6efd;">Дополнительные действия</th>
                 }
         }
-
     </tr>
         @foreach(var product in Model.Products)
         {
             <tr>
-                <td class = "my-text ">
+                <td class  = "my-text ">
                      <b><a class = "my-link" asp-controller="ProductPage" asp-action="ComputerPage" asp-route-id = "@product.Id">@product.ModelName</a></b>
                 </td>
-               
-                <td  class = "my-text ">
+            @{
+                if(@product.Manufacturer == null)
+                {
+                     <td  class  = "my-text">Неопределена</td>
+                    
+                }
+                else
+                {
+                    <td  class  = "my-text"> @product.Manufacturer?.Name</td>
+                }
+                
+                <td  class  = "my-text">
                     @product.Amount
                 </td>
-                <td class = "my-text">Наивысшая</td>
-                 <td  class = "my-text ">
-                    Бесценен
-                </td>
-                @{
-                   
+              
+                    if (product.BoughtTimes > 100)
+                    {
+                        <td class  = "my-text">Высокая</td>
+                    }
+                    else if(product.BoughtTimes < 100 && product.BoughtTimes > 25)
+                    {
+                        <td  class  = "my-text">Средняя</td>
+                    }
+                    else
+                    {
+                        <td  class  = "my-text">Низкая</td>
+                    }
+
+                 <td  class  = "my-text">@product.Price </td>
+
                     if(User.IsInRole("God of the Site"))
                     {
                         <td>
-                            <a class = "my-link" asp-action="CPU_Details" asp-controller="Data" asp-route-id="@product.Id">Подробнее</a> |
-                            <a class = "my-link" asp-action="CPU_Edit" asp-controller="Data" asp-route-id="@product.Id">Изменить</a> |
-                            <a class = "my-link" asp-action="CPU_Delete" asp-controller="Data" asp-route-id="@product.Id">Удалить</a>
+                            <a class = "my-link" asp-action="Computer_Details" asp-controller="Data" asp-route-id="@product.Id">Подробнее</a> |
+                            <a class = "my-link" asp-action="Computer_Edit" asp-controller="Data" asp-route-id="@product.Id">Изменить</a> |
+                            <a class = "my-link" asp-action="Computer_Delete" asp-controller="Data" asp-route-id="@product.Id">Удалить</a>
                         </td>
                     }
-                }
-                
+              }
+
             </tr>
-        }
+        } 
     </table>
 
     @if (Model.PageViewModel.HasPreviousPage)

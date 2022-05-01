@@ -39,8 +39,9 @@ namespace PerfectSite
         public void Configure(IApplicationBuilder app)
         {
             app.UseHttpsRedirection();
-
+            app.UseDeveloperExceptionPage();
             app.UseStaticFiles();
+            
 
             app.UseRouting();
 
