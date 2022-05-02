@@ -22,7 +22,10 @@
         <p></p> 
         <p style = " font-size: 150%">Пропускная способность:</p> 
         <b style = " font-size: 200%"> @Model.Bandwidth Mbit/s</b> 
-      <p></p>
+        <p></p>
+        <p style = " font-size: 150%">Форм фактор:</p> 
+        <b style = " font-size: 200%"> @Model.FormFactor Mbit/s</b> 
+        <p></p>
         @{
             if((!string.IsNullOrEmpty(@Model.Description)))
             {

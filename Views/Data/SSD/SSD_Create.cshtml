@@ -17,7 +17,7 @@
     </div>
     <div class="form-group">
         <label asp-for="Interface" class="control-label">Интерфейс</label>
-        <input type="text" step = "any" asp-for="Interface" class="form-control my-text my-border-color my-textbar-background" />
+        <input type="text"  asp-for="Interface" class="form-control my-text my-border-color my-textbar-background" />
         <span asp-validation-for="Interface"></span>
     </div>
     <div class="form-group">
@@ -27,7 +27,7 @@
     </div>
      <div class="form-group">
         <label asp-for="FormFactor" class="control-label">Форм фактор</label>
-        <input type="number" asp-for="FormFactor" class="form-control my-text my-border-color my-textbar-background" />
+        <input type="number" step = "0.1" asp-for="FormFactor" class="form-control my-text my-border-color my-textbar-background" />
          <span asp-validation-for="FormFactor"></span>
     </div>
    <div class="form-group">
