@@ -1,15 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using PerfectSite.Data.Manufacturers.CPUManufacturers;
-using PerfectSite.Data.Manufacturers.GPUManufacturers;
-using PerfectSite.Data.Manufacturers.HDDManufacturers;
-using PerfectSite.Data.Manufacturers.MotherboardManufacturers;
-using PerfectSite.Data.Manufacturers.PhoneManufacturers;
-using PerfectSite.Data.Manufacturers.PowerSupplyManufacturers;
-using PerfectSite.Data.Manufacturers.RAMManufacturer;
-using PerfectSite.Data.Manufacturers.SSDManufacturers;
-using PerfectSite.Data.ManufacturersComputerFrameManufacturers;
-using PerfectSite.Data.ManufacturersComputerManufacturers;
 using PerfectSite.Data.Products;
 using PerfectSite.ViewModels.PageSortFilter;
 using PerfectSite.ViewModels.Store;

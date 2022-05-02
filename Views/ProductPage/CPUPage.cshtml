@@ -1,5 +1,5 @@
 ﻿
-@model  PerfectSite.Data.Products.CPU;
+@model  PerfectSite.ViewModels.ProductPage.CPUPageViewModel;
 @{
     Layout = "_Layout";
     ViewData["Title"] = "Product Page";
@@ -7,41 +7,50 @@
 
     
 <html> 
-    <h1 class = "text-center" >Информация о  @Model.ModelName </h1> 
-        <h2 class = "text-center"> @Model.Price  рублей</h2> 
+    <h1 class = "text-center" >Информация о  @Model.CPU.ModelName </h1> 
+        <h2 class = "text-center"> @Model.CPU.Price  рублей</h2> 
         <div class="form - inline"> 
         <p style = " font-size: 150%">Название модели:</p> 
-        <b style = " font-size: 200%"> @Model.ModelName </b> 
+        <b style = " font-size: 200%"> @Model.CPU.ModelName </b> 
         <p></p>
     <body>
         <div class="form - inline">
         <p style = " font-size: 150%">Производитель:</p> 
-        <b style = " font-size: 200%"> @Model.Manufacturer.Name</b> 
+        <b style = " font-size: 200%"> @Model.CPU.Manufacturer.Name</b> 
         <p></p> 
         <p style = " font-size: 150%">Сокет:</p> 
-        <b style = " font-size: 200%"> @Model.Socket </b> 
+        <b style = " font-size: 200%"> @Model.CPU.Socket </b> 
         <p></p> 
         <p style = " font-size: 150%">Колличество ядер:</p> 
-        <b style = " font-size: 200%"> @Model.Cores </b> 
+        <b style = " font-size: 200%"> @Model.CPU.Cores </b> 
         <p></p> 
         <p style = " font-size: 150%">Колличество потоков:</p> 
-        <b style = " font-size: 200%"> @Model.Threads </b> 
+        <b style = " font-size: 200%"> @Model.CPU.Threads </b> 
         <p></p> 
         <p style = " font-size: 150%">Частота:</p> 
-        <b style = " font-size: 200%"> @Model.Speed MHz</b> 
+        <b style = " font-size: 200%"> @Model.CPU.Speed MHz</b> 
         <p></p> 
         <p style = " font-size: 150%">TDP:</p> 
-        <b style = " font-size: 200%">@Model.PowerUsage W</b>
+        <b style = " font-size: 200%">@Model.CPU.PowerUsage W</b>
         <p></p>
-        @{
-            if((!string.IsNullOrEmpty(@Model.Description)))
+        @if((!string.IsNullOrEmpty(@Model.CPU.Description)))
+         {
+             <p style = "font-size: 150%">Описание:</p> 
+             <b class = "text-center" style = " font-size: 125%"> @Model.CPU.Description </b>
+         }
+        
+        <a class = "btn btn-primary my-btn" asp-action="CPU_Buy" asp-controller = "Buy" asp-route-cpuId = "@Model.CPU.Id">Купить</a>
+            @if (Model.SuitableMotherboards.Count() != 0)
             {
-                <p style = "font-size: 150%">Описание:</p> 
-                <b class = "text-center" style = " font-size: 125%"> @Model.Description </b>
-            }
-        }
-        <a class = "btn btn-primary my-btn" asp-action="CPU_Buy" asp-controller = "Buy" asp-route-cpuId = "@Model.Id">Купить</a>
-      </div>
+                <p style = " font-size: 150%">Подходящие материнские платы:</p> 
+                foreach(var motherboard in Model.SuitableMotherboards)
+                {
+                    <dt>
+                       <dd><a class = "my-link" asp-controller="ProductPage" asp-action="MotherboardPage" asp-route-id = "@motherboard.Id"><b style = " font-size: 150%">@motherboard.ModelName</b></a></dd>
+                    </dt>
+                }
+            }       
+         </div>
     </body> 
 </html>
 

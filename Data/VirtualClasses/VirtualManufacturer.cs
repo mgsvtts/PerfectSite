@@ -8,6 +8,7 @@ namespace PerfectSite.Data.VirtualClasses
 
         [Required(ErrorMessage = "Укажите имя производителя")]
         public virtual string Name { get; set; }
+
         public List<VirtualProduct> Products { get; set; }
     }
 }

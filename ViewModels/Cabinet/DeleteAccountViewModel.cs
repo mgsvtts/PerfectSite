@@ -13,6 +13,5 @@ namespace PerfectSite.ViewModels.Cabinet
         [Required(ErrorMessage = "Введите почту")]
         [EmailAddress(ErrorMessage = "Некорректный формат адреса")]
         public string Email { get; set; }
-
     }
 }

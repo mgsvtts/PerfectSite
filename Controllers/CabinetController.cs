@@ -187,7 +187,6 @@ namespace PerfectSite.Controllers
             return View(model);
         }
 
-
         [HttpGet]
         public async Task<IActionResult> DeleteAccount(string id)
         {

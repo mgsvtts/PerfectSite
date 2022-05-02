@@ -34,10 +34,10 @@ namespace PerfectSite.Controllers
         {
             if (ModelState.IsValid)
             {
-                CPU cpu = await _db.CPUs.FirstOrDefaultAsync(u=>u.ModelName == model.CPUName);
+                CPU cpu = await _db.CPUs.FirstOrDefaultAsync(u => u.ModelName == model.CPUName);
                 RAM ram = await _db.RAMs.FirstOrDefaultAsync(u => u.ModelName == model.RAMName);
                 Motherboard motherboard = await _db.Motherboards.FirstOrDefaultAsync(u => u.ModelName == model.MotherboardName);
-                PowerSupply powerSupply= await _db.PowerSupplies.FirstOrDefaultAsync(u => u.ModelName == model.PowerSupplyName);
+                PowerSupply powerSupply = await _db.PowerSupplies.FirstOrDefaultAsync(u => u.ModelName == model.PowerSupplyName);
                 ComputerFrame frame = await _db.ComputerFrames.FirstOrDefaultAsync(u => u.ModelName == model.FrameName);
                 GPU? gpu = await _db.GPUs.FirstOrDefaultAsync(u => u.ModelName == model.GPUName);
                 HDD? hdd = await _db.HDDs.FirstOrDefaultAsync(u => u.ModelName == model.HDDName);
@@ -46,10 +46,9 @@ namespace PerfectSite.Controllers
 
                 ComputerValidation.Validate(cpu, gpu, ram, motherboard, powerSupply, frame, ssd, hdd, this, model);
 
-                if(ModelState.ErrorCount > 0)
+                if (ModelState.ErrorCount > 0)
                     return View("~/Views/Data/Computer/Computer_Create.cshtml", model);
-                
-                
+
                 Computer computer = new Computer
                 {
                     CPU = cpu,
@@ -66,7 +65,6 @@ namespace PerfectSite.Controllers
                     Description = model.Description,
                     ModelName = model.ModelName,
                     Price = model.Price
-                    
                 };
 
                 _db.Computers.Add(computer);
@@ -115,7 +113,7 @@ namespace PerfectSite.Controllers
                                           .Include(m => m.PowerSupply)
                                           .Include(m => m.Frame)
                                           .FirstOrDefaultAsync(p => p.Id == id);
-               
+
                 if (computer != null)
                 {
                     Computer_ViewModel model = new Computer_ViewModel
@@ -132,13 +130,12 @@ namespace PerfectSite.Controllers
                         FrameName = computer.Frame?.ModelName,
                         Price = computer.Price,
                         Amount = computer.Amount,
-                        BoughtTimes  = computer.BoughtTimes,
+                        BoughtTimes = computer.BoughtTimes,
                         Description = computer.Description,
                         Manufacturer = computer.Manufacturer,
-                        Id = computer.Id 
-                        
+                        Id = computer.Id
                     };
-                    
+
                     return View("~/Views/Data/Computer/Computer_Edit.cshtml", model);
                 }
             }
@@ -155,7 +152,7 @@ namespace PerfectSite.Controllers
                 {
                     ComputerManufacturer? manufacturer = await _db.ComputerManufacturers.FirstOrDefaultAsync(m => m.Name == model.ManufacturerName);
                     CPU cpu = await _db.CPUs.FirstOrDefaultAsync(m => m.ModelName == model.CPUName);
-                    GPU? gpu = await _db.GPUs.FirstOrDefaultAsync(m => m.ModelName == model.GPUName); 
+                    GPU? gpu = await _db.GPUs.FirstOrDefaultAsync(m => m.ModelName == model.GPUName);
                     SSD? ssd = await _db.SSDs.FirstOrDefaultAsync(m => m.ModelName == model.SSDName);
                     HDD? hdd = await _db.HDDs.FirstOrDefaultAsync(m => m.ModelName == model.HDDName);
                     RAM ram = await _db.RAMs.FirstOrDefaultAsync(m => m.ModelName == model.RAMName);
@@ -163,12 +160,10 @@ namespace PerfectSite.Controllers
                     PowerSupply powerSupply = await _db.PowerSupplies.FirstOrDefaultAsync(m => m.ModelName == model.PowerSupplyName);
                     ComputerFrame frame = await _db.ComputerFrames.FirstOrDefaultAsync(m => m.ModelName == model.FrameName);
 
-
                     ComputerValidation.Validate(cpu, gpu, ram, motherboard, powerSupply, frame, ssd, hdd, this, model);
 
                     if (ModelState.ErrorCount > 0)
                         return View("~/Views/Data/Computer/Computer_Edti.cshtml", model);
-
 
                     Computer newcomputer = new Computer
                     {
@@ -187,19 +182,15 @@ namespace PerfectSite.Controllers
                         Price = model.Price,
                         Amount = model.Amount,
                         Id = computer.Id,
-                        
-
                     };
 
                     _db.Computers.Remove(computer);
                     _db.Computers.Add(newcomputer);
                     await _db.SaveChangesAsync();
                     return RedirectToAction("Computers", "Store");
-                    
-
                 }
             }
-            
+
             return View("~/Views/Data/Computer/Computer_Edit.cshtml", model);
         }
 
@@ -1007,7 +998,5 @@ namespace PerfectSite.Controllers
             }
             return View("~/Views/Data/SSD/SSD_Edit.cshtml", product);
         }
-
-
     }
 }

@@ -1,42 +1,52 @@
 ﻿
-@model  PerfectSite.Data.Products.Motherboard;
+@model  PerfectSite.ViewModels.ProductPage.MotherboardPageViewModel
 @{
     Layout = "_Layout";
     ViewData["Title"] = "Product Page";
 }
 
 <html>
-    <h1 class = "text-center" >Информация о  @Model.ModelName </h1> 
-        <h2 class = "text-center"> @Model.Price  рублей</h2> 
+    <h1 class = "text-center" >Информация о  @Model.Motherboard.ModelName </h1> 
+        <h2 class = "text-center"> @Model.Motherboard.Price  рублей</h2> 
         <div class="form - inline"> 
         <p style = " font-size: 150%">Название модели:</p> 
-        <b style = " font-size: 200%"> @Model.ModelName </b> 
+        <b style = " font-size: 200%"> @Model.Motherboard.ModelName </b> 
         <p></p>
     <body> 
         <div class="form - inline">
         <p style = " font-size: 150%">Производитель:</p> 
-        <b style = " font-size: 200%"> @Model.Manufacturer.Name</b> 
+        <b style = " font-size: 200%"> @Model.Motherboard.Manufacturer.Name</b> 
         <p></p> 
         <p style = " font-size: 150%">Сокет:</p> 
-        <b style = " font-size: 200%"> @Model.Socket </b> 
+        <b style = " font-size: 200%"> @Model.Motherboard.Socket </b> 
         <p></p> 
         <p style = " font-size: 150%">Форм фактор:</p> 
-        <b style = " font-size: 200%"> @Model.FormFactor </b> 
+        <b style = " font-size: 200%"> @Model.Motherboard.FormFactor </b> 
         <p></p> 
         <p style = " font-size: 150%">Колличество слотов памяти:</p> 
-        <b style = " font-size: 200%"> @Model.MemorySlots </b> 
+        <b style = " font-size: 200%"> @Model.Motherboard.MemorySlots </b> 
         <p></p> 
         <p style = " font-size: 150%">Тип памяти:</p> 
-        <b style = " font-size: 200%"> @Model.MemoryType</b> 
+        <b style = " font-size: 200%"> @Model.Motherboard.MemoryType</b> 
        <p></p>
         @{
-            if((!string.IsNullOrEmpty(@Model.Description)))
+            if((!string.IsNullOrEmpty(@Model.Motherboard.Description)))
             {
                 <p style = "font-size: 150%">Описание:</p> 
-                <b class = "text-center" style = " font-size: 125%"> @Model.Description </b>
+                <b class = "text-center" style = " font-size: 125%"> @Model.Motherboard.Description </b>
             }
         }
-        <a class = "btn btn-primary my-btn" asp-action="Motherboard_Buy" asp-controller = "Buy" asp-route-motherboardId = "@Model.Id">Купить</a>
+        <a class = "btn btn-primary my-btn" asp-action="Motherboard_Buy" asp-controller = "Buy" asp-route-motherboardId = "@Model.Motherboard.Id">Купить</a>
+        @if (Model.SuitableCPUs.Count() != 0)
+        {
+            <p style = " font-size: 150%">Подходящие процессоры:</p>
+            foreach (var cpu in Model.SuitableCPUs)
+            {
+                <dt>
+                    <dd><a class = "my-link" asp-controller="ProductPage" asp-action="CPUPage" asp-route-id = "@cpu.Id"><b style = " font-size: 150%">@cpu.ModelName</b></a></dd>
+                </dt>
+            }
+        }
       </div> 
     </body> 
 </html>

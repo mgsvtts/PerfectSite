@@ -23,6 +23,5 @@ namespace PerfectSite.Data.Products
 
         [Required(ErrorMessage = "Введите TDP")]
         public int? PowerUsage { get; set; }
-
     }
 }

@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using PerfectSite.Data.Products;
+using PerfectSite.ViewModels.ProductPage;
 
 namespace PerfectSite.Controllers
 {
@@ -17,19 +18,51 @@ namespace PerfectSite.Controllers
         {
             CPU cpu = await _db.CPUs.Include(m => m.Manufacturer).FirstOrDefaultAsync(p => p.Id == id);
 
-            return View(cpu);
+            List<Motherboard> suitableMotherboards = new List<Motherboard>();
+
+            foreach (Motherboard motherboard in _db.Motherboards)
+            {
+                if (motherboard.Socket == cpu.Socket)
+                {
+                    suitableMotherboards.Add(motherboard);
+                }
+            }
+
+            return View(new CPUPageViewModel { CPU = cpu, SuitableMotherboards = suitableMotherboards });
         }
 
         public async Task<IActionResult> FramePage(int? id)
         {
             ComputerFrame frame = await _db.ComputerFrames.Include(m => m.Manufacturer).FirstOrDefaultAsync(p => p.Id == id);
 
-            return View(frame);
+            List<GPU> suitableGPUs = new List<GPU>();
+
+            foreach (GPU gpu in _db.GPUs)
+            {
+                if (frame.GPULength >= gpu.Size)
+                {
+                    suitableGPUs.Add(gpu);
+                }
+            }
+
+            return View(new FramePageViewModel { Frame = frame, SuitableGPUs = suitableGPUs });
         }
 
         public async Task<IActionResult> GPUPage(int? id)
         {
             GPU gpu = await _db.GPUs.Include(m => m.Manufacturer).FirstOrDefaultAsync(p => p.Id == id);
+
+            List<ComputerFrame> suitableFrames = new List<ComputerFrame>();
+
+            foreach (ComputerFrame frame in _db.ComputerFrames)
+            {
+                if (gpu.Size <= frame.GPULength)
+                {
+                    suitableFrames.Add(frame);
+                }
+            }
+
+            return View(new GPUPageViewModel { GPU = gpu, SuitableFrames = suitableFrames });
 
             return View(gpu);
         }
@@ -45,7 +78,17 @@ namespace PerfectSite.Controllers
         {
             Motherboard motherboard = await _db.Motherboards.Include(m => m.Manufacturer).FirstOrDefaultAsync(p => p.Id == id);
 
-            return View(motherboard);
+            List<CPU> suitableCPUs = new List<CPU>();
+
+            foreach (CPU cpu in _db.CPUs)
+            {
+                if (motherboard.Socket == cpu.Socket)
+                {
+                    suitableCPUs.Add(cpu);
+                }
+            }
+
+            return View(new MotherboardPageViewModel { Motherboard = motherboard, SuitableCPUs = suitableCPUs });
         }
 
         public async Task<IActionResult> PhonePage(int? id)
