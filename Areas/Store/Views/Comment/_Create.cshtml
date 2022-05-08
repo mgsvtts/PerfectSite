@@ -1,0 +1,18 @@
+﻿@model PerfectSite.Models.Comment
+@{
+    ViewData["Title"] = "Create Comment";
+    string pageUrl = $"~{Context.Request.Path}{Context.Request.QueryString}";
+}
+<b style = "font-size: 150%;">Ваш комментарий</b>
+<form method = "post" asp-controller = "Comment" asp-action = "Create" asp-route-pageUrl = "@pageUrl">
+    <input type = "hidden" asp-for = "ProductId"/>
+    <input type = "hidden" asp-for = "UserId"/>
+    <input type = "hidden" asp-for = "ProductName"/>
+    <input type = "hidden" asp-for ="UserFirstName"/>
+    <input type = "hidden" asp-for ="UserSecondName"/>
+    <input type = "hidden" asp-for ="CreatedDate"/>
+    <textarea asp-for="Value" class = "my-textbar-background my-text my-border-color" rows="4" cols="50" maxlength = "300"></textarea><br />
+    <input type="submit" class = "btn-primary btn" value="Отправить">
+    <input type="reset" class = "btn-primary btn" value="Очистить">
+</form>
+   <div class="col-xl-12" style="margin-top:40px;"></div>

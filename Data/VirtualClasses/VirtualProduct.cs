@@ -1,10 +1,13 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace PerfectSite.Data.VirtualClasses
 {
     public class VirtualProduct
     {
-        public int Id { get; set; }
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public Guid Id { get; set; }
+
         public virtual string? ModelName { get; set; }
         public string? Description { get; set; }
         public virtual int? ManufacturerId { get; set; }

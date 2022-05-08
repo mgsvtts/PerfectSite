@@ -1,0 +1,12 @@
+﻿
+@model  PerfectSite.Data.Products.Phone;
+@{
+     Layout = "_ProductPage";
+    ViewData["Title"] = "Product Page";
+}
+
+<html>
+    <body> 
+        <a class = "btn btn-primary my-btn" asp-action="Phone_Buy" asp-controller = "Buy" asp-route-phoneId = "@Model.Id">Купить</a>
+    </body> 
+</html>

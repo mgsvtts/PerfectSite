@@ -1,0 +1,87 @@
+﻿@model PerfectSite.Areas.Store.ViewModels.Data.Computer_ViewModel
+@{
+    ViewBag.Title = "Редактирование компьютера";
+}
+<html>
+    <body>
+        <h1>@Model.Id</h1>
+        <form asp-action="Computer_Edit" asp-controller="Data" asp-route-id="@Model.Id" class = "my-text my-border-color">
+            <div asp-validation-summary = "ModelOnly"></div>
+    <div class="form-group">
+        <label asp-for="ModelName" class="control-label">Название</label>
+        <input type="text" asp-for="ModelName" class="form-control my-text my-border-color my-textbar-background" />
+         <span asp-validation-for="ModelName"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="ManufacturerName" class="control-label">Произодитель (необязательно)</label>
+        <input type="text" asp-for="ManufacturerName" class="form-control my-text my-border-color my-textbar-background" />
+         <span asp-validation-for="ManufacturerName"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="CPUName" class="control-label">Процессор</label>
+        <input type="text"asp-for="CPUName" class="form-control my-text my-border-color my-textbar-background"/>
+         <span asp-validation-for="CPUName"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="GPUName" class="control-label">Видеокарта (необязательно)</label>
+        <input type="text" asp-for="GPUName" class="form-control my-text my-border-color my-textbar-background" />
+         <span asp-validation-for="GPUName"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="HDDName" class="control-label">HDD (необязательно)</label>
+        <input type="text" asp-for="HDDName" class="form-control my-text my-border-color my-textbar-background" />
+         <span asp-validation-for="HDDName"></span>
+    </div>
+    
+    <div class="form-group">
+        <label asp-for="SSDName" class="control-label">SSD (необязательно)</label>
+        <input type="text" asp-for="SSDName" class="form-control my-text my-border-color my-textbar-background" />
+         <span asp-validation-for="SSDName"></span>
+    </div>
+     <div class="form-group">
+        <label asp-for="RAMName" class="control-label">Оперативная память</label>
+        <input type="text" step = "any" asp-for="RAMName" class="form-control my-text my-border-color my-textbar-background" />
+         <span asp-validation-for="RAMName"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="MotherboardName" class="control-label">Материнская плата</label>
+        <input type="text" asp-for="MotherboardName" class="form-control my-text my-border-color my-textbar-background" />
+         <span asp-validation-for="MotherboardName"></span>
+    </div>
+     <div class="form-group">
+        <label asp-for="PowerSupplyName" class="control-label">Блок питания</label>
+        <input type="text" asp-for="PowerSupplyName" class="form-control my-text my-border-color my-textbar-background" />
+         <span asp-validation-for="PowerSupplyName"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="FrameName" class="control-label">Корпус</label>
+        <input type="text" asp-for="FrameName" class="form-control my-text my-border-color my-textbar-background"/>
+        <span asp-validation-for="FrameName"></span>
+    </div>
+     <div class="form-group">
+        <label asp-for="Price" class="control-label">Цена</label>
+        <input type="number" step = "any" asp-for="Price" class="form-control my-text my-border-color my-textbar-background" />
+         <span asp-validation-for="Price"></span>
+    </div>
+     <div class="form-group">
+        <label asp-for="Amount" class="control-label">Колличество на складе</label>
+        <input type="number" asp-for="Amount" class="form-control my-text my-border-color my-textbar-background" />
+         <span asp-validation-for="Amount"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Description" class="control-label">Описание</label>
+        <input type="text" asp-for="Description" class="form-control my-text my-border-color my-textbar-background"/>
+    </div>
+     <div class="form-group">
+        <input type="hidden" asp-for="BoughtTimes" value = 0/>
+    </div>
+    <div class="form-group">
+        <input type="hidden" asp-for="Id"/>
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Сохранить" class="btn btn-primary" />
+    </div>
+
+</form>
+    </body>
+</html>

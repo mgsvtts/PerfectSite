@@ -125,3 +125,8 @@ body {
 .validation-summary-valid {
     display: none;
 }
+
+.perenos {
+    width: 70%;
+    word-break: break-all;
+}

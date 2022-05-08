@@ -1,0 +1,22 @@
+﻿
+@model  PerfectSite.Data.Products.SSD;
+@{
+    Layout = "_ProductPage";
+    ViewData["Title"] = "Product Page";
+}
+
+<html> 
+    <body>  
+        <p style = " font-size: 150%">Интерфейс:</p> 
+        <b style = " font-size: 200%"> @Model.Interface </b> 
+        <p></p> 
+        <p style = " font-size: 150%">Пропускная способность:</p> 
+        <b style = " font-size: 200%"> @Model.Bandwidth Mbit/s</b> 
+        <p></p>
+        <p style = " font-size: 150%">Форм фактор:</p> 
+        <b style = " font-size: 200%"> @Model.FormFactor Mbit/s</b> 
+        <p></p>
+        
+        <a class = "btn btn-primary my-btn" asp-action="SSD_Buy" asp-controller = "Buy" asp-route-ssdId = "@Model.Id">Купить</a>
+    </body> 
+</html>

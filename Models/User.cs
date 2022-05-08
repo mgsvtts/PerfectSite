@@ -8,6 +8,8 @@ namespace PerfectSite.Models
 
         public string SecondName { get; set; }
 
-        public DateTime? BirthDate { get; set; }
+        public DateTime BirthDate { get; set; }
+
+        public DateTime JoinedDate { get; set; }
     }
 }

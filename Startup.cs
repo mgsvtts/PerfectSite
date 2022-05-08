@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using PerfectSite.Data.MongoDb;
 using PerfectSite.Models;
+using System.Globalization;
 
 namespace PerfectSite
 {
@@ -17,6 +19,8 @@ namespace PerfectSite
         {
             services.AddDbContext<ApplicationContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            services.Configure<MongoOptions>(Configuration.GetSection("MongoDB"));
+            services.AddSingleton<MongoService>();
 
             services.AddIdentity<User, IdentityRole>(options =>
             {
@@ -28,7 +32,7 @@ namespace PerfectSite
                 options.Password.RequireUppercase = false;
                 options.Password.RequireLowercase = false;
             }).AddEntityFrameworkStores<ApplicationContext>()
-            .AddTokenProvider<DataProtectorTokenProvider<User>>(TokenOptions.DefaultProvider); ;
+            .AddTokenProvider<DataProtectorTokenProvider<User>>(TokenOptions.DefaultProvider);
 
             services.AddMemoryCache();
             services.AddSession();
@@ -38,7 +42,13 @@ namespace PerfectSite
 
         public void Configure(IApplicationBuilder app)
         {
+            var cultureInfo = new CultureInfo("ru-ru");
+
+            CultureInfo.DefaultThreadCurrentCulture = cultureInfo;
+            CultureInfo.DefaultThreadCurrentUICulture = cultureInfo;
+
             app.UseHttpsRedirection();
+
             app.UseStaticFiles();
 
             app.UseRouting();
@@ -49,6 +59,16 @@ namespace PerfectSite
 
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapControllerRoute(
+                name: "store_area",
+                pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
+                    );
+
+                endpoints.MapControllerRoute(
+                name: "account_area",
+                pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
+                    );
+
                 endpoints.MapControllerRoute(
                 name: "default",
                 pattern: "{controller=Home}/{action=Index}/{id?}");

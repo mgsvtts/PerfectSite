@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using PerfectSite.Areas.Store.ViewModels.Data;
 using PerfectSite.Data.Products;
-using PerfectSite.ViewModels.Data;
 
 namespace PerfectSite.CustomUtilities
 {

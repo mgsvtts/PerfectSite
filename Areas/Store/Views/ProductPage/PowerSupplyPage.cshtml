@@ -1,0 +1,18 @@
+﻿
+@model  PerfectSite.Data.Products.PowerSupply;
+@{
+    Layout = "_ProductPage";
+    ViewData["Title"] = "Product Page";
+}
+
+<html>
+    <body>
+        <p style = " font-size: 150%">Сертификат:</p> 
+        <b style = " font-size: 200%"> @Model.Certificate </b> 
+        <p></p> 
+        <p style = " font-size: 150%">Мощность:</p> 
+        <b style = " font-size: 200%"> @Model.Power W</b> 
+       <p></p>
+        <a class = "btn btn-primary my-btn" asp-action="PowerSupply_Buy" asp-controller = "Buy" asp-route-powerSupplyId = "@Model.Id">Купить</a>
+    </body> 
+</html>

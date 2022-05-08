@@ -1,0 +1,70 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using PerfectSite.Models
+@inject UserManager<User> UserManager;
+@model  PerfectSite.Areas.Store.ViewModels.ProductPage.GPUPageViewModel;
+@{
+      string pageUrl = $"~{Context.Request.Path}{Context.Request.QueryString}";
+    ViewData["Title"] = "Product Page";
+}
+
+<html> 
+     <h1 class = "text-center" >Информация о  @Model.GPU.ModelName </h1> 
+        <h2 class = "text-center"> @Model.GPU.Price  рублей</h2> 
+        <div class="form - inline"> 
+        <p style = " font-size: 150%">Название модели:</p> 
+        <b style = " font-size: 200%"> @Model.GPU.ModelName </b> 
+        <p></p>
+    <body> 
+        <div class="form - inline"> 
+        <p style = " font-size: 150%">Производитель:</p> 
+        <b style = " font-size: 200%"> @Model.GPU.Manufacturer.Name</b> 
+        <p></p> 
+        <p style = " font-size: 150%">Частота графического процессора:</p> 
+        <b style = " font-size: 200%"> @Model.GPU.GPUFrequency MHz</b> 
+        <p></p> 
+        <p style = " font-size: 150%">Объем видеопамяти:</p> 
+        <b style = " font-size: 200%"> @Model.GPU.MemorySize GB</b> 
+        <p></p> 
+        <p style = " font-size: 150%">Частота видеопамяти:</p> 
+        <b style = " font-size: 200%"> @Model.GPU.MemoryFrequency MHz</b> 
+        <p></p> 
+        <p style = " font-size: 150%">Тип видеопамяти:</p> 
+        <b style = " font-size: 200%">@Model.GPU.MemoryType </b> 
+        <p></p>
+        <p style = " font-size: 150%">Размер:</p> 
+        <b style = " font-size: 200%">@Model.GPU.Size см</b> 
+        <p></p>
+        @{
+            if((!string.IsNullOrEmpty(@Model.GPU.Description)))
+            {
+                <p style = "font-size: 150%">Описание:</p> 
+                <b class = "text-center" style = " font-size: 125%"> @Model.GPU.Description </b>
+            }
+        }
+        <a class = "btn btn-primary my-btn" asp-action="GPU_Buy" asp-controller = "Buy" asp-route-gpuId = "@Model.GPU.Id">Купить</a>
+        @if (Model.SuitableFrames.Count() != 0)
+            {
+                <p style = " font-size: 150%">Подходящие корпуса:</p> 
+                foreach(var frame in Model.SuitableFrames)
+                {
+                    <dl>
+                       <dd><a class = "my-link" asp-controller="ProductPage" asp-action="FramePage" asp-route-id = "@frame.Id"><b style = " font-size: 150%">@frame.ModelName</b></a></dd>  
+                    </dl>
+                }
+            }
+            @{
+                if (User.Identity.IsAuthenticated)
+                { 
+                    User user = await UserManager.FindByNameAsync(User?.Identity?.Name);
+                    @await Component.InvokeAsync("CreateComment", new {productId = Model.GPU.Id, userId = user.Id, productName = Model.GPU.ModelName})
+                }
+                else
+                {
+                    <p>Чтобы оставлять комментарии <a asp-controller = "Account" asp-action = "Login" asp-route-returnUrl = "@pageUrl">войдите в аккаунт</a></p>
+                }
+
+            }
+            @await Component.InvokeAsync("ShowComments", new { productId = Model.GPU.Id,  pageUrl = pageUrl})
+      </div> 
+    </body> 
+</html>

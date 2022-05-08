@@ -1,0 +1,18 @@
+﻿
+@model  PerfectSite.Data.Products.RAM;
+@{
+    Layout = "_ProductPage";
+    ViewData["Title"] = "Product Page";
+}
+
+<html>
+    <body>        
+        <p style = " font-size: 150%">Объем памяти:</p> 
+        <b style = " font-size: 200%"> @Model.MemorySize GB</b> 
+        <p></p> 
+        <p style = " font-size: 150%">Частота:</p> 
+        <b style = " font-size: 200%"> @Model.Speed MHz</b> 
+       <p></p>
+        <a class = "btn btn-primary my-btn" asp-action="RAM_Buy" asp-controller = "Buy" asp-route-ramId = "@Model.Id">Купить</a>
+    </body> 
+</html>

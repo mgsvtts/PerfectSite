@@ -1,0 +1,30 @@
+﻿@model PerfectSite.Models.GetCommentsModel
+@using Microsoft.AspNetCore.Identity
+@using PerfectSite.Models
+@inject UserManager<User> UserManager;
+
+
+
+    
+<h3>Комментарии других пользователей</h3>
+@foreach(Comment comment in Model.Comments)
+{
+    <table class = "table my-text">
+        <tr>
+            <td>
+                <b><a asp-controller = "Comment" asp-action = "ShowUserInfo" asp-route-userId = "@comment.UserId">@comment.UserFirstName @comment.UserSecondName</a> - @comment.CreatedDate.ToString("D")</b>
+                <div class = "perenos">
+                     @comment.Value
+                </div>
+                @{
+                if(User.IsInRole("God of the Site"))
+                {
+                    
+                    <a asp-controller = "Comment" asp-action = "Delete" class="btn btn-primary" asp-route-commentId = "@comment.Id" asp-route-pageUrl = "@Model.PageUrl" style = "margin-top: 2%;">Удалить</a>
+                    
+                } 
+            }
+            </td>
+       </tr>
+    </table>
+}

@@ -1,0 +1,22 @@
+﻿@model PerfectSite.Areas.Account.ViewModels.Cabinet.ChangeNameViewModel
+@{
+     
+    ViewData["Title"] = "Change Second Name";
+}
+
+<html>
+    <body>
+
+      <form method = "post" asp-controller = "Cabinet" asp-action = "ChangeSecondName">
+     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+     <input type="hidden" asp-for="Id" />
+     <input type = "hidden" asp-for="OldName"/>
+     <label asp-for="NewName" class="control-label">Новая фамилия</label>
+        <input type="text" asp-for="NewName" value = "@Model.OldName" class="form-control" style="background-color: #232627; color:#d1cdc7;  border-color:  #121415;"/>
+        <span asp-validation-for = "NewName"></span>
+        <div class="form-group">
+        <input type="submit" value="Сохранить" class="btn btn-primary" />
+    </div>
+</form>
+    </body>
+</html>

@@ -1,0 +1,50 @@
+﻿@inject UserManager<User> UserManager;
+@{
+    Layout = "_Layout";
+    string pageUrl = $"~{Context.Request.Path}{Context.Request.QueryString}";
+}
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+</head>
+<body>
+    <div>
+    <h1 class = "text-center" >Информация о  @Model.ModelName </h1> 
+        <h2 class = "text-center"> @Model.Price  рублей</h2> 
+        <div class="form - inline"> 
+        <p style = " font-size: 150%">Название модели:</p> 
+        <b style = " font-size: 200%"> @Model.ModelName </b> 
+        <p></p>
+        <div class="form - inline"> 
+        <p style = " font-size: 150%">Производитель:</p> 
+        <b style = " font-size: 200%"> @Model.Manufacturer.Name</b> 
+        <p></p> 
+    <div>
+        @RenderBody()
+    </div>
+     @{
+            if((!string.IsNullOrEmpty(@Model.Description)))
+            {
+                <p style = "font-size: 150%">Описание:</p> 
+                <b class = "text-center" style = " font-size: 125%"> @Model.Description </b>
+            }
+      }
+      </div> @{
+                if (User.Identity.IsAuthenticated)
+                { 
+                    User user = await UserManager.FindByNameAsync(User?.Identity?.Name);
+                    @await Component.InvokeAsync("CreateComment", new {productId = Model.Id, userId = user.Id, productName = Model.ModelName})
+                }
+                else
+                {
+                    <p>Чтобы оставлять комментарии <a asp-controller = "Account" asp-action = "Login" asp-route-returnUrl = "@pageUrl">войдите в аккаунт</a></p>
+                }
+
+            }
+            @await Component.InvokeAsync("ShowComments", new { productId = Model.Id,  pageUrl = pageUrl})
+     <div class="col-xl-12" style="margin-top:40px;"></div>
+</body>
+</html>

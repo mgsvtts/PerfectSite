@@ -7,9 +7,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Include="Views\Data\Computer\Computer_Create.cshtml" />
-    <None Include="Views\Data\Main.cshtml" />
-    <None Include="Views\Role\Main.cshtml" />
+    <None Include="Areas\Store\Views\Data\Computer\Computer_Create.cshtml" />
+    <None Include="Areas\Store\Views\Data\Main.cshtml" />
+    <None Include="Areas\Account\Views\Role\Main.cshtml" />
   </ItemGroup>
 
   <ItemGroup>
@@ -22,7 +22,8 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.3" />
-    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.3.0" />
+    <PackageReference Include="MongoDB.Driver" Version="2.15.1" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.3.1" />
   </ItemGroup>
 
   <ItemGroup>
