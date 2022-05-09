@@ -39,7 +39,7 @@ namespace PerfectSite.Areas.Store.Controllers
                 GPU? gpu = await _db.GPUs.FirstOrDefaultAsync(u => u.ModelName == model.GPUName);
                 HDD? hdd = await _db.HDDs.FirstOrDefaultAsync(u => u.ModelName == model.HDDName);
                 SSD? ssd = await _db.SSDs.FirstOrDefaultAsync(u => u.ModelName == model.SSDName);
-                ComputerManufacturer? manufacturer = await _db.ComputerManufacturers.FirstOrDefaultAsync(u => u.Name == model.ManufacturerName);
+                ComputerManufacturer? manufacturer = await _db.ComputerManufacturers.FirstOrDefaultAsync(u => u.Name.ToLower() == model.ManufacturerName.ToLower());
 
                 ComputerValidation.Validate(cpu, gpu, ram, motherboard, powerSupply, frame, ssd, hdd, this, model);
 
@@ -56,13 +56,17 @@ namespace PerfectSite.Areas.Store.Controllers
                     GPU = gpu,
                     HDD = hdd,
                     SSD = ssd,
-                    Manufacturer = manufacturer,
                     Amount = model.Amount,
                     BoughtTimes = model.BoughtTimes,
                     Description = model.Description,
                     ModelName = model.ModelName,
                     Price = model.Price
                 };
+
+                if (manufacturer == null)
+                    computer.Manufacturer = new ComputerManufacturer { Name = model.ManufacturerName };
+                else
+                    computer.Manufacturer = manufacturer;
 
                 _db.Computers.Add(computer);
                 await _db.SaveChangesAsync();
@@ -147,7 +151,7 @@ namespace PerfectSite.Areas.Store.Controllers
                 Computer computer = _db.Computers.FirstOrDefault(p => p.Id == model.Id);
                 if (computer != null)
                 {
-                    ComputerManufacturer? manufacturer = await _db.ComputerManufacturers.FirstOrDefaultAsync(m => m.Name == model.ManufacturerName);
+                    ComputerManufacturer? manufacturer = await _db.ComputerManufacturers.FirstOrDefaultAsync(m => m.Name.ToLower() == model.ManufacturerName.ToLower());
                     CPU cpu = await _db.CPUs.FirstOrDefaultAsync(m => m.ModelName == model.CPUName);
                     GPU? gpu = await _db.GPUs.FirstOrDefaultAsync(m => m.ModelName == model.GPUName);
                     SSD? ssd = await _db.SSDs.FirstOrDefaultAsync(m => m.ModelName == model.SSDName);
@@ -164,7 +168,6 @@ namespace PerfectSite.Areas.Store.Controllers
 
                     Computer newcomputer = new Computer
                     {
-                        Manufacturer = manufacturer,
                         CPU = cpu,
                         GPU = gpu,
                         SSD = ssd,
@@ -180,6 +183,11 @@ namespace PerfectSite.Areas.Store.Controllers
                         Amount = model.Amount,
                         Id = computer.Id,
                     };
+
+                    if (manufacturer == null)
+                        newcomputer.Manufacturer = new ComputerManufacturer { Name = model.ManufacturerName };
+                    else
+                        newcomputer.Manufacturer = manufacturer;
 
                     _db.Computers.Remove(computer);
                     _db.Computers.Add(newcomputer);
@@ -232,6 +240,11 @@ namespace PerfectSite.Areas.Store.Controllers
         {
             if (ModelState.IsValid)
             {
+                var manufacturer = await _db.CPUManufacturers.FirstOrDefaultAsync(x => x.Name.ToLower() == product.Manufacturer.Name.ToLower());
+
+                if (manufacturer != null)
+                    product.Manufacturer = manufacturer;
+
                 _db.CPUs.Add(product);
                 await _db.SaveChangesAsync();
                 return RedirectToAction("CPUs", "Store");
@@ -301,6 +314,11 @@ namespace PerfectSite.Areas.Store.Controllers
         {
             if (ModelState.IsValid)
             {
+                var manufacturer = await _db.CPUManufacturers.FirstOrDefaultAsync(x => x.Name.ToLower() == cpu.Manufacturer.Name.ToLower());
+
+                if (manufacturer != null)
+                    cpu.Manufacturer = manufacturer;
+
                 _db.CPUs.Update(cpu);
                 await _db.SaveChangesAsync();
                 return RedirectToAction("CPUs", "Store");
@@ -320,6 +338,11 @@ namespace PerfectSite.Areas.Store.Controllers
         {
             if (ModelState.IsValid)
             {
+                var manufacturer = await _db.ComputerFrameManufacturers.FirstOrDefaultAsync(x => x.Name.ToLower() == product.Manufacturer.Name.ToLower());
+
+                if (manufacturer != null)
+                    product.Manufacturer = manufacturer;
+
                 _db.ComputerFrames.Add(product);
                 await _db.SaveChangesAsync();
                 return RedirectToAction("Frames", "Store");
@@ -388,6 +411,11 @@ namespace PerfectSite.Areas.Store.Controllers
         {
             if (ModelState.IsValid)
             {
+                var manufacturer = await _db.ComputerFrameManufacturers.FirstOrDefaultAsync(x => x.Name.ToLower() == product.Manufacturer.Name.ToLower());
+
+                if (manufacturer != null)
+                    product.Manufacturer = manufacturer;
+
                 _db.ComputerFrames.Update(product);
                 await _db.SaveChangesAsync();
                 return RedirectToAction("Frames", "Store");
@@ -406,6 +434,11 @@ namespace PerfectSite.Areas.Store.Controllers
         {
             if (ModelState.IsValid)
             {
+                var manufacturer = await _db.GPUManufacturers.FirstOrDefaultAsync(x => x.Name.ToLower() == product.Manufacturer.Name.ToLower());
+
+                if (manufacturer != null)
+                    product.Manufacturer = manufacturer;
+
                 _db.GPUs.Add(product);
                 await _db.SaveChangesAsync();
                 return RedirectToAction("GPUs", "Store");
@@ -474,6 +507,11 @@ namespace PerfectSite.Areas.Store.Controllers
         {
             if (ModelState.IsValid)
             {
+                var manufacturer = await _db.GPUManufacturers.FirstOrDefaultAsync(x => x.Name.ToLower() == product.Manufacturer.Name.ToLower());
+
+                if (manufacturer != null)
+                    product.Manufacturer = manufacturer;
+
                 _db.GPUs.Update(product);
                 await _db.SaveChangesAsync();
                 return RedirectToAction("GPUs", "Store");
@@ -492,6 +530,11 @@ namespace PerfectSite.Areas.Store.Controllers
         {
             if (ModelState.IsValid)
             {
+                var manufacturer = await _db.HDDManufacturers.FirstOrDefaultAsync(x => x.Name.ToLower() == product.Manufacturer.Name.ToLower());
+
+                if (manufacturer != null)
+                    product.Manufacturer = manufacturer;
+
                 _db.HDDs.Add(product);
                 await _db.SaveChangesAsync();
                 return RedirectToAction("HDDs", "Store");
@@ -560,6 +603,11 @@ namespace PerfectSite.Areas.Store.Controllers
         {
             if (ModelState.IsValid)
             {
+                var manufacturer = await _db.HDDManufacturers.FirstOrDefaultAsync(x => x.Name.ToLower() == product.Manufacturer.Name.ToLower());
+
+                if (manufacturer != null)
+                    product.Manufacturer = manufacturer;
+
                 _db.HDDs.Update(product);
                 await _db.SaveChangesAsync();
                 return RedirectToAction("HDDs", "Store");
@@ -578,6 +626,11 @@ namespace PerfectSite.Areas.Store.Controllers
         {
             if (ModelState.IsValid)
             {
+                var manufacturer = await _db.MotherboardManufacturers.FirstOrDefaultAsync(x => x.Name.ToLower() == product.Manufacturer.Name.ToLower());
+
+                if (manufacturer != null)
+                    product.Manufacturer = manufacturer;
+
                 _db.Motherboards.Add(product);
                 await _db.SaveChangesAsync();
                 return RedirectToAction("Motherboards", "Store");
@@ -646,6 +699,11 @@ namespace PerfectSite.Areas.Store.Controllers
         {
             if (ModelState.IsValid)
             {
+                var manufacturer = await _db.MotherboardManufacturers.FirstOrDefaultAsync(x => x.Name.ToLower() == product.Manufacturer.Name.ToLower());
+
+                if (manufacturer != null)
+                    product.Manufacturer = manufacturer;
+
                 _db.Motherboards.Update(product);
                 await _db.SaveChangesAsync();
                 return RedirectToAction("Motherboards", "Store");
@@ -664,6 +722,11 @@ namespace PerfectSite.Areas.Store.Controllers
         {
             if (ModelState.IsValid)
             {
+                var manufacturer = await _db.PhoneManufacturers.FirstOrDefaultAsync(x => x.Name.ToLower() == product.Manufacturer.Name.ToLower());
+
+                if (manufacturer != null)
+                    product.Manufacturer = manufacturer;
+
                 _db.Phones.Add(product);
                 await _db.SaveChangesAsync();
                 return RedirectToAction("Phones", "Store");
@@ -732,6 +795,11 @@ namespace PerfectSite.Areas.Store.Controllers
         {
             if (ModelState.IsValid)
             {
+                var manufacturer = await _db.PhoneManufacturers.FirstOrDefaultAsync(x => x.Name.ToLower() == product.Manufacturer.Name.ToLower());
+
+                if (manufacturer != null)
+                    product.Manufacturer = manufacturer;
+
                 _db.Phones.Update(product);
                 await _db.SaveChangesAsync();
                 return RedirectToAction("Phones", "Store");
@@ -750,6 +818,11 @@ namespace PerfectSite.Areas.Store.Controllers
         {
             if (ModelState.IsValid)
             {
+                var manufacturer = await _db.PowerSupplyManufacturers.FirstOrDefaultAsync(x => x.Name.ToLower() == product.Manufacturer.Name.ToLower());
+
+                if (manufacturer != null)
+                    product.Manufacturer = manufacturer;
+
                 _db.PowerSupplies.Add(product);
                 await _db.SaveChangesAsync();
                 return RedirectToAction("PowerSupplies", "Store");
@@ -817,6 +890,11 @@ namespace PerfectSite.Areas.Store.Controllers
         {
             if (ModelState.IsValid)
             {
+                var manufacturer = await _db.PowerSupplyManufacturers.FirstOrDefaultAsync(x => x.Name.ToLower() == product.Manufacturer.Name.ToLower());
+
+                if (manufacturer != null)
+                    product.Manufacturer = manufacturer;
+
                 _db.PowerSupplies.Update(product);
                 await _db.SaveChangesAsync();
                 return RedirectToAction("PowerSupplies", "Store");
@@ -835,6 +913,11 @@ namespace PerfectSite.Areas.Store.Controllers
         {
             if (ModelState.IsValid)
             {
+                var manufacturer = await _db.RAMManufacturers.FirstOrDefaultAsync(x => x.Name.ToLower() == product.Manufacturer.Name.ToLower());
+
+                if (manufacturer != null)
+                    product.Manufacturer = manufacturer;
+
                 _db.RAMs.Add(product);
                 await _db.SaveChangesAsync();
                 return RedirectToAction("RAMs", "Store");
@@ -903,6 +986,11 @@ namespace PerfectSite.Areas.Store.Controllers
         {
             if (ModelState.IsValid)
             {
+                var manufacturer = await _db.RAMManufacturers.FirstOrDefaultAsync(x => x.Name.ToLower() == product.Manufacturer.Name.ToLower());
+
+                if (manufacturer != null)
+                    product.Manufacturer = manufacturer;
+
                 _db.RAMs.Update(product);
                 await _db.SaveChangesAsync();
                 return RedirectToAction("RAMs", "Store");
@@ -921,6 +1009,11 @@ namespace PerfectSite.Areas.Store.Controllers
         {
             if (ModelState.IsValid)
             {
+                var manufacturer = await _db.SSDManufacturers.FirstOrDefaultAsync(x => x.Name.ToLower() == product.Manufacturer.Name.ToLower());
+
+                if (manufacturer != null)
+                    product.Manufacturer = manufacturer;
+
                 _db.SSDs.Add(product);
                 await _db.SaveChangesAsync();
                 return RedirectToAction("SSDs", "Store");
@@ -989,6 +1082,11 @@ namespace PerfectSite.Areas.Store.Controllers
         {
             if (ModelState.IsValid)
             {
+                var manufacturer = await _db.SSDManufacturers.FirstOrDefaultAsync(x => x.Name.ToLower() == product.Manufacturer.Name.ToLower());
+
+                if (manufacturer != null)
+                    product.Manufacturer = manufacturer;
+
                 _db.SSDs.Update(product);
                 await _db.SaveChangesAsync();
                 return RedirectToAction("SSDs", "Store");

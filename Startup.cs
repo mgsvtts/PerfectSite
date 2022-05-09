@@ -42,11 +42,6 @@ namespace PerfectSite
 
         public void Configure(IApplicationBuilder app)
         {
-            var cultureInfo = new CultureInfo("ru-ru");
-
-            CultureInfo.DefaultThreadCurrentCulture = cultureInfo;
-            CultureInfo.DefaultThreadCurrentUICulture = cultureInfo;
-
             app.UseHttpsRedirection();
 
             app.UseStaticFiles();
